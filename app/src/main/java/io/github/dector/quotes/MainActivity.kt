@@ -78,7 +78,7 @@ class View(val layout: android.view.View) {
         quoteView = layout.findViewById(R.id.main_quote) as TextView
         authorView = layout.findViewById(R.id.main_author) as TextView
 
-        rootView.setOnClickListener { actionListener.displayQuote() }
+        quoteView.setOnClickListener { actionListener.displayQuote() }
     }
 
     fun showQuote(quote: String) {
