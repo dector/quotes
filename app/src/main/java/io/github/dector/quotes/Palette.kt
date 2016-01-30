@@ -5,6 +5,10 @@ import java.util.*
 
 class Palette {
 
+    private val random = Random()
+
+    private var lastPair: ColorPair? = null
+
     private val colors = arrayOf(
             ColorPair(WHITE, RED),
             ColorPair(WHITE, PINK),
@@ -27,7 +31,16 @@ class Palette {
             ColorPair(WHITE, BLUE_GREY)
     )
 
-    fun random() = colors[Random().nextInt(colors.size)]
+    fun random(): ColorPair {
+        var newPair = randomValue()
+        while (newPair == lastPair)
+            newPair = randomValue()
+
+        lastPair = newPair
+        return newPair
+    }
+
+    private fun randomValue() = colors[random.nextInt(colors.size)]
 }
 
 data class ColorPair(val text: Color, val background: Color)

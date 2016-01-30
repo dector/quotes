@@ -4,6 +4,9 @@ import java.util.*
 
 class QuotesFactory {
 
+    private val random = Random()
+    private var lastQuote: Quote? = null
+
     private val quotes = arrayOf(
             Quote("We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "Carl Sagan"),
             Quote("Only two things are infinite, the universe and human stupidity, and I'm not sure about the former.", "Albert Einstein"),
@@ -13,7 +16,16 @@ class QuotesFactory {
             Quote("Equipped with his five senses, man explores the universe around him and calls the adventure Science.", "Edwin Powell Hubble")
     )
 
-    fun randomQuote() = quotes[Random().nextInt(quotes.size)]
+    fun randomQuote(): Quote {
+        var newQuote = random()
+        while (newQuote == lastQuote)
+            newQuote = random()
+
+        lastQuote = newQuote
+        return newQuote
+    }
+
+    private fun random() = quotes[random.nextInt(quotes.size)]
 }
 
 data class Quote(val quote: String, val author: String)
