@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="20sp"
             tools:text="We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology."/>
 
         <TextView
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="end"
+            android:textSize="16sp"
             tools:text="Carl Sagan"/>
 
     </LinearLayout>
