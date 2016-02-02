@@ -70,15 +70,17 @@ class View(val layout: android.view.View) {
     lateinit var actionListener: IActionListener
 
     private lateinit var rootView: android.view.View
+    private lateinit var touchView: android.view.View
     private lateinit var quoteView: TextView
     private lateinit var authorView: TextView
 
     fun setup() {
         rootView = layout.findViewById(R.id.main_root)
+        touchView = layout.findViewById(R.id.main_touch)
         quoteView = layout.findViewById(R.id.main_quote) as TextView
         authorView = layout.findViewById(R.id.main_author) as TextView
 
-        quoteView.setOnClickListener { actionListener.displayQuote() }
+        touchView.setOnClickListener { actionListener.displayQuote() }
     }
 
     fun showQuote(quote: String) {
