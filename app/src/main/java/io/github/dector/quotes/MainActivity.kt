@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import rx.Observable
+import rx.lang.kotlin.observable
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +19,14 @@ class MainActivity : AppCompatActivity() {
 
         val root = findViewById(R.id.root) as ViewGroup
 
-        presenter = Presenter(QuotesFactory())
+        val observable = observable<Pair<Quote, ColorPair>> { subscriber ->
+            val quotes = QuotesFactory()
+            val palette = Palette()
+
+            subscriber.onNext(Pair(quotes.randomQuote(), palette.random()))
+        }
+
+        presenter = Presenter(observable)
         view = View(LayoutInflater.from(this).inflate(R.layout.view_main, root, false))
 
         root.removeAllViews()
@@ -42,24 +51,24 @@ interface IActionListener {
     fun displayQuote()
 }
 
-class Presenter(val quotesFactory: QuotesFactory) : IActionListener {
+class Presenter(val observable: Observable<Pair<Quote, ColorPair>>) : IActionListener {
 
     lateinit var view: View
-
-    val pallete = Palette()
 
     fun init() {
         view.setup()
 
-        displayQuote()
+        observable.subscribe { displayQuote(it.first, it.second) }
     }
 
     override fun displayQuote() {
-        val quote = quotesFactory.randomQuote()
+
+    }
+
+    fun displayQuote(quote: Quote, colors: ColorPair) {
         view.showAuthor(quote.author)
         view.showQuote(quote.quote)
 
-        val colors = pallete.random()
         view.textColor(colors.text)
         view.backgroundColor(colors.background)
     }
