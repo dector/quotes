@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import rx.Observable
+import rx.Subscriber
 import rx.lang.kotlin.observable
 
 class MainActivity : AppCompatActivity() {
@@ -19,14 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val root = findViewById(R.id.root) as ViewGroup
 
-        val observable = observable<Pair<Quote, ColorPair>> { subscriber ->
-            val quotes = QuotesFactory()
-            val palette = Palette()
-
-            subscriber.onNext(Pair(quotes.randomQuote(), palette.random()))
-        }
-
-        presenter = Presenter(observable)
+        presenter = Presenter(DataProducer())
         view = View(LayoutInflater.from(this).inflate(R.layout.view_main, root, false))
 
         root.removeAllViews()
@@ -46,23 +40,43 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+class DataProducer {
+
+    private var subscriber: Subscriber<in Pair<Quote, ColorPair>>? = null
+
+    private val quotes = QuotesFactory()
+    private val palette = Palette()
+
+    val observable = observable<Pair<Quote, ColorPair>> { subscriber ->
+        this.subscriber = subscriber
+        next()
+    }
+
+    fun next() {
+        val subscriber = this.subscriber ?: return
+
+        if (!subscriber.isUnsubscribed)
+            subscriber.onNext(Pair(quotes.randomQuote(), palette.random()))
+    }
+}
+
 interface IActionListener {
 
     fun displayQuote()
 }
 
-class Presenter(val observable: Observable<Pair<Quote, ColorPair>>) : IActionListener {
+class Presenter(val dataProducer: DataProducer) : IActionListener {
 
     lateinit var view: View
 
     fun init() {
         view.setup()
 
-        observable.subscribe { displayQuote(it.first, it.second) }
+        dataProducer.observable.subscribe { displayQuote(it.first, it.second) }
     }
 
     override fun displayQuote() {
-
+        dataProducer.next()
     }
 
     fun displayQuote(quote: Quote, colors: ColorPair) {
