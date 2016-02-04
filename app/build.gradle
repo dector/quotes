@@ -23,15 +23,25 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    // Rx
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxkotlin:0.30.1'
+
+    // Dagger 2
+    compile 'com.google.dagger:dagger:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    kapt 'com.google.dagger:dagger-compiler:2.0'
 }
 buildscript {
     ext.kotlin_version = '1.0.0-beta-4589'

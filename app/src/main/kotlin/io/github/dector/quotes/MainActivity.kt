@@ -5,22 +5,25 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import rx.Observable
 import rx.Subscriber
 import rx.lang.kotlin.observable
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject
     lateinit var presenter: Presenter
+
     lateinit var view: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        QuotesApplication.component.inject(this)
+
         val root = findViewById(R.id.root) as ViewGroup
 
-        presenter = Presenter(DataProducer())
         view = View(LayoutInflater.from(this).inflate(R.layout.view_main, root, false))
 
         root.removeAllViews()
