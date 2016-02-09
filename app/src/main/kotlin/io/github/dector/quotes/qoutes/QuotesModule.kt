@@ -19,6 +19,6 @@ class QuotesModule() {
     fun quotesPresenter(dataProducer: DataProducer) = QuotesPresenter(dataProducer)
 
     @Provides
-    fun quotesView(context: Context) = QuotesView(LayoutInflater.from(context).inflate(R.layout.view_main, null))
+    fun quotesView(context: Context) = QuotesView(LayoutInflater.from(context).inflate(R.layout.view_quotes, null))
 
 }

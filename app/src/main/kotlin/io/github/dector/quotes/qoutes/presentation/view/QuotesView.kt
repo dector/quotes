@@ -15,10 +15,10 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var authorView: TextView
 
     fun init() {
-        rootView = content.findViewById(R.id.main_root)
-        touchView = content.findViewById(R.id.main_touch)
-        quoteView = content.findViewById(R.id.main_quote) as TextView
-        authorView = content.findViewById(R.id.main_author) as TextView
+        rootView = content.findViewById(R.id.quotes_root)
+        touchView = content.findViewById(R.id.quotes_touch)
+        quoteView = content.findViewById(R.id.quotes_quote) as TextView
+        authorView = content.findViewById(R.id.quotes_author) as TextView
 
         touchView.setOnClickListener { listener?.displayQuote() }
     }
