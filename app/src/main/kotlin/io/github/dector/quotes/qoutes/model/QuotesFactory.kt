@@ -1,4 +1,4 @@
-package io.github.dector.quotes
+package io.github.dector.quotes.qoutes.model
 
 import java.util.*
 

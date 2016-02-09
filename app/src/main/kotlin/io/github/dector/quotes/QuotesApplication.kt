@@ -2,12 +2,14 @@ package io.github.dector.quotes
 
 import android.app.Application
 import dagger.Component
+import io.github.dector.quotes.qoutes.QuotesModule
+import io.github.dector.quotes.qoutes.presentation.QuotesActivity
 import javax.inject.Singleton
 
 class QuotesApplication : Application() {
 
     companion object {
-        @JvmStatic lateinit public var component: ApplicationComponent
+        @JvmStatic lateinit var component: ApplicationComponent
     }
 
     override fun onCreate() {
@@ -26,5 +28,5 @@ interface ApplicationComponent {
 
     fun inject(app: QuotesApplication)
 
-    fun inject(activity: MainActivity)
+    fun inject(activity: QuotesActivity)
 }

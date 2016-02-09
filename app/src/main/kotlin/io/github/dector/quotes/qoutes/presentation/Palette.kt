@@ -1,6 +1,6 @@
-package io.github.dector.quotes
+package io.github.dector.quotes.qoutes.presentation
 
-import io.github.dector.quotes.Color.*
+import io.github.dector.quotes.qoutes.presentation.Color.*
 import java.util.*
 
 class Palette {
