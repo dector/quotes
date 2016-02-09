@@ -13,7 +13,7 @@ class QuotesPresenter(val dataProducer: DataProducer) : IQuotesPresenter, IQuote
     fun init() {
         view.init()
 
-        dataProducer.observable.subscribe { displayQuote(it.first, it.second) }
+        dataProducer.listen { displayQuote(it.first, it.second) }
     }
 
     override fun displayQuote() {

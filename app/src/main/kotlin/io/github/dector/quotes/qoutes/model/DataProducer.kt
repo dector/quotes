@@ -14,9 +14,13 @@ class DataProducer {
     private val quotes = QuotesFactory()
     private val palette = Palette()
 
-    val observable = observable<Pair<Quote, ColorPair>> { subscriber ->
+    private val observable = observable<Pair<Quote, ColorPair>> { subscriber ->
         this.subscriber = subscriber
         next()
+    }
+
+    fun listen (f: (Pair<Quote, ColorPair>) -> Unit) {
+        observable.subscribe(f)
     }
 
     fun next() {
