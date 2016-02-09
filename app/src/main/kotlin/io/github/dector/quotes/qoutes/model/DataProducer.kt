@@ -2,8 +2,6 @@ package io.github.dector.quotes.qoutes.model
 
 import io.github.dector.quotes.qoutes.presentation.ColorPair
 import io.github.dector.quotes.qoutes.presentation.Palette
-import io.github.dector.quotes.qoutes.model.Quote
-import io.github.dector.quotes.qoutes.model.QuotesFactory
 import rx.Subscriber
 import rx.lang.kotlin.observable
 
@@ -19,8 +17,8 @@ class DataProducer {
         next()
     }
 
-    fun listen (f: (Pair<Quote, ColorPair>) -> Unit) {
-        observable.subscribe(f)
+    fun listen (f: (Quote, ColorPair) -> Unit) {
+        observable.subscribe { f(it.first, it.second) }
     }
 
     fun next() {
