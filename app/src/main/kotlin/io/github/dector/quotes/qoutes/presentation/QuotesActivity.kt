@@ -2,7 +2,6 @@ package io.github.dector.quotes.qoutes.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.github.dector.quotes.QuotesApplication
 import io.github.dector.quotes.R
@@ -15,6 +14,7 @@ class QuotesActivity : AppCompatActivity() {
     @Inject
     lateinit var presenter: QuotesPresenter
 
+    @Inject
     lateinit var view: QuotesView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +24,6 @@ class QuotesActivity : AppCompatActivity() {
         QuotesApplication.component.inject(this)
 
         val root = findViewById(R.id.root) as ViewGroup
-
-        view = QuotesView(LayoutInflater.from(this).inflate(R.layout.view_main, root, false))
 
         root.removeAllViews()
         root.addView(view.layout)
