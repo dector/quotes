@@ -23,7 +23,7 @@ class QuotesActivity : AppCompatActivity() {
         setContentView(view.content)
 
         presenter.view = view
-        view.actionListener = presenter
+        view.listener = presenter
 
         presenter.init()
     }

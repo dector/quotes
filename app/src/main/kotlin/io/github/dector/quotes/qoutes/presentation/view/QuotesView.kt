@@ -7,20 +7,20 @@ import io.github.dector.quotes.R
 
 class QuotesView(val content: View) : IQuotesView {
 
-    lateinit var actionListener: IQuotesActionListener
+    var listener: IQuotesActionListener? = null
 
     private lateinit var rootView: View
     private lateinit var touchView: View
     private lateinit var quoteView: TextView
     private lateinit var authorView: TextView
 
-    fun setup() {
+    fun init() {
         rootView = content.findViewById(R.id.main_root)
         touchView = content.findViewById(R.id.main_touch)
         quoteView = content.findViewById(R.id.main_quote) as TextView
         authorView = content.findViewById(R.id.main_author) as TextView
 
-        touchView.setOnClickListener { actionListener.displayQuote() }
+        touchView.setOnClickListener { listener?.displayQuote() }
     }
 
     override fun showQuote(quote: String) {

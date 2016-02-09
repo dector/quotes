@@ -11,7 +11,7 @@ class QuotesPresenter(val dataProducer: DataProducer) : IQuotesPresenter, IQuote
     lateinit var view: QuotesView
 
     fun init() {
-        view.setup()
+        view.init()
 
         dataProducer.observable.subscribe { displayQuote(it.first, it.second) }
     }

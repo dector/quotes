@@ -22,7 +22,6 @@ class QuotesApplication : Application() {
                 .appModule(AppModule(this))
                 .quotesModule(QuotesModule())
                 .build()
-        component.inject(this)
     }
 }
 
@@ -30,8 +29,6 @@ class QuotesApplication : Application() {
 @Component(modules = arrayOf(
         AppModule::class, QuotesModule::class))
 interface ApplicationComponent {
-
-    fun inject(app: QuotesApplication)
 
     fun inject(activity: QuotesActivity)
 }
