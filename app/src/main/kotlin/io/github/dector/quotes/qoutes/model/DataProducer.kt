@@ -2,14 +2,15 @@ package io.github.dector.quotes.qoutes.model
 
 import io.github.dector.quotes.qoutes.presentation.ColorPair
 import io.github.dector.quotes.qoutes.presentation.Palette
+import io.github.dector.quotes.qoutes.storage.IQuotesStorage
 import rx.Subscriber
 import rx.lang.kotlin.observable
 
-class DataProducer {
+class DataProducer(storage: IQuotesStorage) {
 
     private var subscriber: Subscriber<in Pair<Quote, ColorPair>>? = null
 
-    private val quotes = QuotesFactory()
+    private val quotes = QuotesFactory(storage)
     private val palette = Palette()
 
     private val observable = observable<Pair<Quote, ColorPair>> { subscriber ->

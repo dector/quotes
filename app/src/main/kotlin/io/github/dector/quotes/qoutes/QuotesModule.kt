@@ -8,12 +8,17 @@ import io.github.dector.quotes.qoutes.model.DataProducer
 import io.github.dector.quotes.R
 import io.github.dector.quotes.qoutes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.qoutes.presentation.view.QuotesView
+import io.github.dector.quotes.qoutes.storage.IQuotesStorage
+import io.github.dector.quotes.qoutes.storage.MockQuotesStorage
 
 @Module
 class QuotesModule() {
 
     @Provides
-    fun dataProducer() = DataProducer()
+    fun quotesStorage(): IQuotesStorage = MockQuotesStorage()
+
+    @Provides
+    fun dataProducer(quotesStorage: IQuotesStorage) = DataProducer(quotesStorage)
 
     @Provides
     fun quotesPresenter(dataProducer: DataProducer) = QuotesPresenter(dataProducer)
