@@ -42,6 +42,11 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     kapt 'com.google.dagger:dagger-compiler:2.0'
+
+    // ReQuery
+    compile 'io.requery:requery:1.0-SNAPSHOT'
+    compile 'io.requery:requery-android:1.0-SNAPSHOT'
+    kapt 'io.requery:requery-processor:1.0-SNAPSHOT'
 }
 buildscript {
     ext.kotlin_version = '1.0.0-rc-1036'
@@ -54,4 +59,5 @@ buildscript {
 }
 repositories {
     mavenCentral()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
 }

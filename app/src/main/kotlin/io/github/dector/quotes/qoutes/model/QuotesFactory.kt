@@ -17,5 +17,12 @@ class QuotesFactory(private val storage: IQuotesStorage) {
         return newQuote
     }
 
-    private fun random() = storage[random.nextInt(storage.getCount())]
+    private fun random(): Quote? {
+        val count = storage.getCount()
+
+        return if (count > 0)
+            storage[random.nextInt(count)]
+        else
+            null
+    }
 }
