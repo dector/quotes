@@ -18,14 +18,24 @@ class DataProducer(storage: IQuotesStorage) {
         next()
     }
 
-    fun listen (f: (Quote, ColorPair) -> Unit) {
-        observable.subscribe { f(it.first, it.second) }
+    fun listen (error: () -> Unit, consumer: (Quote, ColorPair) -> Unit) {
+        observable.subscribe(
+                { consumer(it.first, it.second) },
+                { error() })
     }
 
     fun next() {
         val subscriber = this.subscriber ?: return
 
-        if (!subscriber.isUnsubscribed)
-            subscriber.onNext(Pair(quotes.randomQuote(), palette.random()))
+        if (!subscriber.isUnsubscribed) {
+            val quote = quotes.randomQuote()
+            val color = palette.random()
+
+            if (quote != null) {
+                subscriber.onNext(Pair(quote, color))
+            } else {
+                subscriber.onError(RuntimeException("No data"))
+            }
+        }
     }
 }

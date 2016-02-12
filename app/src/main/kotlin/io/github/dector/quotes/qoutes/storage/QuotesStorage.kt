@@ -57,14 +57,9 @@ class DatabaseQuotesStorage(context: Context) : IQuotesStorage {
 
 fun QuoteDbModel.toModel() = Quote(quote = this.text, author = this.author)
 
-fun Quote.toDbModel(): QuoteDbModel {
-    val model = QuoteDbModel()
-    model.text = this.quote
-    model.author = this.author
-    return model
-}
+fun Quote.toDbModel() = QuoteDbModel(text = this.quote, author = this.author)
 
-/*
 @Entity
-abstract class QuoteDbModel(@Key @Generated var id: Int, val text: String, val author: String) {
-}*/
+open class QuoteDbModel(@JvmField var text: String = "",
+                        @JvmField var author: String = "") {
+}

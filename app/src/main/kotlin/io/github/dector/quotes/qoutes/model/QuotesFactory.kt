@@ -8,10 +8,10 @@ class QuotesFactory(private val storage: IQuotesStorage) {
     private val random = Random()
     private var lastQuote: Quote? = null
 
-    fun randomQuote(): Quote {
-        var newQuote = random()
-        while (newQuote == lastQuote || newQuote == null)
-            newQuote = random()
+    fun randomQuote(): Quote? {
+        var newQuote: Quote?
+
+        do { newQuote = random() } while (newQuote == lastQuote && newQuote != null)
 
         lastQuote = newQuote
         return newQuote

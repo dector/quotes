@@ -1,3 +1,8 @@
 <resources>
+
     <string name="app_name">Quotes</string>
+
+    <string name="no.data">Ooops. Nothing to display :(</string>
+
+    <string name="no.quotes">@string/no.data</string>
 </resources>

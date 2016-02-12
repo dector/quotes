@@ -14,13 +14,29 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var quoteView: TextView
     private lateinit var authorView: TextView
 
+    private lateinit var dataContainerView: View
+    private lateinit var noDataContainerView: View
+
     fun init() {
         rootView = content.findViewById(R.id.quotes_root)
         touchView = content.findViewById(R.id.quotes_touch)
         quoteView = content.findViewById(R.id.quotes_quote) as TextView
         authorView = content.findViewById(R.id.quotes_author) as TextView
 
+        dataContainerView = content.findViewById(R.id.quotes_data_container)
+        noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
+
         touchView.setOnClickListener { listener?.displayQuote() }
+    }
+
+    override fun showDataState() {
+        dataContainerView.visibility = View.VISIBLE
+        noDataContainerView.visibility = View.GONE
+    }
+
+    override fun showNoDataState() {
+        dataContainerView.visibility = View.GONE
+        noDataContainerView.visibility = View.VISIBLE
     }
 
     override fun showQuote(quote: String) {

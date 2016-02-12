@@ -11,7 +11,8 @@ class QuotesPresenter(val dataProducer: DataProducer) : IQuotesPresenter, IQuote
     fun init() {
         view.init()
 
-        dataProducer.listen { quote, colors ->
+        dataProducer.listen({ view.showNoDataState() }) { quote, colors ->
+            view.showDataState()
             view.showAuthor(quote.author)
             view.showQuote(quote.quote)
 
