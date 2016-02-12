@@ -11,7 +11,7 @@ class QuotesFactory(private val storage: IQuotesStorage) {
     fun randomQuote(): Quote? {
         var newQuote: Quote?
 
-        do { newQuote = random() } while (newQuote == lastQuote && newQuote != null)
+        do { newQuote = random() } while (newQuote == lastQuote && newQuote != null && storage.getCount() > 1)
 
         lastQuote = newQuote
         return newQuote

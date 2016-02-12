@@ -1,13 +1,10 @@
 package io.github.dector.quotes.qoutes.storage
 
 import android.content.Context
+import android.util.Log
 import io.github.dector.quotes.qoutes.model.Quote
 import io.requery.Entity
-import io.requery.Generated
-import io.requery.Key
 import io.requery.android.sqlite.DatabaseSource
-import io.requery.meta.EntityModel
-import io.requery.meta.EntityModelBuilder
 import io.requery.rx.RxSupport
 import io.requery.sql.EntityDataStore
 
@@ -51,13 +48,15 @@ class DatabaseQuotesStorage(context: Context) : IQuotesStorage {
     }
 
     fun save(quote: Quote) {
-        data.insert(quote.toDbModel())
+        data.insert(quote.toDbModel2()).subscribe({ Log.d("", "$it") }, { Log.e("", "", it) })
     }
 }
 
 fun QuoteDbModel.toModel() = Quote(quote = this.text, author = this.author)
 
 fun Quote.toDbModel() = QuoteDbModel(text = this.quote, author = this.author)
+
+fun Quote.toDbModel2() = QuoteDbModelEntity(this.quote, this.author)
 
 @Entity
 open class QuoteDbModel(@JvmField var text: String = "",

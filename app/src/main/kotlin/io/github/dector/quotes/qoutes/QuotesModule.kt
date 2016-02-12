@@ -21,7 +21,7 @@ class QuotesModule() {
         val storage = DatabaseQuotesStorage(context)//MockQuotesStorage()
 
         if (storage.getCount() == 0) {
-            storage.save(Quote("First quote", "Useless"))
+            storage.save(Quote("First quote2", "Useless"))
         }
 
         return storage
