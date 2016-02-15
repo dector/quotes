@@ -1,12 +1,6 @@
 package io.github.dector.quotes.qoutes.storage
 
-import android.content.Context
-import android.util.Log
 import io.github.dector.quotes.qoutes.model.Quote
-import io.requery.Entity
-import io.requery.android.sqlite.DatabaseSource
-import io.requery.rx.RxSupport
-import io.requery.sql.EntityDataStore
 
 interface IQuotesStorage {
 
@@ -15,7 +9,7 @@ interface IQuotesStorage {
     operator fun get(index: Int): Quote?
 }
 
-/*class MockQuotesStorage : IQuotesStorage {
+class MockQuotesStorage : IQuotesStorage {
 
     private val quotes = arrayOf(
             Quote("We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "Carl Sagan"),
@@ -32,33 +26,4 @@ interface IQuotesStorage {
         in 0..quotes.size -> quotes[index]
         else -> null
     }
-}*/
-
-class DatabaseQuotesStorage(context: Context) : IQuotesStorage {
-
-    private val data = RxSupport.toReactiveStore(EntityDataStore<QuoteDbModel>(
-            DatabaseSource(context, Models.DEFAULT, "db", 1).configuration))
-
-    override fun getCount(): Int {
-        return data.count(QuoteDbModel::class.java).get().value()
-    }
-
-    override fun get(index: Int): Quote? {
-        return data.select(QuoteDbModel::class.java).get().first().toModel()
-    }
-
-    fun save(quote: Quote) {
-        data.insert(quote.toDbModel2()).subscribe({ Log.d("", "$it") }, { Log.e("", "", it) })
-    }
-}
-
-fun QuoteDbModel.toModel() = Quote(quote = this.text, author = this.author)
-
-fun Quote.toDbModel() = QuoteDbModel(text = this.quote, author = this.author)
-
-fun Quote.toDbModel2() = QuoteDbModelEntity(this.quote, this.author)
-
-@Entity
-open class QuoteDbModel(@JvmField var text: String = "",
-                        @JvmField var author: String = "") {
 }

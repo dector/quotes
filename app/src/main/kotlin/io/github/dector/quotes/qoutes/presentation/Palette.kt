@@ -1,9 +1,10 @@
 package io.github.dector.quotes.qoutes.presentation
 
 import io.github.dector.quotes.qoutes.presentation.Color.*
+import io.github.dector.quotes.qoutes.storage.IStorage
 import java.util.*
 
-class Palette {
+class Palette : IStorage<ColorPair>{
 
     private val random = Random()
 
@@ -31,7 +32,7 @@ class Palette {
             ColorPair(WHITE, BLUE_GREY)
     )
 
-    fun random(): ColorPair {
+    override fun random(): ColorPair? {
         var newPair = randomValue()
         while (newPair == lastPair)
             newPair = randomValue()

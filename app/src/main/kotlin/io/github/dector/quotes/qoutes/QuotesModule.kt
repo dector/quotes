@@ -4,34 +4,27 @@ import android.content.Context
 import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
-import io.github.dector.quotes.qoutes.model.DataProducer
 import io.github.dector.quotes.R
 import io.github.dector.quotes.qoutes.model.Quote
+import io.github.dector.quotes.qoutes.model.QuotesFactory
+import io.github.dector.quotes.qoutes.presentation.ColorPair
+import io.github.dector.quotes.qoutes.presentation.Palette
 import io.github.dector.quotes.qoutes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.qoutes.presentation.view.QuotesView
-import io.github.dector.quotes.qoutes.storage.DatabaseQuotesStorage
-import io.github.dector.quotes.qoutes.storage.IQuotesStorage
-//import io.github.dector.quotes.qoutes.storage.MockQuotesStorage
+import io.github.dector.quotes.qoutes.storage.IStorage
+import io.github.dector.quotes.qoutes.storage.MockQuotesStorage
 
 @Module
 class QuotesModule() {
 
     @Provides
-    fun quotesStorage(context: Context): IQuotesStorage {
-        val storage = DatabaseQuotesStorage(context)//MockQuotesStorage()
-
-        if (storage.getCount() == 0) {
-            storage.save(Quote("First quote2", "Useless"))
-        }
-
-        return storage
-    }
+    fun quotesStorage(): IStorage<Quote> = QuotesFactory(MockQuotesStorage())
 
     @Provides
-    fun dataProducer(quotesStorage: IQuotesStorage) = DataProducer(quotesStorage)
+    fun colorsStorage(): IStorage<ColorPair> = Palette()
 
     @Provides
-    fun quotesPresenter(dataProducer: DataProducer) = QuotesPresenter(dataProducer)
+    fun quotesPresenter(quotesStorage: IStorage<Quote>, colorsStorage: IStorage<ColorPair>) = QuotesPresenter(quotesStorage, colorsStorage)
 
     @Provides
     fun quotesView(context: Context) = QuotesView(LayoutInflater.from(context).inflate(R.layout.view_quotes, null))
