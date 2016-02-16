@@ -2,8 +2,10 @@ package io.github.dector.quotes.qoutes.presentation.view
 
 import android.view.View
 import android.widget.TextView
-import io.github.dector.quotes.qoutes.presentation.Color
+import io.github.dector.quotes.qoutes.presentation.view.Color
 import io.github.dector.quotes.R
+import io.github.dector.quotes.presentation.view.IQuotesActionListener
+import io.github.dector.quotes.presentation.view.IQuotesView
 
 class QuotesView(val content: View) : IQuotesView {
 

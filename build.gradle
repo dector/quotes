@@ -21,3 +21,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    kotlin_version = '1.0.0-rc-1036'
+}

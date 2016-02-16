@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.github.dector.quotes.QuotesApplication
 import io.github.dector.quotes.common.fullscreen
-import io.github.dector.quotes.qoutes.presentation.presenter.QuotesPresenter
+import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.qoutes.presentation.view.QuotesView
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class QuotesActivity : AppCompatActivity() {
         presenter.view = view
         view.listener = presenter
 
-        presenter.init()
+        presenter.init { view.init() }
     }
 
     override fun onResume() {

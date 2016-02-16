@@ -1,3 +1,3 @@
-package io.github.dector.quotes.qoutes.model
+package io.github.dector.quotes.domain
 
 data class Quote(val quote: String, val author: String)
