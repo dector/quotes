@@ -1,7 +1,6 @@
-package io.github.dector.qoutes.storage
+package io.github.dector.quotes.storage
 
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.storage.IStorage
 
 class MockQuotesStorage : IStorage<Quote?> {
 

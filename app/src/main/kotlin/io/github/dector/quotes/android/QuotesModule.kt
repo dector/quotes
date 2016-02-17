@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
-import io.github.dector.qoutes.storage.MockQuotesStorage
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.storage.IStorage
+import io.github.dector.quotes.storage.MockQuotesStorage
 import io.github.dector.quotes.usecases.IQuotesUseCase
 import io.github.dector.quotes.usecases.QuotesUseCase
 
