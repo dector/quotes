@@ -1,12 +1,11 @@
-package io.github.dector.quotes
+package io.github.dector.quotes.android
 
 import android.app.Application
 import android.content.Context
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import io.github.dector.quotes.qoutes.QuotesModule
-import io.github.dector.quotes.qoutes.presentation.QuotesActivity
+import io.github.dector.quotes.android.presentation.QuotesActivity
 import javax.inject.Singleton
 
 class QuotesApplication : Application() {

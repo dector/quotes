@@ -1,4 +1,4 @@
-package io.github.dector.quotes.common
+package io.github.dector.quotes.android.common
 
 import java.util.*
 

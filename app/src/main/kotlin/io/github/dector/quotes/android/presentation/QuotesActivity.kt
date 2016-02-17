@@ -1,11 +1,11 @@
-package io.github.dector.quotes.qoutes.presentation
+package io.github.dector.quotes.android.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import io.github.dector.quotes.QuotesApplication
-import io.github.dector.quotes.common.fullscreen
+import io.github.dector.quotes.android.QuotesApplication
+import io.github.dector.quotes.android.common.fullscreen
+import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
-import io.github.dector.quotes.qoutes.presentation.view.QuotesView
 import javax.inject.Inject
 
 class QuotesActivity : AppCompatActivity() {

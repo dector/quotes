@@ -1,9 +1,7 @@
-package io.github.dector.quotes.qoutes.presentation
+package io.github.dector.quotes.android.presentation
 
 import io.github.dector.quotes.qoutes.presentation.view.Color.*
 import io.github.dector.quotes.qoutes.presentation.view.ColorPair
-import io.github.dector.quotes.storage.IStorage
-import java.util.*
 
 class Palette {
 
