@@ -1,4 +1,4 @@
-package io.github.dector.quotes.qoutes.presentation.view
+package io.github.dector.quotes.presentation.view
 
 data class ColorPair(val text: Color, val background: Color)
 
