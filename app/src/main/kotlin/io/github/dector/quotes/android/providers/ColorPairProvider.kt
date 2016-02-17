@@ -1,9 +1,11 @@
-package io.github.dector.quotes.android.presentation
+package io.github.dector.quotes.android.providers
 
+import io.github.dector.quotes.android.common.random
+import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.presentation.view.Color.*
 import io.github.dector.quotes.presentation.view.ColorPair
 
-class Palette {
+class ColorPairProvider : IColorPairProvider {
 
     val colors = arrayOf(
             ColorPair(WHITE, RED),
@@ -26,4 +28,7 @@ class Palette {
             ColorPair(BLACK, GREY),
             ColorPair(WHITE, BLUE_GREY)
     )
+
+
+    override fun getRandomColorPair() = colors.random() ?: ColorPair(WHITE, BLACK)
 }

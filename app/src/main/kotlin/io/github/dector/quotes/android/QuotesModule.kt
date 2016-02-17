@@ -6,8 +6,10 @@ import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.view.QuotesView
+import io.github.dector.quotes.android.providers.ColorPairProvider
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
+import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.storage.IStorage
 import io.github.dector.quotes.storage.MockQuotesStorage
 import io.github.dector.quotes.usecases.IQuotesUseCase
@@ -23,7 +25,10 @@ class QuotesModule() {
     fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase = QuotesUseCase(storage)
 
     @Provides
-    fun quotesPresenter(quotesUseCase: IQuotesUseCase) = QuotesPresenter(quotesUseCase)
+    fun palette(): IColorPairProvider = ColorPairProvider()
+
+    @Provides
+    fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider) = QuotesPresenter(quotesUseCase, palette)
 
     @Provides
     fun quotesView(context: Context) = QuotesView(LayoutInflater.from(context).inflate(R.layout.view_quotes, null))
