@@ -28,9 +28,13 @@ class QuotesModule() {
     fun palette(): IColorPairProvider = ColorPairProvider()
 
     @Provides
-    fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider) = QuotesPresenter(quotesUseCase, palette)
+    fun layoutInflater(context: Context) = LayoutInflater.from(context)
 
     @Provides
-    fun quotesView(context: Context) = QuotesView(LayoutInflater.from(context).inflate(R.layout.view_quotes, null))
+    fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider)
+            = QuotesPresenter(quotesUseCase, palette)
+
+    @Provides
+    fun quotesView(inflater: LayoutInflater) = QuotesView(inflater.inflate(R.layout.view_quotes, null))
 
 }
