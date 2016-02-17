@@ -5,11 +5,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".QuotesApplication"
+        android:name=".android.QuotesApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".qoutes.presentation.QuotesActivity"
+        <activity android:name=".android.presentation.QuotesActivity"
                   android:label="@string/app_name">
 
             <intent-filter>
