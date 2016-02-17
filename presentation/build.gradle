@@ -5,11 +5,13 @@ dependencies {
     compile project(':usecases')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile "org.testng:testng:$testng_version"
+    testCompile "org.mockito:mockito-core:$mockito_version"
+    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
 }
 
 buildscript {
-    ext.kotlin_version = rootProject.ext.kotlin_version
-
     repositories {
         mavenCentral()
     }
@@ -23,6 +25,6 @@ repositories {
     mavenCentral()
 }
 
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
+test {
+    useTestNG()
 }

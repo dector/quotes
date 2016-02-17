@@ -10,8 +10,8 @@ class QuotesPresenter(val quotesUseCase: IQuotesUseCase,
 
     lateinit var view: IQuotesView
 
-    fun init(preInit: () -> Unit) {
-        preInit()
+    fun init() {
+        view.init()
         displayQuote()
     }
 

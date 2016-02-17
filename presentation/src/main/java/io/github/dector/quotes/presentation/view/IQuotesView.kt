@@ -1,6 +1,8 @@
 package io.github.dector.quotes.presentation.view
 
-interface IQuotesView {
+import io.github.dector.quotes.presentation.IInitializable
+
+interface IQuotesView : IInitializable {
 
     fun showDataState()
     fun showNoDataState()

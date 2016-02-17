@@ -25,7 +25,7 @@ class QuotesActivity : AppCompatActivity() {
         presenter.view = view
         view.listener = presenter
 
-        presenter.init { view.init() }
+        presenter.init()
     }
 
     override fun onResume() {
