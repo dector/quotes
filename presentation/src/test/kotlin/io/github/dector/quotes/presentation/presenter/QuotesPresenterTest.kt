@@ -1,18 +1,16 @@
 package io.github.dector.quotes.presentation.presenter
 
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.reset
-import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import com.nhaarman.mockito_kotlin.whenever
-import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.presentation.view.Color
 import io.github.dector.quotes.presentation.view.ColorPair
 import io.github.dector.quotes.presentation.view.IQuotesView
 import io.github.dector.quotes.usecases.IQuotesUseCase
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations.initMocks
 import org.mockito.stubbing.OngoingStubbing
 import org.testng.annotations.AfterTest
@@ -30,9 +28,6 @@ class QuotesPresenterTest {
     @Mock
     lateinit var palette: IColorPairProvider
 
-    @Captor
-    val usecaseCaptor: ArgumentCaptor<(Quote?) -> Unit> = captor()
-
     lateinit var presenter: QuotesPresenter
 
     @BeforeTest
@@ -49,23 +44,41 @@ class QuotesPresenterTest {
         reset(view)
     }
 
-    @Test
-    fun init() {
-        val colors = ColorPair(Color.BLACK, Color.WHITE)
-        val quote = Quote("wise text", "author name")
-
-        whenever(view.init()).thenNothing()
-        whenever(useCase.getRandomQuote(usecaseCaptor.capture())).thenNothing()
-        usecaseCaptor.value.invoke(quote)
-        whenever(palette.getRandomColorPair()).thenReturn(colors)
+    @Test fun init() {
+        whenever(palette.getRandomColorPair()).thenReturn(ColorPair(Color.WHITE, Color.BLACK))
 
         presenter.init()
 
-        verify(view).showDataState()
-        verify(view).showAuthor(quote.author)
-        verify(view).showQuote(quote.quote)
-        verify(view).textColor(colors.text)
-        verify(view).backgroundColor(colors.background)
+        verifyAll(view) {
+            it().init()
+        }
+
+        /*noMoreInteractions()*/
+    }
+
+    @Test fun displayQuote() {
+        val colors = ColorPair(Color.WHITE, Color.BLACK)
+        whenever(palette.getRandomColorPair()).thenReturn(colors)
+
+        presenter.displayQuote()
+
+        verifyAll(view) {
+            /*it().showDataState()
+            it().showAuthor(quote.author)
+            it().showQuote(quote.quote)
+            it().textColor(colors.text)
+            it().backgroundColor(colors.background)*/
+
+            it().textColor(colors.text)
+            it().backgroundColor(colors.background)
+        }
+        verifyAll(useCase) {
+            it().getRandomQuote(any())
+        }
+
+        verifyAll(palette) {
+            it().getRandomColorPair()
+        }
 
         noMoreInteractions()
     }
@@ -76,7 +89,9 @@ class QuotesPresenterTest {
         verifyNoMoreInteractions(palette)
     }
 
-    inline fun <T> OngoingStubbing<T>.thenNothing() { this.then {} }
+    inline fun <T> verifyAll(mock: T, func: (() -> T) -> Unit) {
+        func { Mockito.verify(mock) }
+    }
 
-    inline fun <reified T : Any> captor() = ArgumentCaptor.forClass<T, T>(T::class.java)
+    inline fun <T> OngoingStubbing<T>.thenNothing() { this.then {} }
 }
