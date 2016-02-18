@@ -49,7 +49,7 @@ class QuotesPresenterTest {
 
         presenter.init()
 
-        verifyAll(view) {
+        view verifyAll {
             it().init()
         }
 
@@ -62,7 +62,7 @@ class QuotesPresenterTest {
 
         presenter.displayQuote()
 
-        verifyAll(view) {
+        view verifyAll {
             /*it().showDataState()
             it().showAuthor(quote.author)
             it().showQuote(quote.quote)
@@ -72,11 +72,11 @@ class QuotesPresenterTest {
             it().textColor(colors.text)
             it().backgroundColor(colors.background)
         }
-        verifyAll(useCase) {
+        useCase verifyAll {
             it().getRandomQuote(any())
         }
 
-        verifyAll(palette) {
+        palette verifyAll {
             it().getRandomColorPair()
         }
 
@@ -89,9 +89,7 @@ class QuotesPresenterTest {
         verifyNoMoreInteractions(palette)
     }
 
-    inline fun <T> verifyAll(mock: T, func: (() -> T) -> Unit) {
-        func { Mockito.verify(mock) }
-    }
+    inline infix fun <T> T.verifyAll(func: (() -> T) -> Unit) = func { Mockito.verify(this) }
 
     inline fun <T> OngoingStubbing<T>.thenNothing() { this.then {} }
 }
