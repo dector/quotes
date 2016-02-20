@@ -5,11 +5,12 @@ dependencies {
     compile project(':usecases')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile "org.jetbrains.spek:spek:$spek_version"
+    //testCompile "org.amshove.kluent:kluent:$kluent_version"
 }
 
 buildscript {
-    ext.kotlin_version = rootProject.ext.kotlin_version
-
     repositories {
         mavenCentral()
     }
@@ -21,8 +22,9 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven { url "http://repository.jetbrains.com/all" }
 }
 
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
+test {
+    //useTestNG()
 }
