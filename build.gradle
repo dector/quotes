@@ -32,6 +32,7 @@ ext {
     androidApp_buildToolsVersion = '23.0.2'
 
     kotlin_version = '1.0.0-rc-1036'
+    wasabi_version = '0.1-SNAPSHOT'
     //testng_version = '6.8.+'
     spek_version = '0.1.195'
     //kluent_version = '1.3'
