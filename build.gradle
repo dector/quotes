@@ -23,6 +23,14 @@ task clean(type: Delete) {
 }
 
 ext {
+    androidApp_versionCode = 1
+    androidApp_versionName = '1.0'
+
+    androidApp_minSdkVersion = 15
+    androidApp_targetSdkVersion = 23
+    androidApp_compileSdkVersion = 23
+    androidApp_buildToolsVersion = '23.0.2'
+
     kotlin_version = '1.0.0-rc-1036'
     //testng_version = '6.8.+'
     spek_version = '0.1.195'

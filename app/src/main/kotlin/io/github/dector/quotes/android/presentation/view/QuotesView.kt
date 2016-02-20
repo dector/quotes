@@ -19,7 +19,7 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
-    fun init() {
+    override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
         touchView = content.findViewById(R.id.quotes_touch)
         quoteView = content.findViewById(R.id.quotes_quote) as TextView
