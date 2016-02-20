@@ -24,11 +24,11 @@ class QuotesPresenter(val quotesUseCase: IQuotesUseCase,
             } else {
                 view.showNoDataState()
             }
-        }
 
-        palette.getRandomColorPair().let {
-            view.textColor(it.text)
-            view.backgroundColor(it.background)
+            palette.getRandomColorPair().let {
+                view.textColor(it.text)
+                view.backgroundColor(it.background)
+            }
         }
     }
 }
