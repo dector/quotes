@@ -7,39 +7,32 @@ import io.github.dector.quotes.R
 import io.github.dector.quotes.android.api.IApi
 import io.github.dector.quotes.android.api.RetrofitApi
 import io.github.dector.quotes.android.presentation.view.QuotesView
-import io.github.dector.quotes.android.storage.ApiQuotesStorage
-import io.github.dector.quotes.android.usecases.AsyncQuotesUseCase
-import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
-import io.github.dector.quotes.storage.CachedQuotesStorage
-import io.github.dector.quotes.storage.IStorage
-import io.github.dector.quotes.usecases.IQuotesUseCase
+import io.github.dector.quotes.repositories.IQuotesRepository
+import io.github.dector.quotes.repositories.MockQuotesRepository
+import io.github.dector.quotes.usecases.GetRandomQuoteUseCase
+import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase
 
 @Module
 class QuotesModule() {
 
-    @Provides
-    fun api(): IApi = RetrofitApi()
+    @Provides fun api(): IApi
+            = RetrofitApi()
 
-    @Provides
-    fun quotesStorage(api: IApi): IStorage<Quote>
-            = CachedQuotesStorage(ApiQuotesStorage(api))
+    @Provides fun quotesRepository(): IQuotesRepository
+            = MockQuotesRepository()
 
-    @Provides
-    fun quotesUseCase(storage: IStorage<Quote>): IQuotesUseCase
-            = AsyncQuotesUseCase(storage)
+    @Provides fun getRandomQuoteUseCase(repository: IQuotesRepository): IGetRandomQuoteUseCase
+            = GetRandomQuoteUseCase(repository)
 
-    @Provides
-    fun palette(): IColorPairProvider
+    @Provides fun palette(): IColorPairProvider
             = ColorPairProvider()
 
-    @Provides
-    fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider)
-            = QuotesPresenter(quotesUseCase, palette)
+    @Provides fun quotesPresenter(getRandomQuoteUseCase: IGetRandomQuoteUseCase, palette: IColorPairProvider)
+            = QuotesPresenter(getRandomQuoteUseCase, palette)
 
-    @Provides
-    fun quotesView(inflater: LayoutInflater)
+    @Provides fun quotesView(inflater: LayoutInflater)
             = QuotesView(inflater.inflate(R.layout.view_quotes, null))
 }

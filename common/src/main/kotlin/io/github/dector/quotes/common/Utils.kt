@@ -8,12 +8,9 @@ object Utils {
     val rnd: Random by lazy { Random() }
 }
 
-fun <T> Array<T>.random(): T? {
-    return when {
-        size > 0 -> get(Utils.rnd.nextInt(size))
-        else -> null
-    }
-}
+fun <T> Array<T>.random(): T? = this[Utils.rnd.nextInt(size)]
+
+fun <T> List<T>.random(): T? = this[Utils.rnd.nextInt(size)]
 
 fun Int.randomUntil() =  if (this > 0) Utils.rnd.nextInt(this) else 0
 
