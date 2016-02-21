@@ -1,5 +1,10 @@
 apply plugin: 'kotlin'
 
+ext {
+    api_version = "1.0"
+    server_version = "1.0"
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -20,4 +25,16 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.wasabi:wasabi:$wasabi_version"
     compile "com.beust:klaxon:$klaxon_version"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "io.github.dector.quote.api_server.MainKt"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    version project.ext.server_version
 }
