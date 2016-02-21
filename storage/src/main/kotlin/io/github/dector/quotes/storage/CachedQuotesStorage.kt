@@ -28,7 +28,7 @@ class CachedQuotesStorage(val delegate: IStorage<Quote>) : IStorage<Quote> {
     }
 
     private fun validateCache() {
-        if (System.currentTimeMillis() <= validUntil.time) {
+        if (System.currentTimeMillis() <= validUntil.time && !cache.isEmpty()) {
             return
         }
 

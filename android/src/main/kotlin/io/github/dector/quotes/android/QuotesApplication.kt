@@ -1,3 +1,5 @@
+@file:JvmName("QuotesApplication")
+
 package io.github.dector.quotes.android
 
 import android.app.Application

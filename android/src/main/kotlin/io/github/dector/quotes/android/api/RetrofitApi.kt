@@ -8,7 +8,11 @@ import retrofit2.http.GET
 
 class RetrofitApi : IApi {
 
-    private val BASE_URL = "http://10.12.1.103:1304/"
+    private val USE_LOCAL = false
+    private val LOCAL_BASE_URL = "http://10.12.1.103:1304/"
+    private val PROD_BASE_URL = "http://smart-quotes.herokuapp.com/"
+
+    private val BASE_URL = if (USE_LOCAL) LOCAL_BASE_URL else PROD_BASE_URL
 
     val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
