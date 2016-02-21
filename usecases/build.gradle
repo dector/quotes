@@ -12,8 +12,6 @@ buildscript {
 
 repositories {
     mavenCentral()
-
-    maven { url "http://repository.jetbrains.com/all" }
 }
 
 dependencies {
@@ -23,5 +21,9 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    testCompile "org.jetbrains.spek:spek:$spek_version"
+    testCompile "org.testng:testng:$testng_version"
+}
+
+test {
+    useTestNG()
 }

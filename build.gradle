@@ -34,7 +34,7 @@ ext {
     kotlin_version = '1.0.0-rc-1036'
     wasabi_version = '0.1-SNAPSHOT'
     klaxon_version = '0.24'
-    //testng_version = '6.8.+'
+    testng_version = '6.8'
     spek_version = '0.1.195'
     //kluent_version = '1.3'
 }
