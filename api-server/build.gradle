@@ -1,8 +1,10 @@
+apply plugin: 'application'
 apply plugin: 'kotlin'
 
 ext {
-    api_version = "1.0"
-    server_version = "1.0"
+    api_version = '1.0'
+    server_version = '1.0'
+    main_class = 'io.github.dector.quote.api_server.MainKt'
 }
 
 buildscript {
@@ -27,9 +29,11 @@ dependencies {
     compile "com.beust:klaxon:$klaxon_version"
 }
 
+mainClassName = project.ext.main_class
+
 jar {
     manifest {
-        attributes "Main-Class": "io.github.dector.quote.api_server.MainKt"
+        attributes "Main-Class": project.ext.main_class
     }
 
     from {
