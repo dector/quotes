@@ -1,3 +1,5 @@
+![XXXHDPI Icon]
+
 # Base Application
 
 ## Testing
@@ -17,4 +19,5 @@ Start application server with gradle: `./gradlew :api-server:run`.
 
 Run `./gradlew cAT` to execute UI android tests on device or emulator.
 
+[XXXHDPI ICON]: https://raw.githubusercontent.com/dector/quotes/cb6c27ece6b16f1015e9dae9f712294abb863bcf/android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [Spek]: http://jetbrains.github.io/spek/
