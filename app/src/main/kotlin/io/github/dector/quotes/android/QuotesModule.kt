@@ -5,24 +5,29 @@ import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.R
+import io.github.dector.quotes.android.api.IApi
+import io.github.dector.quotes.android.api.RetrofitApi
+import io.github.dector.quotes.android.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.android.presentation.view.QuotesView
-import io.github.dector.quotes.android.providers.ColorPairProvider
+import io.github.dector.quotes.android.storage.ApiQuotesStorage
+import io.github.dector.quotes.android.usecases.APIServerQuotesUseCase
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.storage.IStorage
-import io.github.dector.quotes.storage.MockQuotesStorage
 import io.github.dector.quotes.usecases.IQuotesUseCase
-import io.github.dector.quotes.usecases.QuotesUseCase
 
 @Module
 class QuotesModule() {
 
     @Provides
-    fun quotesStorage(): IStorage<Quote?> = MockQuotesStorage()
+    fun api(): IApi = RetrofitApi()
 
     @Provides
-    fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase = QuotesUseCase(storage)
+    fun quotesStorage(api: IApi): IStorage<Quote?> = ApiQuotesStorage(api)
+
+    @Provides
+    fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase = APIServerQuotesUseCase(storage)
 
     @Provides
     fun palette(): IColorPairProvider = ColorPairProvider()
