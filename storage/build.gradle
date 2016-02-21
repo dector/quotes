@@ -1,12 +1,5 @@
 apply plugin: 'kotlin'
 
-dependencies {
-    compile project(':common')
-    compile project(':domain')
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -19,4 +12,17 @@ buildscript {
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile project(':common')
+    compile project(':domain')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile "org.testng:testng:$testng_version"
+}
+
+test {
+    useTestNG()
 }
