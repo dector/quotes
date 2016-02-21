@@ -3,7 +3,7 @@ apply plugin: 'kotlin'
 
 ext {
     api_version = '1.0'
-    server_version = '1.0'
+    server_version = '1.0.1'
     main_class = 'io.github.dector.quote.api_server.MainKt'
 }
 
