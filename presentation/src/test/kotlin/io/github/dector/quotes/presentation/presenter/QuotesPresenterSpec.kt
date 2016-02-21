@@ -1,7 +1,7 @@
 package io.github.dector.quotes.presentation.presenter
 
-import io.github.dector.equalTo
 import io.github.dector.quotes.domain.Quote
+import io.github.dector.quotes.equalTo
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.presentation.view.Color
 import io.github.dector.quotes.presentation.view.ColorPair
@@ -49,11 +49,11 @@ class QuotesPresenterSpec : Spek() { init {
                 view.dataStateShown equalTo true
             }
             it ("view should display quote") {
-                view.quote equalTo quote.quote
+                view.quote equalTo quote.quote &&
                 view.author equalTo quote.author
             }
             it ("view should display colors") {
-                view.textColor equalTo colors.text
+                view.textColor equalTo colors.text &&
                 view.backgroundColor equalTo colors.background
             }
         }
@@ -64,11 +64,11 @@ class QuotesPresenterSpec : Spek() { init {
             presenter.displayQuote()
 
             it ("view should display empty state") {
-                view.quote equalTo null
+                view.quote equalTo null &&
                 view.author equalTo null
             }
             it ("view should display colors") {
-                view.textColor equalTo colors.text
+                view.textColor equalTo colors.text &&
                 view.backgroundColor equalTo colors.background
             }
         }
