@@ -1,10 +1,10 @@
-package io.github.dector.quotes.storage
+package io.github.dector.quotes.repositories
 
 import io.github.dector.quotes.domain.Quote
 
-class MockQuotesStorage : IStorage<Quote> {
+class MockQuotesRepository : IQuotesRepository {
 
-    private val quotes = arrayOf(
+    private val data = arrayOf(
             Quote("We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "Carl Sagan"),
             Quote("Only two things are infinite, the universe and human stupidity, and I'm not sure about the former.", "Albert Einstein"),
             Quote("Everything is theoretically impossible, until it is done.", "Robert A. Heinlein"),
@@ -13,12 +13,15 @@ class MockQuotesStorage : IStorage<Quote> {
             Quote("Equipped with his five senses, man explores the universe around him and calls the adventure Science.", "Edwin Powell Hubble")
     )
 
-    override fun count() = quotes.size
+    override fun count(criteria: QuotesCriteria): Long {
+        return when (criteria) {
+            is QuotesCriteria.Anything -> data.size.toLong()
+        }
+    }
 
-    override fun all() = quotes.asList()
-
-    override operator fun get(index: Int) = when (index) {
-        in 0..quotes.size -> quotes[index]
-        else -> null
+    override fun get(criteria: QuotesCriteria): List<Quote> {
+        return when (criteria) {
+            is QuotesCriteria.Anything -> data.asList()
+        }
     }
 }

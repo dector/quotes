@@ -6,7 +6,7 @@ import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.presentation.view.Color
 import io.github.dector.quotes.presentation.view.ColorPair
 import io.github.dector.quotes.presentation.view.IQuotesView
-import io.github.dector.quotes.usecases.IQuotesUseCase
+import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase
 import org.jetbrains.spek.api.Spek
 
 class QuotesPresenterSpec : Spek() { init {
@@ -14,7 +14,7 @@ class QuotesPresenterSpec : Spek() { init {
     given("a presenter") {
         val colors = ColorPair(Color.WHITE, Color.BLACK)
 
-        val useCase = MockQuotesUseCase()
+        val useCase = MockQuoteUseCase()
         val view = MockQuotesView()
 
         val presenter = QuotesPresenter(useCase, MockPallete(colors))
@@ -75,9 +75,9 @@ class QuotesPresenterSpec : Spek() { init {
     }
 }}
 
-class MockQuotesUseCase(var quote: Quote? = null) : IQuotesUseCase {
+class MockQuoteUseCase(var quote: Quote? = null) : IGetRandomQuoteUseCase {
 
-    override fun getRandomQuote(callback: (Quote?) -> Unit) {
+    override fun execute(callback: (Quote?) -> Unit) {
         callback(quote)
     }
 }
