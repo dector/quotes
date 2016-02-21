@@ -1,6 +1,5 @@
 package io.github.dector.quotes.android
 
-import android.content.Context
 import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
@@ -24,22 +23,22 @@ class QuotesModule() {
     fun api(): IApi = RetrofitApi()
 
     @Provides
-    fun quotesStorage(api: IApi): IStorage<Quote?> = ApiQuotesStorage(api)
+    fun quotesStorage(api: IApi): IStorage<Quote?>
+            = ApiQuotesStorage(api)
 
     @Provides
-    fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase = APIServerQuotesUseCase(storage)
+    fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase
+            = APIServerQuotesUseCase(storage)
 
     @Provides
-    fun palette(): IColorPairProvider = ColorPairProvider()
-
-    @Provides
-    fun layoutInflater(context: Context) = LayoutInflater.from(context)
+    fun palette(): IColorPairProvider
+            = ColorPairProvider()
 
     @Provides
     fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider)
             = QuotesPresenter(quotesUseCase, palette)
 
     @Provides
-    fun quotesView(inflater: LayoutInflater) = QuotesView(inflater.inflate(R.layout.view_quotes, null))
-
+    fun quotesView(inflater: LayoutInflater)
+            = QuotesView(inflater.inflate(R.layout.view_quotes, null))
 }

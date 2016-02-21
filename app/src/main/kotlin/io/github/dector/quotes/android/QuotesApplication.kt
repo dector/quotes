@@ -2,6 +2,7 @@ package io.github.dector.quotes.android
 
 import android.app.Application
 import android.content.Context
+import android.view.LayoutInflater
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -36,5 +37,10 @@ interface ApplicationComponent {
 class AppModule(val app: QuotesApplication) {
 
     @Provides
-    fun context(): Context = app
+    fun context(): Context
+            = app
+
+    @Provides
+    fun layoutInflater(context: Context): LayoutInflater
+            = LayoutInflater.from(context)
 }
