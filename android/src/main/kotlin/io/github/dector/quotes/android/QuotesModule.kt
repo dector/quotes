@@ -6,14 +6,14 @@ import dagger.Provides
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.api.IApi
 import io.github.dector.quotes.android.api.RetrofitApi
-import io.github.dector.quotes.android.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.android.storage.ApiQuotesStorage
-import io.github.dector.quotes.android.storage.CachedQuotesStorage
 import io.github.dector.quotes.android.usecases.AsyncQuotesUseCase
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
+import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
+import io.github.dector.quotes.storage.CachedQuotesStorage
 import io.github.dector.quotes.storage.IStorage
 import io.github.dector.quotes.usecases.IQuotesUseCase
 

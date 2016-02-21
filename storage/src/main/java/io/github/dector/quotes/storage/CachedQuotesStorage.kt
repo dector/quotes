@@ -1,8 +1,7 @@
-package io.github.dector.quotes.android.storage
+package io.github.dector.quotes.storage
 
-import io.github.dector.quotes.android.common.add
+import io.github.dector.quotes.common.add
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.storage.IStorage
 import java.util.*
 import java.util.concurrent.TimeUnit
 

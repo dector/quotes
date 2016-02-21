@@ -1,7 +1,6 @@
-package io.github.dector.quotes.android.presentation.providers
+package io.github.dector.quotes.presentation.providers
 
-import io.github.dector.quotes.android.common.random
-import io.github.dector.quotes.presentation.providers.IColorPairProvider
+import io.github.dector.quotes.common.random
 import io.github.dector.quotes.presentation.view.Color.*
 import io.github.dector.quotes.presentation.view.ColorPair
 

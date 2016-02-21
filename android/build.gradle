@@ -33,6 +33,7 @@ kapt {
 }
 
 dependencies {
+    compile project(':common')
     compile project(':domain')
     compile project(':usecases')
     compile project(':presentation')

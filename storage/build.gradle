@@ -1,6 +1,7 @@
 apply plugin: 'kotlin'
 
 dependencies {
+    compile project(':common')
     compile project(':domain')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

@@ -2,15 +2,13 @@ package io.github.dector.quotes.android.usecases
 
 import android.os.Handler
 import android.util.Log
+import io.github.dector.quotes.common.randomUntil
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.storage.IStorage
 import io.github.dector.quotes.usecases.IQuotesUseCase
 import java.io.IOException
-import java.util.*
 
 class AsyncQuotesUseCase(val storage: IStorage<Quote>) : IQuotesUseCase {
-
-    val random = Random()
 
     override fun getRandomQuote(callback: (Quote?) -> Unit) {
         val handler = Handler()
@@ -20,7 +18,7 @@ class AsyncQuotesUseCase(val storage: IStorage<Quote>) : IQuotesUseCase {
                 val count = storage.count()
 
                 if (count > 0) {
-                    val index = random.nextInt()
+                    val index = storage.count().randomUntil()
                     val result = storage[index]
 
                     handler.post { callback(result) }
