@@ -1,13 +1,5 @@
 apply plugin: 'kotlin'
 
-dependencies {
-    compile project(':common')
-    compile project(':domain')
-    compile project(':storage')
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -20,4 +12,16 @@ buildscript {
 
 repositories {
     mavenCentral()
+
+    maven { url "http://repository.jetbrains.com/all" }
+}
+
+dependencies {
+    compile project(':common')
+    compile project(':domain')
+    compile project(':storage')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile "org.jetbrains.spek:spek:$spek_version"
 }
