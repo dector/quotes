@@ -15,6 +15,6 @@ fun <T> Array<T>.random(): T? {
     }
 }
 
-fun Int.randomUntil() =  if (this > 0) Utils.rnd.nextInt() else 0
+fun Int.randomUntil() =  if (this > 0) Utils.rnd.nextInt(this) else 0
 
 fun Date.add(time: Long, unit: TimeUnit) = Date(this.time + unit.toMillis(time))
