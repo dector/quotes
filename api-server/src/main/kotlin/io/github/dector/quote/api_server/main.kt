@@ -6,13 +6,25 @@ import io.github.dector.quotes.domain.Quote
 import spark.Spark.get
 import spark.Spark.port
 
+private val DEFAULT_PORT = 1304
+
 fun main(args: Array<String>) {
-    port(1304)
+    port(getRunningPort())
 
     get("/quotes", { req, resp ->
         resp.type("application/json")
         getQuotesJsonString()
     })
+}
+
+fun getRunningPort(): Int {
+    val processBuilder = ProcessBuilder()
+    val port = processBuilder.environment()["PORT"]
+
+    return if (port != null)
+        port.toInt()
+    else
+        DEFAULT_PORT
 }
 
 fun getQuotesJsonString(): String {
