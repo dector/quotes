@@ -3,17 +3,16 @@ package io.github.dector.quote.api_server
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import io.github.dector.quotes.domain.Quote
-import org.wasabi.app.AppServer
+import spark.Spark.get
+import spark.Spark.port
 
 fun main(args: Array<String>) {
-    val server = AppServer()
+    port(1304)
 
-    server.get("/quotes", {
-        response.send(getQuotesJsonString())
+    get("/quotes", { req, resp ->
+        resp.type("application/json")
+        getQuotesJsonString()
     })
-
-    server.configuration.port = 1304
-    server.start()
 }
 
 fun getQuotesJsonString(): String {
