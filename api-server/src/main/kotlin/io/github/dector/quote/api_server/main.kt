@@ -6,10 +6,17 @@ import io.github.dector.quotes.domain.Quote
 import spark.Spark.get
 import spark.Spark.port
 
+private val ROOT_REDIRECT = "https://github.com/dector/quotes"
 private val DEFAULT_PORT = 1304
 
 fun main(args: Array<String>) {
     port(getRunningPort())
+
+    get("/", { req, resp ->
+        "<html><head><title>Quotes</title></head><body>" +
+                "<a href=\"https://github.com/dector/quotes\">Open github</a>" +
+                "</body></html>"
+    })
 
     get("/quotes", { req, resp ->
         resp.type("application/json")
