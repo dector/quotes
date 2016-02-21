@@ -22,10 +22,9 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    testCompile "org.jetbrains.spek:spek:$spek_version"
-    //testCompile "org.amshove.kluent:kluent:$kluent_version"
+    testCompile "org.testng:testng:$testng_version"
 }
 
 test {
-    //useTestNG()
+    useTestNG()
 }
