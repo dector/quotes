@@ -1,6 +1,7 @@
 package io.github.dector.quotes.android.common
 
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 private object Utils {
 
@@ -13,3 +14,5 @@ fun <T> Array<T>.random(): T? {
         else -> null
     }
 }
+
+fun Date.add(time: Long, unit: TimeUnit) = Date(this.time + unit.toMillis(time))

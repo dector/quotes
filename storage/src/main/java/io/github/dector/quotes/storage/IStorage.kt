@@ -4,5 +4,7 @@ interface IStorage<Data> {
 
     fun count(): Int
 
-    operator fun get(index: Int): Data
+    fun all(): List<Data>
+
+    operator fun get(index: Int): Data?
 }

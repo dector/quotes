@@ -9,7 +9,8 @@ import io.github.dector.quotes.android.api.RetrofitApi
 import io.github.dector.quotes.android.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.android.storage.ApiQuotesStorage
-import io.github.dector.quotes.android.usecases.APIServerQuotesUseCase
+import io.github.dector.quotes.android.storage.CachedQuotesStorage
+import io.github.dector.quotes.android.usecases.AsyncQuotesUseCase
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
@@ -23,12 +24,12 @@ class QuotesModule() {
     fun api(): IApi = RetrofitApi()
 
     @Provides
-    fun quotesStorage(api: IApi): IStorage<Quote?>
-            = ApiQuotesStorage(api)
+    fun quotesStorage(api: IApi): IStorage<Quote>
+            = CachedQuotesStorage(ApiQuotesStorage(api))
 
     @Provides
-    fun quotesUseCase(storage: IStorage<Quote?>): IQuotesUseCase
-            = APIServerQuotesUseCase(storage)
+    fun quotesUseCase(storage: IStorage<Quote>): IQuotesUseCase
+            = AsyncQuotesUseCase(storage)
 
     @Provides
     fun palette(): IColorPairProvider

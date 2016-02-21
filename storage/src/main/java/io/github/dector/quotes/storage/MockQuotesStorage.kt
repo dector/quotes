@@ -2,7 +2,7 @@ package io.github.dector.quotes.storage
 
 import io.github.dector.quotes.domain.Quote
 
-class MockQuotesStorage : IStorage<Quote?> {
+class MockQuotesStorage : IStorage<Quote> {
 
     private val quotes = arrayOf(
             Quote("We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "Carl Sagan"),
@@ -14,6 +14,8 @@ class MockQuotesStorage : IStorage<Quote?> {
     )
 
     override fun count() = quotes.size
+
+    override fun all() = quotes.asList()
 
     override operator fun get(index: Int) = when (index) {
         in 0..quotes.size -> quotes[index]
