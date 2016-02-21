@@ -1,0 +1,47 @@
+apply plugin: 'application'
+apply plugin: 'kotlin'
+
+ext {
+    api_version = '1.0'
+    server_version = '1.0'
+    main_class = 'io.github.dector.quote.api_server.MainKt'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repository.jetbrains.com/all' }
+}
+
+dependencies {
+    compile project(':domain')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //compile "org.wasabi:wasabi:$wasabi_version"
+    compile "com.beust:klaxon:$klaxon_version"
+
+    compile 'com.sparkjava:spark-core:2.3'
+}
+
+mainClassName = project.ext.main_class
+
+jar {
+    manifest {
+        attributes "Main-Class": project.ext.main_class
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    version project.ext.server_version
+}

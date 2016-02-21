@@ -1,0 +1,31 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    compile project(':common')
+    compile project(':domain')
+    compile project(':usecases')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile "org.jetbrains.spek:spek:$spek_version"
+    //testCompile "org.amshove.kluent:kluent:$kluent_version"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository.jetbrains.com/all" }
+}
+
+test {
+    //useTestNG()
+}
