@@ -2,6 +2,7 @@ package io.github.dector.quotes.android.presentation.view
 
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import io.github.dector.quotes.R
 import io.github.dector.quotes.presentation.view.Color
 import io.github.dector.quotes.presentation.view.IQuotesActionListener
@@ -39,6 +40,10 @@ class QuotesView(val content: View) : IQuotesView {
     override fun showNoDataState() {
         dataContainerView.visibility = View.GONE
         noDataContainerView.visibility = View.VISIBLE
+    }
+
+    override fun showDisplayingError(message: String) {
+        Toast.makeText(content.context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showQuote(quote: String) {
