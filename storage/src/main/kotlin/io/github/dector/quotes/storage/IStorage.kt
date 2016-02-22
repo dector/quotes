@@ -1,10 +1,14 @@
 package io.github.dector.quotes.storage
 
+import io.github.dector.quotes.repositories.IRepository
+
 interface IStorage<Data> {
 
-    fun count(): Int
+    fun save(criteria: ListCriteria, data: Data): Boolean
 
-    fun all(): List<Data>
+    fun save(criteria: ListCriteria, data: List<Data>): Boolean
 
-    operator fun get(index: Int): Data?
+    fun remove(criteria: ListCriteria): Boolean
 }
+
+interface IStorableRepository<Data> : IStorage<Data>, IRepository<Data>
