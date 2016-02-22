@@ -7,10 +7,14 @@ import io.github.dector.quotes.presentation.view.ColorPair
 import io.github.dector.quotes.presentation.view.IQuotesView
 import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase
 
-class MockQuoteUseCase(var quote: Quote? = null) : IGetRandomQuoteUseCase {
+class MockQuoteUseCase(var quote: Quote? = null, val e: Throwable? = null) : IGetRandomQuoteUseCase {
 
-    override fun execute(callback: (Quote?) -> Unit) {
-        callback(quote)
+    override fun execute(succeedCallback: (Quote?) -> Unit, failedCallback: (Throwable) -> Unit) {
+        if (e == null) {
+            succeedCallback(quote)
+        } else {
+            failedCallback(Throwable())
+        }
     }
 }
 
@@ -23,6 +27,7 @@ class MockQuotesView : IQuotesView {
 
     var initialized = false; private set
     var dataStateShown = false; private set
+    var errorMessage: String? = null; private set
     var noDataStateShown = false; private set
     var quote: String? = null; private set
     var author: String? = null; private set
@@ -34,6 +39,8 @@ class MockQuotesView : IQuotesView {
     override fun showDataState() { dataStateShown = true }
 
     override fun showNoDataState() { noDataStateShown = true }
+
+    override fun showDisplayingError(message: String) { this.errorMessage = message }
 
     override fun showQuote(quote: String) { this.quote = quote }
 
