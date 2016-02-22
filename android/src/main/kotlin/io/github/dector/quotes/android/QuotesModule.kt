@@ -1,45 +1,42 @@
 package io.github.dector.quotes.android
 
+//import io.github.dector.quotes.usecases.GetRandomQuoteUseCase
+import android.os.Handler
 import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.R
-import io.github.dector.quotes.android.api.IApi
-import io.github.dector.quotes.android.api.RetrofitApi
 import io.github.dector.quotes.android.presentation.view.QuotesView
-import io.github.dector.quotes.android.storage.ApiQuotesStorage
-import io.github.dector.quotes.android.usecases.AsyncQuotesUseCase
-import io.github.dector.quotes.domain.Quote
+import io.github.dector.quotes.android.repositories.RetrofitQuotesRepository
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
-import io.github.dector.quotes.storage.CachedQuotesStorage
-import io.github.dector.quotes.storage.IStorage
-import io.github.dector.quotes.usecases.IQuotesUseCase
+import io.github.dector.quotes.repositories.IQuotesRepository
+import io.github.dector.quotes.usecases.GetRandomQuoteUseCase
+import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase
+import retrofit2.Retrofit
 
 @Module
 class QuotesModule() {
 
-    @Provides
-    fun api(): IApi = RetrofitApi()
+    @Provides fun quotesRepository(retrofit: Retrofit): IQuotesRepository
+            = RetrofitQuotesRepository(retrofit)//MockQuotesRepository()
 
-    @Provides
-    fun quotesStorage(api: IApi): IStorage<Quote>
-            = CachedQuotesStorage(ApiQuotesStorage(api))
+    /*@Provides fun threadProducer(): (() -> Unit) -> Thread
+            = { Thread(it) }*/
 
-    @Provides
-    fun quotesUseCase(storage: IStorage<Quote>): IQuotesUseCase
-            = AsyncQuotesUseCase(storage)
+    @Provides fun getRandomQuoteUseCase(repository: IQuotesRepository,
+                                        mainHandler: Handler/*,
+                                        threadProducer: (() -> Unit) -> Thread*/): IGetRandomQuoteUseCase
+            = GetRandomQuoteUseCase(repository, jobExecutor = { Thread(it).start() },
+            callbackExecutor = { mainHandler.post(it) })
 
-    @Provides
-    fun palette(): IColorPairProvider
+    @Provides fun palette(): IColorPairProvider
             = ColorPairProvider()
 
-    @Provides
-    fun quotesPresenter(quotesUseCase: IQuotesUseCase, palette: IColorPairProvider)
-            = QuotesPresenter(quotesUseCase, palette)
+    @Provides fun quotesPresenter(getRandomQuoteUseCase: IGetRandomQuoteUseCase, palette: IColorPairProvider)
+            = QuotesPresenter(getRandomQuoteUseCase, palette)
 
-    @Provides
-    fun quotesView(inflater: LayoutInflater)
+    @Provides fun quotesView(inflater: LayoutInflater)
             = QuotesView(inflater.inflate(R.layout.view_quotes, null))
 }

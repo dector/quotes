@@ -4,8 +4,7 @@
 
 ## Testing
 
-Since [Spek] framework is used for application components specification testing - tests can't be started with gradle.
-Runnable from IDE only :(.
+Run all tests with `./gradlew test`.
 
 # Api Server
 

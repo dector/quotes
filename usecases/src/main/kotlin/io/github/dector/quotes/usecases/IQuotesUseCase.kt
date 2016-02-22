@@ -2,7 +2,6 @@ package io.github.dector.quotes.usecases
 
 import io.github.dector.quotes.domain.Quote
 
-interface IQuotesUseCase {
+interface IQuoteUseCase : IUseCase<Quote, Throwable>
 
-    fun getRandomQuote(callback: (Quote?) -> Unit)
-}
+interface IGetRandomQuoteUseCase : IQuoteUseCase
