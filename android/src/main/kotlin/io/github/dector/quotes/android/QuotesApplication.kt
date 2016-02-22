@@ -4,6 +4,8 @@ package io.github.dector.quotes.android
 
 import android.app.Application
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import dagger.Component
 import dagger.Module
@@ -52,6 +54,9 @@ class AppModule(val app: QuotesApplication) {
             .baseUrl(ApiConfiguration.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides fun mainThreadHandler(): Handler
+            = Handler(Looper.getMainLooper())
 }
 
 object ApiConfiguration {
