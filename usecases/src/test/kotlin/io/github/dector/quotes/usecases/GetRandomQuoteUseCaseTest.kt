@@ -12,16 +12,15 @@ class GetRandomQuoteUseCaseTest {
         val useCase = GetRandomQuoteUseCase(repository, getSecond)
 
         // When
-        useCase.execute { result ->
+        useCase.execute ({ quote ->
             // Then
-            assertNotNull(result)
+            assertNotNull(quote)
 
-            val actual = result as Quote
             val expected = listOf3[1]
 
-            assertEquals(actual.quote, expected.quote)
-            assertEquals(actual.author, expected.author)
-        }
+            assertEquals(quote?.quote, expected.quote)
+            assertEquals(quote?.author, expected.author)
+        })
     }
 
     @Test fun emptyData_providedRandomizer() {
@@ -30,10 +29,10 @@ class GetRandomQuoteUseCaseTest {
         val useCase = GetRandomQuoteUseCase(repository, getNull)
 
         // When
-        useCase.execute { result ->
+        useCase.execute({ result ->
             // Then
             assertNull(result)
-        }
+        })
     }
 
     @Test fun nonEmptyData_defaultRandomizer() {
@@ -42,7 +41,7 @@ class GetRandomQuoteUseCaseTest {
         val useCase = GetRandomQuoteUseCase(repository)
 
         // When
-        useCase.execute { result ->
+        useCase.execute({ result ->
             // Then
             assertNotNull(result)
 
@@ -51,7 +50,7 @@ class GetRandomQuoteUseCaseTest {
 
             assertEquals(actual.quote, expected.quote)
             assertEquals(actual.author, expected.author)
-        }
+        })
     }
 
     @Test fun emptyData_defaultRandomizer() {
@@ -60,10 +59,10 @@ class GetRandomQuoteUseCaseTest {
         val useCase = GetRandomQuoteUseCase(repository)
 
         // When
-        useCase.execute { result ->
+        useCase.execute({ result ->
             // Then
             assertNull(result)
-        }
+        })
     }
 }
 
