@@ -16,18 +16,24 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     }
 
     override fun displayQuote() {
-        getRandomQuoteUseCase.execute { quote ->
-            if (quote != null) {
-                view.showDataState()
-                view.showAuthor(quote.author)
-                view.showQuote(quote.quote)
-            } else {
-                view.showNoDataState()
-            }
+        getRandomQuoteUseCase.execute { result ->
+            if (result.isSuccessful()) {
+                val quote = result.data
 
-            palette.getRandomColorPair().let {
-                view.textColor(it.text)
-                view.backgroundColor(it.background)
+                if (quote != null) {
+                    view.showDataState()
+                    view.showAuthor(quote.author)
+                    view.showQuote(quote.quote)
+                } else {
+                    view.showNoDataState()
+                }
+
+                palette.getRandomColorPair().let {
+                    view.textColor(it.text)
+                    view.backgroundColor(it.background)
+                }
+            } else {
+                view.showDisplayingError(result.error?.message ?: "Oops. I can't do it :(")
             }
         }
     }
