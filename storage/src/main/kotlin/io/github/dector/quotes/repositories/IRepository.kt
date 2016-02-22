@@ -1,8 +1,10 @@
 package io.github.dector.quotes.repositories
 
-interface IRepository<Data, Criteria> {
+import io.github.dector.quotes.storage.ListCriteria
 
-    fun count(criteria: Criteria): Long
+interface IRepository<Data> {
 
-    fun get(criteria: Criteria): List<Data>
+    fun count(criteria: ListCriteria): Long
+
+    fun get(criteria: ListCriteria): List<Data>
 }

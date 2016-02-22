@@ -5,6 +5,7 @@ import com.beust.klaxon.JsonObject
 import io.github.dector.quotes.domain.Quote
 
 fun getQuotesJsonString(): String {
+
     val quotes = listOf(
             Quote("We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "Carl Sagan"),
             Quote("Only two things are infinite, the universe and human stupidity, and I'm not sure about the former.", "Albert Einstein"),
