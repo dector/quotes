@@ -1,4 +1,4 @@
-package io.github.dector.quotes.repositories
+package io.github.dector.knight.repositories
 
 interface IRepository<Data> {
 

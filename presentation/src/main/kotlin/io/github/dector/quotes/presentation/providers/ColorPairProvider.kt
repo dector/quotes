@@ -1,6 +1,6 @@
 package io.github.dector.quotes.presentation.providers
 
-import io.github.dector.quotes.common.random
+import io.github.dector.knight.common.random
 import io.github.dector.quotes.presentation.view.Color.*
 import io.github.dector.quotes.presentation.view.ColorPair
 

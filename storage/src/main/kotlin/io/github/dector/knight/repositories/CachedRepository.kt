@@ -1,7 +1,7 @@
-package io.github.dector.quotes.repositories
+package io.github.dector.knight.repositories
 
-import io.github.dector.quotes.common.minutesAsMillis
-import io.github.dector.quotes.storage.IStorableRepository
+import io.github.dector.knight.storage.IStorableRepository
+import io.github.dector.knight.common.minutesAsMillis
 
 interface ICacheStrategy {
 
@@ -25,8 +25,8 @@ class TimeCacheStrategy(val validityTimeMs: Int = 5.minutesAsMillis()) : ICacheS
 }
 
 abstract class CachedRepository<Data>(val mainRepo: IRepository<Data>,
-                                                val cacheRepo: IStorableRepository<Data>,
-                                                val cacheStrategy: ICacheStrategy = AlwaysActualDataCacheStrategy()) : IRepository<Data> {
+                                      val cacheRepo: IStorableRepository<Data>,
+                                      val cacheStrategy: ICacheStrategy = AlwaysActualDataCacheStrategy()) : IRepository<Data> {
     override fun size(): Long {
         validateCache()
 
