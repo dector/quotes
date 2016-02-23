@@ -1,7 +1,6 @@
 package io.github.dector.quotes.repositories
 
 import io.github.dector.quotes.storage.IStorableRepository
-import io.github.dector.quotes.storage.ListCriteria
 
 interface ICacheStrategy {
 
@@ -16,25 +15,24 @@ class AlwaysActualDataCacheStrategy : ICacheStrategy {
 abstract class CachedRepository<Data>(val mainRepo: IRepository<Data>,
                                                 val cacheRepo: IStorableRepository<Data>,
                                                 val cacheStrategy: ICacheStrategy = AlwaysActualDataCacheStrategy()) : IRepository<Data> {
+    override fun size(): Long {
+        validateCache()
 
-    override fun count(criteria: ListCriteria): Long {
-        validateCache(criteria)
-
-        return cacheRepo.count(criteria)
+        return cacheRepo.size()
     }
 
-    override fun get(criteria: ListCriteria): List<Data> {
-        validateCache(criteria)
+    override fun getAll(): List<Data> {
+        validateCache()
 
-        return cacheRepo.get(criteria)
+        return cacheRepo.getAll()
     }
 
-    private fun validateCache(criteria: ListCriteria) {
+    private fun validateCache() {
         if (! cacheStrategy.isCacheValid()) {
-            cacheRepo.remove(criteria)
+            cacheRepo.removeAll()
 
-            val data = mainRepo.get(criteria)
-            cacheRepo.save(criteria, data)
+            val data = mainRepo.getAll()
+            cacheRepo.saveAll(data)
         }
     }
 }

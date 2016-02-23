@@ -4,11 +4,13 @@ import io.github.dector.quotes.repositories.IRepository
 
 interface IStorage<Data> {
 
-    fun save(criteria: ListCriteria, data: Data): Boolean
+    fun save(data: Data): Boolean
 
-    fun save(criteria: ListCriteria, data: List<Data>): Boolean
+    fun saveAll(data: List<Data>): Boolean
 
-    fun remove(criteria: ListCriteria): Boolean
+    fun remove(data: Data): Boolean
+
+    fun removeAll(): Boolean
 }
 
 interface IStorableRepository<Data> : IStorage<Data>, IRepository<Data>

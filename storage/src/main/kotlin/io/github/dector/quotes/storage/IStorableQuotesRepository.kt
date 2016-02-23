@@ -5,50 +5,19 @@ import java.util.*
 
 interface IStorableQuotesRepository : IStorableRepository<Quote>
 
-// FIXME use generics (how ?)
-sealed class ListCriteria {
-    class All : ListCriteria()
-    class Indexed(val index: Int) : ListCriteria()
-}
-
 class ListStorableQuotesRepository : IStorableQuotesRepository {
 
     val list = ArrayList<Quote>()
 
-    override fun count(criteria: ListCriteria): Long {
-        return when (criteria) {
-            is ListCriteria.All -> list.size.toLong()
-            is ListCriteria.Indexed -> if (criteria.isInRange()) 1 else 0
-        }
-    }
+    override fun size() = list.size.toLong()
 
-    override fun get(criteria: ListCriteria): List<Quote> {
-        return when (criteria) {
-            is ListCriteria.All -> list.toList()
-            is ListCriteria.Indexed -> if (criteria.isInRange()) listOf(list[criteria.index]) else emptyList()
-        }
-    }
+    override fun getAll() = list.toList()
 
-    override fun save(criteria: ListCriteria, data: Quote): Boolean {
-        return when (criteria) {
-            is ListCriteria.All -> list.add(data)
-            is ListCriteria.Indexed -> if (criteria.isInRange()) { list.add(criteria.index, data); true } else false
-        }
-    }
+    override fun save(data: Quote) = list.add(data)
 
-    override fun save(criteria: ListCriteria, data: List<Quote>): Boolean {
-        return when (criteria) {
-            is ListCriteria.All -> list.addAll(data)
-            is ListCriteria.Indexed -> if (criteria.isInRange()) { list.addAll(criteria.index, data); true } else false
-        }
-    }
+    override fun saveAll(data: List<Quote>) = list.addAll(data)
 
-    override fun remove(criteria: ListCriteria): Boolean {
-        return when (criteria) {
-            is ListCriteria.All -> { list.clear(); true }
-            is ListCriteria.Indexed -> if (criteria.isInRange()) { list.removeAt(criteria.index); true } else false
-        }
-    }
+    override fun remove(data: Quote) = list.remove(data)
 
-    private inline fun ListCriteria.Indexed.isInRange() = this.index in 1..list.size
+    override fun removeAll(): Boolean { list.clear(); return true }
 }
