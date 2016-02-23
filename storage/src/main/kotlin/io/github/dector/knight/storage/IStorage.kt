@@ -1,6 +1,6 @@
-package io.github.dector.quotes.storage
+package io.github.dector.knight.storage
 
-import io.github.dector.quotes.repositories.IRepository
+import io.github.dector.knight.repositories.IRepository
 
 interface IStorage<Data> {
 

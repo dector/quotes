@@ -12,7 +12,7 @@ import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.repositories.CachedQuotesRepository
 import io.github.dector.quotes.repositories.IQuotesRepository
-import io.github.dector.quotes.repositories.TimeCacheStrategy
+import io.github.dector.knight.repositories.TimeCacheStrategy
 import io.github.dector.quotes.storage.ListStorableQuotesRepository
 import io.github.dector.quotes.usecases.GetRandomQuoteUseCase
 import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase

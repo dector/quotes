@@ -1,6 +1,7 @@
 package io.github.dector.quotes.usecases
 
-import io.github.dector.quotes.common.random
+import io.github.dector.knight.usecases.AsyncUseCase
+import io.github.dector.knight.common.random
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.repositories.IQuotesRepository
 

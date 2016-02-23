@@ -1,4 +1,4 @@
-package io.github.dector.quotes.usecases
+package io.github.dector.knight.usecases
 
 interface IUseCase<Data, Error> {
 
@@ -6,8 +6,6 @@ interface IUseCase<Data, Error> {
                 failedCallback: (Error) -> Unit = {})
 }
 
-// I resist to 3rd party async solutions in architecture (like Rx) for a long time
-// But this seems to be too complicated soon
 abstract class AsyncUseCase<Data, Error : Throwable>(val jobExecutor: (() -> Unit) -> Unit = AsyncUseCase.plainExecutor,
                                                      val callbackExecutor: (() -> Unit) -> Unit = AsyncUseCase.plainExecutor) :
         IUseCase<Data, Error> {

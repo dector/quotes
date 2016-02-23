@@ -1,5 +1,6 @@
 package io.github.dector.quotes.storage
 
+import io.github.dector.knight.storage.IStorableRepository
 import io.github.dector.quotes.domain.Quote
 import java.util.*
 
