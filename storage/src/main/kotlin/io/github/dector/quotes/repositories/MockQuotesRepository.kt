@@ -1,7 +1,6 @@
 package io.github.dector.quotes.repositories
 
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.storage.ListCriteria
 
 class MockQuotesRepository : IQuotesRepository {
 
@@ -14,17 +13,7 @@ class MockQuotesRepository : IQuotesRepository {
             Quote("Equipped with his five senses, man explores the universe around him and calls the adventure Science.", "Edwin Powell Hubble")
     )
 
-    override fun count(criteria: ListCriteria): Long {
-        return when (criteria) {
-            is ListCriteria.All -> data.size.toLong()
-            else -> 0
-        }
-    }
+    override fun size() = data.size.toLong()
 
-    override fun get(criteria: ListCriteria): List<Quote> {
-        return when (criteria) {
-            is ListCriteria.All -> data.asList()
-            else -> emptyList()
-        }
-    }
+    override fun getAll() = data.asList()
 }

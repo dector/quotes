@@ -1,6 +1,5 @@
 package io.github.dector.quotes.android
 
-//import io.github.dector.quotes.usecases.GetRandomQuoteUseCase
 import android.os.Handler
 import android.view.LayoutInflater
 import dagger.Module
@@ -8,7 +7,6 @@ import dagger.Provides
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.android.repositories.RetrofitQuotesRepository
-import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
@@ -26,14 +24,9 @@ class QuotesModule() {
     @Provides fun quotesRepository(retrofit: Retrofit): IQuotesRepository
             = CachedQuotesRepository(RetrofitQuotesRepository(retrofit), ListStorableQuotesRepository(), AlwaysActualDataCacheStrategy())
 //            = RetrofitQuotesRepository(retrofit)
-//            = MockQuotesRepository()
-
-    /*@Provides fun threadProducer(): (() -> Unit) -> Thread
-            = { Thread(it) }*/
 
     @Provides fun getRandomQuoteUseCase(repository: IQuotesRepository,
-                                        mainHandler: Handler/*,
-                                        threadProducer: (() -> Unit) -> Thread*/): IGetRandomQuoteUseCase
+                                        mainHandler: Handler): IGetRandomQuoteUseCase
             = GetRandomQuoteUseCase(repository, jobExecutor = { Thread(it).start() },
             callbackExecutor = { mainHandler.post(it) })
 
