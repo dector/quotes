@@ -50,30 +50,24 @@
         android:visibility="gone"
         tools:visibility="gone"/>
 
-    <LinearLayout
-        android:id="@+id/quotes_loading_container"
+    <TextView
+        android:id="@+id/quotes_loading_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:text="@string/loading"
+        android:textSize="20sp"
+        android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/quotes_loading_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loading"
-            android:textSize="20sp"/>
-
-        <ImageView
-            android:id="@+id/quotes_loading_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_sync"/>
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/quotes_loading_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_sync"
+        android:visibility="gone"/>
 
 </FrameLayout>

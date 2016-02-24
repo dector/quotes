@@ -26,15 +26,16 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
         dataLoadingStarted()
 
         getRandomQuoteUseCase.execute({ quote ->
-            dataLoadingFinished()
             onDataLoaded(quote)
-        }, { error ->
             dataLoadingFinished()
+        }, { error ->
             view.showDisplayingError(error.message ?: configuration?.errorMessage ?: "")
+            dataLoadingFinished()
         })
     }
 
     private fun dataLoadingStarted() {
+        view.showLoadingProgress()
         when (state) {
             DisplayingState.DATA -> Unit
             DisplayingState.NO_DATA -> view.showLoadingState()
@@ -42,6 +43,7 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     }
 
     private fun dataLoadingFinished() {
+        view.hideLoadingProgress()
         when (state) {
             DisplayingState.DATA -> view.showDataState()
             DisplayingState.NO_DATA -> view.showNoDataState()
