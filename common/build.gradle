@@ -1,9 +1,5 @@
 apply plugin: 'kotlin'
 
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -16,4 +12,12 @@ buildscript {
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile project(':domain')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
 }

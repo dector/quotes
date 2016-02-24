@@ -1,12 +1,10 @@
 package io.github.dector.quotes.android.repositories
 
 import android.content.SharedPreferences
+import io.github.dector.quotes.common.toJsonString
+import io.github.dector.quotes.common.toQuotesList
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.storage.IStorableQuotesRepository
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
-import java.util.*
 
 class FileStorableQuotesRepository(val sharedPreferences: SharedPreferences) : IStorableQuotesRepository {
 
@@ -33,23 +31,3 @@ class FileStorableQuotesRepository(val sharedPreferences: SharedPreferences) : I
 
     override fun removeAll() = sharedPreferences.edit().clear().commit()
 }
-
-fun String.toQuotesList(): List<Quote> {
-    val json = try { JSONArray(this) } catch (e: JSONException) { JSONArray() }
-
-    val list = ArrayList<Quote>(json.length())
-
-    for (i in 0..json.length()) {
-        list[i] = try { json.getJSONObject(i) } catch (e: JSONException) { JSONObject() }.toQuote()
-    }
-
-    return list
-}
-
-fun JSONObject.toQuote() = Quote(quote = this.optString("quote"), author = this.optString("author"))
-
-fun List<Quote>.toJsonString(): String = this.map(Quote::toJson).toArray().toString()
-
-fun Quote.toJson(): JSONObject = JSONObject().put("quote", this.quote).put("author", this.author)
-
-fun List<JSONObject>.toArray(): JSONArray = this.fold(JSONArray()) { array, item -> array.put(item) }
