@@ -18,7 +18,7 @@ class AlwaysCachedDataCacheStrategy : ICacheStrategy {
     override fun isCacheValid() = true
 }
 
-class TimeCacheStrategy(val validityTimeMs: Int = 5.minutesAsMillis()) : ICacheStrategy {
+class TimeCacheStrategy(val validityTimeMs: Long = 5.minutesAsMillis()) : ICacheStrategy {
 
     private var nextUpdateTime = 0L
 

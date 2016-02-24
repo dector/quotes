@@ -47,8 +47,12 @@ class QuotesModule() {
     @Provides fun palette(): IColorPairProvider
             = ColorPairProvider()
 
-    @Provides fun quotesPresenter(getRandomQuoteUseCase: IGetRandomQuoteUseCase, palette: IColorPairProvider)
-            = QuotesPresenter(getRandomQuoteUseCase, palette)
+    @Provides fun quotesPresenterConfiguration() =
+            QuotesPresenter.Configuration(errorMessage = "Oops. I can't do it :(")
+
+    @Provides fun quotesPresenter(getRandomQuoteUseCase: IGetRandomQuoteUseCase, palette: IColorPairProvider,
+                                  configuration: QuotesPresenter.Configuration)
+            = QuotesPresenter(getRandomQuoteUseCase, palette, configuration)
 
     @Provides fun quotesView(inflater: LayoutInflater)
             = QuotesView(inflater.inflate(R.layout.view_quotes, null))
