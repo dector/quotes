@@ -1,5 +1,7 @@
 package io.github.dector.quotes.android.presentation.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -25,7 +27,6 @@ class QuotesView(val content: View) : IQuotesView {
 
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
-    private lateinit var loadingContainterView: View
 
     override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
@@ -38,7 +39,6 @@ class QuotesView(val content: View) : IQuotesView {
 
         dataContainerView = content.findViewById(R.id.quotes_data_container)
         noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
-        loadingContainterView = content.findViewById(R.id.quotes_loading_container)
 
         touchView.setOnClickListener { listener?.nextQuote() }
     }
@@ -46,28 +46,41 @@ class QuotesView(val content: View) : IQuotesView {
     override fun showDataState() {
         dataContainerView.visibility = View.VISIBLE
         noDataContainerView.visibility = View.GONE
-        loadingContainterView.visibility = View.GONE
-        loadingImageView.clearAnimation()
+        loadingTextView.visibility = View.GONE
     }
 
     override fun showNoDataState() {
         dataContainerView.visibility = View.GONE
         noDataContainerView.visibility = View.VISIBLE
-        loadingContainterView.visibility = View.GONE
-        loadingImageView.clearAnimation()
+        loadingTextView.visibility = View.GONE
     }
 
     override fun showLoadingState() {
         dataContainerView.visibility = View.GONE
         noDataContainerView.visibility = View.GONE
-        loadingContainterView.visibility = View.VISIBLE
+        loadingTextView.visibility = View.VISIBLE
+    }
+
+    override fun showLoadingProgress() {
         ObjectAnimator.ofFloat(loadingImageView, View.ROTATION, -90F, -270F).let {
             it.repeatMode = ObjectAnimator.RESTART
             it.repeatCount = ObjectAnimator.INFINITE
             it.duration = 700
             it.interpolator = DecelerateInterpolator()
+            it.startDelay = 500
+            it.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?) {
+                    loadingImageView.visibility = View.VISIBLE
+                }
+            })
             it.start()
         }
+    }
+
+    override fun hideLoadingProgress() {
+        loadingImageView.animation?.cancel()
+        loadingImageView.clearAnimation()
+        loadingImageView.visibility = View.GONE
     }
 
     override fun showDisplayingError(message: String) {

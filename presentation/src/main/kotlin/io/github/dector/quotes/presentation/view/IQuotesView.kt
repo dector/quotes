@@ -7,6 +7,8 @@ interface IQuotesView : IInitializable {
     fun showDataState()
     fun showNoDataState()
     fun showLoadingState()
+    fun showLoadingProgress()
+    fun hideLoadingProgress()
     fun showDisplayingError(message: String)
 
     fun showQuote(quote: String)
