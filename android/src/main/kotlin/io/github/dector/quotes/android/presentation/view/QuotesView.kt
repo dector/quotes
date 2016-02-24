@@ -28,6 +28,8 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
+    private lateinit var loadingAnimation: ObjectAnimator
+
     override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
         touchView = content.findViewById(R.id.quotes_touch)
@@ -41,6 +43,23 @@ class QuotesView(val content: View) : IQuotesView {
         noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
 
         touchView.setOnClickListener { listener?.nextQuote() }
+
+        loadingAnimation = ObjectAnimator.ofFloat(loadingImageView, View.ROTATION, 90F, -90F).apply {
+            repeatMode = ObjectAnimator.RESTART
+            repeatCount = ObjectAnimator.INFINITE
+            duration = 700
+            interpolator = DecelerateInterpolator()
+            startDelay = 500
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?) {
+                    loadingImageView.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                    loadingImageView.visibility = View.GONE
+                }
+            })
+        }
     }
 
     override fun showDataState() {
@@ -62,25 +81,11 @@ class QuotesView(val content: View) : IQuotesView {
     }
 
     override fun showLoadingProgress() {
-        ObjectAnimator.ofFloat(loadingImageView, View.ROTATION, -90F, -270F).let {
-            it.repeatMode = ObjectAnimator.RESTART
-            it.repeatCount = ObjectAnimator.INFINITE
-            it.duration = 700
-            it.interpolator = DecelerateInterpolator()
-            it.startDelay = 500
-            it.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    loadingImageView.visibility = View.VISIBLE
-                }
-            })
-            it.start()
-        }
+        loadingAnimation.start()
     }
 
     override fun hideLoadingProgress() {
-        loadingImageView.animation?.cancel()
-        loadingImageView.clearAnimation()
-        loadingImageView.visibility = View.GONE
+        loadingAnimation.cancel()
     }
 
     override fun showDisplayingError(message: String) {
