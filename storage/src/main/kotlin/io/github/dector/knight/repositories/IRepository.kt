@@ -1,6 +1,6 @@
 package io.github.dector.knight.repositories
 
-interface IRepository<Data> : IAvailable {
+interface IRepository<out Data> : IAvailable {
 
     fun size(): Long
 

@@ -10,7 +10,7 @@ class MockQuotesRepositoryTest {
         val repository = MockQuotesRepository()
 
         // When
-        val result = repository.count(QuotesCriteria.Anything())
+        val result = repository.size()
 
         // Then
         assertEquals(result, 6)
@@ -21,7 +21,7 @@ class MockQuotesRepositoryTest {
         val repository = MockQuotesRepository()
 
         // When
-        val result = repository.get(QuotesCriteria.Anything())
+        val result = repository.getAll()
 
         // Then
         assertEquals(result.size, 6)
