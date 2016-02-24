@@ -1,7 +1,7 @@
 package io.github.dector.knight.repositories
 
-import io.github.dector.knight.storage.IStorableRepository
 import io.github.dector.knight.common.minutesAsMillis
+import io.github.dector.knight.storage.IStorableRepository
 
 interface ICacheStrategy {
 
@@ -40,7 +40,7 @@ abstract class CachedRepository<Data>(val mainRepo: IRepository<Data>,
     }
 
     private fun validateCache() {
-        if (! cacheStrategy.isCacheValid()) {
+        if (! cacheStrategy.isCacheValid() && mainRepo.isAvailable()) {
             cacheRepo.removeAll()
 
             val data = mainRepo.getAll()

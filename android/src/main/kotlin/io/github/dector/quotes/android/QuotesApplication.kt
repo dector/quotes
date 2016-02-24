@@ -4,13 +4,13 @@ package io.github.dector.quotes.android
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import io.github.dector.quotes.BuildConfig
 import io.github.dector.quotes.android.presentation.QuotesActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -54,6 +54,9 @@ class AppModule(val app: QuotesApplication) {
             .baseUrl(ApiConfiguration.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides fun connectivityManager(context: Context): ConnectivityManager
+            = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @Provides fun mainThreadHandler(): Handler
             = Handler(Looper.getMainLooper())
