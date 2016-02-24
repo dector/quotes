@@ -11,8 +11,11 @@ interface ICacheStrategy {
 }
 
 class AlwaysActualDataCacheStrategy : ICacheStrategy {
-
     override fun isCacheValid() = false
+}
+
+class AlwaysCachedDataCacheStrategy : ICacheStrategy {
+    override fun isCacheValid() = true
 }
 
 class TimeCacheStrategy(val validityTimeMs: Int = 5.minutesAsMillis()) : ICacheStrategy {
