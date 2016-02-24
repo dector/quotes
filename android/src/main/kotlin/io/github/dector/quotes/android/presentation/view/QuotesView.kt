@@ -1,6 +1,9 @@
 package io.github.dector.quotes.android.presentation.view
 
+import android.animation.ObjectAnimator
 import android.view.View
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import io.github.dector.quotes.R
@@ -17,8 +20,12 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var quoteView: TextView
     private lateinit var authorView: TextView
 
+    private lateinit var loadingTextView: TextView
+    private lateinit var loadingImageView: ImageView
+
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
+    private lateinit var loadingContainterView: View
 
     override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
@@ -26,20 +33,41 @@ class QuotesView(val content: View) : IQuotesView {
         quoteView = content.findViewById(R.id.quotes_quote) as TextView
         authorView = content.findViewById(R.id.quotes_author) as TextView
 
+        loadingTextView = content.findViewById(R.id.quotes_loading_text) as TextView
+        loadingImageView = content.findViewById(R.id.quotes_loading_image) as ImageView
+
         dataContainerView = content.findViewById(R.id.quotes_data_container)
         noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
+        loadingContainterView = content.findViewById(R.id.quotes_loading_container)
 
-        touchView.setOnClickListener { listener?.displayQuote() }
+        touchView.setOnClickListener { listener?.nextQuote() }
     }
 
     override fun showDataState() {
         dataContainerView.visibility = View.VISIBLE
         noDataContainerView.visibility = View.GONE
+        loadingContainterView.visibility = View.GONE
+        loadingImageView.clearAnimation()
     }
 
     override fun showNoDataState() {
         dataContainerView.visibility = View.GONE
         noDataContainerView.visibility = View.VISIBLE
+        loadingContainterView.visibility = View.GONE
+        loadingImageView.clearAnimation()
+    }
+
+    override fun showLoadingState() {
+        dataContainerView.visibility = View.GONE
+        noDataContainerView.visibility = View.GONE
+        loadingContainterView.visibility = View.VISIBLE
+        ObjectAnimator.ofFloat(loadingImageView, View.ROTATION, -90F, -270F).let {
+            it.repeatMode = ObjectAnimator.RESTART
+            it.repeatCount = ObjectAnimator.INFINITE
+            it.duration = 700
+            it.interpolator = DecelerateInterpolator()
+            it.start()
+        }
     }
 
     override fun showDisplayingError(message: String) {
@@ -55,8 +83,12 @@ class QuotesView(val content: View) : IQuotesView {
     }
 
     override fun textColor(color: Color) {
-        quoteView.setTextColor(color.solidValue())
-        authorView.setTextColor(color.solidValue())
+        val colorValue = color.solidValue()
+
+        quoteView.setTextColor(colorValue)
+        authorView.setTextColor(colorValue)
+        loadingTextView.setTextColor(colorValue)
+        loadingImageView.setColorFilter(colorValue)
     }
 
     override fun backgroundColor(color: Color) {
