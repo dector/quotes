@@ -1,9 +1,9 @@
 package io.github.dector.quotes.usecases
 
-import io.github.dector.quotes.common.random
+import io.github.dector.knight.usecases.AsyncUseCase
+import io.github.dector.knight.common.random
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.repositories.IQuotesRepository
-import io.github.dector.quotes.repositories.QuotesCriteria
 
 class GetRandomQuoteUseCase(val repository: IQuotesRepository,
                             val randomizer: List<Quote>.() -> Quote? = { this.random() },
@@ -12,7 +12,7 @@ class GetRandomQuoteUseCase(val repository: IQuotesRepository,
         AsyncUseCase<Quote, Throwable>(jobExecutor, callbackExecutor), IGetRandomQuoteUseCase {
 
     override fun fetchData() = repository
-            .get(QuotesCriteria.Anything())
+            .getAll()
             .randomizer()
 
     override fun fetchError(e: Exception) = e

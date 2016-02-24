@@ -13,15 +13,7 @@ class MockQuotesRepository : IQuotesRepository {
             Quote("Equipped with his five senses, man explores the universe around him and calls the adventure Science.", "Edwin Powell Hubble")
     )
 
-    override fun count(criteria: QuotesCriteria): Long {
-        return when (criteria) {
-            is QuotesCriteria.Anything -> data.size.toLong()
-        }
-    }
+    override fun size() = data.size.toLong()
 
-    override fun get(criteria: QuotesCriteria): List<Quote> {
-        return when (criteria) {
-            is QuotesCriteria.Anything -> data.asList()
-        }
-    }
+    override fun getAll() = data.asList()
 }
