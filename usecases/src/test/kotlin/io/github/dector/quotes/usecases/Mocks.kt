@@ -2,11 +2,19 @@ package io.github.dector.quotes.usecases
 
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.repositories.IQuotesRepository
-import io.github.dector.quotes.repositories.QuotesCriteria
 
 class MockQuotesRepository(val data: List<Quote> = emptyList()) : IQuotesRepository {
 
-    override fun count(criteria: QuotesCriteria) = data.size.toLong()
+    override fun size() = data.size.toLong()
 
-    override fun get(criteria: QuotesCriteria) = data
+    override fun getAll() = data
+}
+
+class AsDesignedThrowable : Throwable("I was born to be thrown!")
+
+class ErrorQuotesRepository(val error: Throwable = AsDesignedThrowable()) : IQuotesRepository {
+
+    override fun size() = throw error
+
+    override fun getAll() = throw error
 }

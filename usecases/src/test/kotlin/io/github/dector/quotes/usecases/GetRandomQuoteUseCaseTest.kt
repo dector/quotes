@@ -1,5 +1,6 @@
 package io.github.dector.quotes.usecases
 
+import io.github.dector.knight.testing.assertNotExecuted
 import io.github.dector.quotes.domain.Quote
 import org.testng.Assert.*
 import org.testng.annotations.Test
@@ -20,7 +21,7 @@ class GetRandomQuoteUseCaseTest {
 
             assertEquals(quote?.quote, expected.quote)
             assertEquals(quote?.author, expected.author)
-        })
+        }, { error -> assertNotExecuted() })
     }
 
     @Test fun emptyData_providedRandomizer() {
@@ -32,7 +33,7 @@ class GetRandomQuoteUseCaseTest {
         useCase.execute({ result ->
             // Then
             assertNull(result)
-        })
+        }, { error -> assertNotExecuted() })
     }
 
     @Test fun nonEmptyData_defaultRandomizer() {
@@ -50,7 +51,7 @@ class GetRandomQuoteUseCaseTest {
 
             assertEquals(actual.quote, expected.quote)
             assertEquals(actual.author, expected.author)
-        })
+        }, { error -> assertNotExecuted() })
     }
 
     @Test fun emptyData_defaultRandomizer() {
@@ -62,6 +63,20 @@ class GetRandomQuoteUseCaseTest {
         useCase.execute({ result ->
             // Then
             assertNull(result)
+        }, { error -> assertNotExecuted() })
+    }
+
+    @Test fun fetchError() {
+        // Given
+        val repository = ErrorQuotesRepository()
+        val useCase = GetRandomQuoteUseCase(repository)
+
+        // When
+        useCase.execute({ result ->
+            // Then
+            assertNotExecuted()
+        }, { error ->
+            assertEquals(error, repository.error)
         })
     }
 }

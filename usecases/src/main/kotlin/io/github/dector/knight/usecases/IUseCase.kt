@@ -21,7 +21,7 @@ abstract class AsyncUseCase<Data, Error : Throwable>(val jobExecutor: (() -> Uni
                 val data = fetchData()
 
                 callbackExecutor { succeedCallback(data) }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 val error = fetchError(e)
 
                 callbackExecutor { failedCallback(error) }
@@ -31,5 +31,5 @@ abstract class AsyncUseCase<Data, Error : Throwable>(val jobExecutor: (() -> Uni
 
     abstract fun fetchData(): Data?
 
-    abstract fun fetchError(e: Exception): Error
+    abstract fun fetchError(e: Throwable): Error
 }
