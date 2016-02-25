@@ -1,8 +1,6 @@
 package io.github.dector.quotes.android.presentation.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -28,7 +26,7 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
-    private lateinit var loadingAnimation: ObjectAnimator
+    private lateinit var loadingAnimators: Triple<Animator, Animator, Animator>
 
     override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
@@ -44,22 +42,9 @@ class QuotesView(val content: View) : IQuotesView {
 
         touchView.setOnClickListener { listener?.nextQuote() }
 
-        loadingAnimation = ObjectAnimator.ofFloat(loadingImageView, View.ROTATION, 90F, -90F).apply {
-            repeatMode = ObjectAnimator.RESTART
-            repeatCount = ObjectAnimator.INFINITE
-            duration = 700
-            interpolator = DecelerateInterpolator()
-            startDelay = 500
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    loadingImageView.visibility = View.VISIBLE
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {
-                    loadingImageView.visibility = View.GONE
-                }
-            })
-        }
+        loadingAnimators = createLoadingAnimatorsFor(loadingImageView,
+                { loadingImageView.visibility = View.VISIBLE },
+                { loadingImageView.visibility = View.GONE })
     }
 
     override fun showDataState() {
@@ -81,11 +66,26 @@ class QuotesView(val content: View) : IQuotesView {
     }
 
     override fun showLoadingProgress() {
-        loadingAnimation.start()
+        if (! loadingAnimators.first.isRunning
+                && ! loadingAnimators.second.isRunning
+                && ! loadingAnimators.third.isRunning) {
+            loadingAnimators.first.start()
+        }
     }
 
     override fun hideLoadingProgress() {
-        loadingAnimation.cancel()
+        // TODO Move all this stuff behind animator
+        if (loadingAnimators.first.isStarted) {
+            if (loadingAnimators.first.isRunning) {
+                loadingAnimators.first.cancel()
+            } else {
+                loadingAnimators.first.cancel()
+                loadingAnimators.second.cancel()
+                loadingAnimators.third.cancel()
+            }
+        } else if (loadingAnimators.second.isStarted) {
+            loadingAnimators.second.cancel()
+        }
     }
 
     override fun showDisplayingError(message: String) {
@@ -112,4 +112,58 @@ class QuotesView(val content: View) : IQuotesView {
     override fun backgroundColor(color: Color) {
         rootView.setBackgroundColor(color.solidValue())
     }
+}
+
+fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> Unit): Triple<Animator, Animator, Animator> {
+    // Out animator
+    val outAnimator = AnimatorSet().apply {
+        duration = 500
+        interpolator = TimeInterpolator { t -> t*t*t*t }
+
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                onFinished()
+            }
+        })
+
+        play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F))
+                .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F))
+    }
+
+    // Progress animator
+    val progressAnimator = ObjectAnimator.ofFloat(v, View.ROTATION, 0F, -360F).apply {
+        repeatMode = ObjectAnimator.RESTART
+        repeatCount = ObjectAnimator.INFINITE
+        duration = 700
+        interpolator = DecelerateInterpolator()
+
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationCancel(animation: Animator?) {
+                outAnimator.start()
+            }
+        })
+    }
+
+    // In animator
+    val inAnimator = AnimatorSet().apply {
+        duration = 500
+        interpolator = TimeInterpolator { t -> t*t*t*t }
+        startDelay = 300
+
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                progressAnimator.setupStartValues()
+                onStarted()
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                progressAnimator.start()
+            }
+        })
+
+        play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F, 1F))
+                .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F, 1F))
+    }
+
+    return Triple(inAnimator, progressAnimator, outAnimator)
 }
