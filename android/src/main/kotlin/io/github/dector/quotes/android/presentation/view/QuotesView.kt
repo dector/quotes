@@ -92,6 +92,14 @@ class QuotesView(val content: View) : IQuotesView {
         }
     }
 
+    override fun disableUserInteraction() {
+        touchView.isEnabled = false
+    }
+
+    override fun enableUserInteraction() {
+        touchView.isEnabled = true
+    }
+
     override fun showDisplayingError(message: String) {
         Toast.makeText(content.context, message, Toast.LENGTH_SHORT).show()
     }
