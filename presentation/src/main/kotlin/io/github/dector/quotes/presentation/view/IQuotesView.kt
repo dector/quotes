@@ -11,6 +11,9 @@ interface IQuotesView : IInitializable {
     fun hideLoadingProgress()
     fun showDisplayingError(message: String)
 
+    fun disableUserInteraction()
+    fun enableUserInteraction()
+
     fun showQuote(quote: String)
     fun showAuthor(author: String)
     fun textColor(color: Color)

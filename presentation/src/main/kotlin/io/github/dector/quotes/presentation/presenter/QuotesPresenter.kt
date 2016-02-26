@@ -15,7 +15,6 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
 
     lateinit var view: IQuotesView
 
-    private var canDisplayNextQuote = true
     private var state = DisplayingState.NO_DATA
 
     fun init() {
@@ -24,9 +23,6 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     }
 
     override fun nextQuote() {
-        if (!canDisplayNextQuote)
-            return
-
         dataLoadingStarted()
 
         getRandomQuoteUseCase.execute({ quote ->
@@ -39,7 +35,7 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     }
 
     private fun dataLoadingStarted() {
-        canDisplayNextQuote = false
+        view.disableUserInteraction()
         view.showLoadingProgress()
         when (state) {
             DisplayingState.DATA -> Unit
@@ -48,8 +44,8 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     }
 
     private fun dataLoadingFinished() {
-        canDisplayNextQuote = true
         view.hideLoadingProgress()
+        view.enableUserInteraction()
         when (state) {
             DisplayingState.DATA -> view.showDataState()
             DisplayingState.NO_DATA -> view.showNoDataState()
