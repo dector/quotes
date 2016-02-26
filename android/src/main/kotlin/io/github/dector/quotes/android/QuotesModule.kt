@@ -47,8 +47,8 @@ class QuotesModule() {
     @Provides fun palette(): IColorPairProvider
             = ColorPairProvider()
 
-    @Provides fun quotesPresenterConfiguration() =
-            QuotesPresenter.Configuration(errorMessage = "Oops. I can't do it :(")
+    @Provides fun quotesPresenterConfiguration(context: Context) =
+            QuotesPresenter.Configuration(errorMessage = context.getString(R.string.general_error))
 
     @Provides fun quotesPresenter(getRandomQuoteUseCase: IGetRandomQuoteUseCase, palette: IColorPairProvider,
                                   configuration: QuotesPresenter.Configuration)
