@@ -69,7 +69,10 @@ class QuotesView(val content: View) : IQuotesView {
         if (loadingAnimators.first.isStarted) {
             loadingAnimators.first.cancel()
             loadingAnimators.first.start()
-        } else if (!loadingAnimators.second.isStarted && !loadingAnimators.third.isStarted) {
+        } else if (!loadingAnimators.second.isStarted) {
+            if (loadingAnimators.third.isStarted) {
+                loadingAnimators.third.cancel()
+            }
             loadingAnimators.first.start()
         }
     }
@@ -122,12 +125,19 @@ fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> U
         interpolator = TimeInterpolator { t -> t*t*t*t }
 
         addListener(object : AnimatorListenerAdapter() {
+            private var cancelled = false
+
+            override fun onAnimationStart(animation: Animator?) {
+                cancelled = false
+            }
+
             override fun onAnimationEnd(animation: Animator?) {
-                onFinished()
+                if (!cancelled)
+                    onFinished()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                super.onAnimationCancel(animation)
+                cancelled = true
             }
         })
 
@@ -153,7 +163,7 @@ fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> U
     val inAnimator = AnimatorSet().apply {
         duration = 500
         interpolator = TimeInterpolator { t -> t*t*t*t }
-        startDelay = 200
+        startDelay = 100
 
         addListener(object : AnimatorListenerAdapter() {
             private var cancelled = false
