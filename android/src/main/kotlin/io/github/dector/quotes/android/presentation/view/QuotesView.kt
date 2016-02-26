@@ -66,25 +66,26 @@ class QuotesView(val content: View) : IQuotesView {
     }
 
     override fun showLoadingProgress() {
-        if (! loadingAnimators.first.isRunning
-                && ! loadingAnimators.second.isRunning
-                && ! loadingAnimators.third.isRunning) {
+        if (loadingAnimators.first.isStarted) {
+            loadingAnimators.first.cancel()
+            loadingAnimators.first.start()
+        } else if (!loadingAnimators.second.isStarted && !loadingAnimators.third.isStarted) {
             loadingAnimators.first.start()
         }
     }
 
     override fun hideLoadingProgress() {
-        // TODO Move all this stuff behind animator
         if (loadingAnimators.first.isStarted) {
             if (loadingAnimators.first.isRunning) {
                 loadingAnimators.first.cancel()
+                loadingAnimators.third.start()
             } else {
                 loadingAnimators.first.cancel()
-                loadingAnimators.second.cancel()
-                loadingAnimators.third.cancel()
             }
         } else if (loadingAnimators.second.isStarted) {
             loadingAnimators.second.cancel()
+        } else if (loadingAnimators.third.isStarted) {
+            loadingAnimators.third.cancel()
         }
     }
 
@@ -124,6 +125,10 @@ fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> U
             override fun onAnimationEnd(animation: Animator?) {
                 onFinished()
             }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                super.onAnimationCancel(animation)
+            }
         })
 
         play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F))
@@ -148,16 +153,26 @@ fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> U
     val inAnimator = AnimatorSet().apply {
         duration = 500
         interpolator = TimeInterpolator { t -> t*t*t*t }
-        startDelay = 300
+        startDelay = 200
 
         addListener(object : AnimatorListenerAdapter() {
+            private var cancelled = false
+
             override fun onAnimationStart(animation: Animator?) {
+                cancelled = false
                 progressAnimator.setupStartValues()
                 onStarted()
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                progressAnimator.start()
+                if (! cancelled) {
+                    progressAnimator.start()
+                }
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                cancelled = true
+                onFinished()
             }
         })
 
