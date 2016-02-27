@@ -81,7 +81,7 @@ class QuotesView(val content: View) : IQuotesView {
         if (loadingAnimators.first.isStarted) {
             if (loadingAnimators.first.isRunning) {
                 loadingAnimators.first.cancel()
-                loadingAnimators.third.start()
+                //loadingAnimators.third.start()
             } else {
                 loadingAnimators.first.cancel()
             }
@@ -178,19 +178,19 @@ fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> U
 
             override fun onAnimationStart(animation: Animator?) {
                 cancelled = false
-                progressAnimator.setupStartValues()
                 onStarted()
             }
 
             override fun onAnimationEnd(animation: Animator?) {
                 if (! cancelled) {
+                    progressAnimator.setupStartValues()
                     progressAnimator.start()
                 }
             }
 
             override fun onAnimationCancel(animation: Animator?) {
                 cancelled = true
-                onFinished()
+                outAnimator.start()
             }
         })
 
