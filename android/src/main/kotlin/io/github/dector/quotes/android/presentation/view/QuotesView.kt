@@ -1,6 +1,7 @@
 package io.github.dector.quotes.android.presentation.view
 
 import android.animation.*
+import android.os.Handler
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -26,7 +27,7 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
-    private lateinit var loadingAnimators: Triple<Animator, Animator, Animator>
+    private lateinit var loadingAnimator: InOutAnimator
 
     override fun init() {
         rootView = content.findViewById(R.id.quotes_root)
@@ -42,7 +43,7 @@ class QuotesView(val content: View) : IQuotesView {
 
         touchView.setOnClickListener { listener?.nextQuote() }
 
-        loadingAnimators = createLoadingAnimatorsFor(loadingImageView,
+        loadingAnimator = InOutAnimator(loadingImageView,
                 { loadingImageView.visibility = View.VISIBLE },
                 { loadingImageView.visibility = View.GONE })
     }
@@ -66,30 +67,11 @@ class QuotesView(val content: View) : IQuotesView {
     }
 
     override fun showLoadingProgress() {
-        if (loadingAnimators.first.isStarted) {
-            loadingAnimators.first.cancel()
-            loadingAnimators.first.start()
-        } else if (!loadingAnimators.second.isStarted) {
-            if (loadingAnimators.third.isStarted) {
-                loadingAnimators.third.cancel()
-            }
-            loadingAnimators.first.start()
-        }
+        loadingAnimator.start()
     }
 
     override fun hideLoadingProgress() {
-        if (loadingAnimators.first.isStarted) {
-            if (loadingAnimators.first.isRunning) {
-                loadingAnimators.first.cancel()
-                //loadingAnimators.third.start()
-            } else {
-                loadingAnimators.first.cancel()
-            }
-        } else if (loadingAnimators.second.isStarted) {
-            loadingAnimators.second.cancel()
-        } else if (loadingAnimators.third.isStarted) {
-            loadingAnimators.third.cancel()
-        }
+        loadingAnimator.stop()
     }
 
     override fun disableUserInteraction() {
@@ -126,77 +108,95 @@ class QuotesView(val content: View) : IQuotesView {
     }
 }
 
-fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> Unit): Triple<Animator, Animator, Animator> {
-    // Out animator
-    val outAnimator = AnimatorSet().apply {
-        duration = 500
-        interpolator = TimeInterpolator { t -> t*t*t*t }
+class InOutAnimator(val view: View, val onStarted: () -> Unit, val onFinished: () -> Unit) {
 
-        addListener(object : AnimatorListenerAdapter() {
-            private var cancelled = false
+    private val animationsHandler = Handler()
 
-            override fun onAnimationStart(animation: Animator?) {
-                cancelled = false
-            }
+    private val animators = createLoadingAnimatorsFor(view, onStarted, onFinished)
+    private val startAnimationCallback = { animators.first.start() }
 
-            override fun onAnimationEnd(animation: Animator?) {
-                if (!cancelled)
+    fun start() {
+        if (!animators.first.isRunning && !animators.second.isRunning && !animators.third.isRunning) {
+            removeInAnimationScheduling()
+            scheduleInAnimation()
+        } else if (animators.third.isRunning) {
+            scheduleInAnimation()
+        } else {}
+    }
+
+    private fun removeInAnimationScheduling() {
+        animationsHandler.removeCallbacksAndMessages(null)
+    }
+
+    private fun scheduleInAnimation() {
+        animationsHandler.postDelayed(startAnimationCallback, 100)
+    }
+
+    fun stop() {
+        if (!animators.first.isRunning && !animators.second.isRunning && !animators.third.isRunning) {
+            removeInAnimationScheduling()
+        } else if (animators.first.isRunning) {
+            animators.first.cancel()
+            animators.third.start()
+        } else if (animators.second.isRunning) {
+            animators.second.cancel()
+            animators.third.start()
+        }
+    }
+
+    fun createLoadingAnimatorsFor(v: View, onStarted: () -> Unit, onFinished: ()-> Unit): Triple<Animator, Animator, Animator> {
+        // Out animator
+        val outAnimator = AnimatorSet().apply {
+            duration = 500
+            interpolator = TimeInterpolator { t -> t*t*t*t }
+
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
                     onFinished()
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {
-                cancelled = true
-            }
-        })
-
-        play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F))
-                .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F))
-    }
-
-    // Progress animator
-    val progressAnimator = ObjectAnimator.ofFloat(v, View.ROTATION, 0F, -360F).apply {
-        repeatMode = ObjectAnimator.RESTART
-        repeatCount = ObjectAnimator.INFINITE
-        duration = 700
-        interpolator = DecelerateInterpolator()
-
-        addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationCancel(animation: Animator?) {
-                outAnimator.start()
-            }
-        })
-    }
-
-    // In animator
-    val inAnimator = AnimatorSet().apply {
-        duration = 500
-        interpolator = TimeInterpolator { t -> t*t*t*t }
-        startDelay = 100
-
-        addListener(object : AnimatorListenerAdapter() {
-            private var cancelled = false
-
-            override fun onAnimationStart(animation: Animator?) {
-                cancelled = false
-                onStarted()
-            }
-
-            override fun onAnimationEnd(animation: Animator?) {
-                if (! cancelled) {
-                    progressAnimator.setupStartValues()
-                    progressAnimator.start()
                 }
-            }
+            })
 
-            override fun onAnimationCancel(animation: Animator?) {
-                cancelled = true
-                outAnimator.start()
-            }
-        })
+            play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F))
+                    .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F))
+        }
 
-        play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F, 1F))
-                .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F, 1F))
+        // Progress animator
+        val progressAnimator = ObjectAnimator.ofFloat(v, View.ROTATION, 0F, -360F).apply {
+            repeatMode = ObjectAnimator.RESTART
+            repeatCount = ObjectAnimator.INFINITE
+            duration = 700
+            interpolator = DecelerateInterpolator()
+        }
+
+        // In animator
+        val inAnimator = AnimatorSet().apply {
+            duration = 500
+            interpolator = TimeInterpolator { t -> t*t*t*t }
+
+            addListener(object : AnimatorListenerAdapter() {
+                private var cancelled = false
+
+                override fun onAnimationStart(animation: Animator?) {
+                    cancelled = false
+                    onStarted()
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    if (!cancelled) {
+                        progressAnimator.setupStartValues()
+                        progressAnimator.start()
+                    }
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                    cancelled = true
+                }
+            })
+
+            play(ObjectAnimator.ofFloat(v, View.SCALE_X, 0F, 1F))
+                    .with(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0F, 1F))
+        }
+
+        return Triple(inAnimator, progressAnimator, outAnimator)
     }
-
-    return Triple(inAnimator, progressAnimator, outAnimator)
 }
