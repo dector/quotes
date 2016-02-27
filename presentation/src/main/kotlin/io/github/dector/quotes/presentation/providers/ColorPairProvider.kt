@@ -33,12 +33,13 @@ class ColorPairProvider : IColorPairProvider {
     private var previousPair: ColorPair? = null
 
     override fun getRandomColorPair(): ColorPair {
-        val pair = randomPair()
+        var pair = randomPair()
 
         while (pair == previousPair && previousPair != DEFAULT_COLOR_PAIR) {
-            randomPair()
+            pair = randomPair()
         }
 
+        previousPair = pair
         return pair
     }
 
