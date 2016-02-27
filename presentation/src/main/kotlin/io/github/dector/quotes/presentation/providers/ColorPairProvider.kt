@@ -6,6 +6,8 @@ import io.github.dector.quotes.presentation.view.ColorPair
 
 class ColorPairProvider : IColorPairProvider {
 
+    private val DEFAULT_COLOR_PAIR = ColorPair(WHITE, BLACK)
+
     val colors = arrayOf(
             ColorPair(WHITE, RED),
             ColorPair(WHITE, PINK),
@@ -28,6 +30,17 @@ class ColorPairProvider : IColorPairProvider {
             ColorPair(WHITE, BLUE_GREY)
     )
 
+    private var previousPair: ColorPair? = null
 
-    override fun getRandomColorPair() = colors.random() ?: ColorPair(WHITE, BLACK)
+    override fun getRandomColorPair(): ColorPair {
+        val pair = randomPair()
+
+        while (pair == previousPair && previousPair != DEFAULT_COLOR_PAIR) {
+            randomPair()
+        }
+
+        return pair
+    }
+
+    private fun randomPair() = colors.random() ?: DEFAULT_COLOR_PAIR
 }
