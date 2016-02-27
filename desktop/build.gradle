@@ -1,0 +1,25 @@
+apply plugin: 'kotlin'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':common')
+    compile project(':domain')
+    compile project(':storage')
+    compile project(':usecases')
+    compile project(':presentation')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}

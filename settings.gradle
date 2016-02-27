@@ -1,1 +1,1 @@
-include ':android', ':domain', ':usecases', ':presentation', ':storage', ':api-server', ':common'
+include ':android', ':domain', ':usecases', ':presentation', ':storage', ':api-server', ':common', ':desktop'
