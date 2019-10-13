@@ -2,7 +2,9 @@ package io.github.dector.quotes.usecases
 
 import io.github.dector.knight.testing.assertNotExecuted
 import io.github.dector.quotes.domain.Quote
-import org.testng.Assert.*
+import org.testng.Assert.assertEquals
+import org.testng.Assert.assertNotNull
+import org.testng.Assert.assertNull
 import org.testng.annotations.Test
 
 class GetRandomQuoteUseCaseTest {
@@ -81,9 +83,9 @@ class GetRandomQuoteUseCaseTest {
     }
 }
 
-val getSecond: List<Quote>.() -> Quote? = { this[1] }
+val getSecond = randomizer { this[1] }
 
-val getNull: List<Quote>.() -> Quote? = { null }
+val getNull = randomizer { null }
 
 val listOf1 = listOf(Quote("Quote #1", "Author #1"))
 
@@ -91,3 +93,7 @@ val listOf3 = listOf(
         Quote("Quote #1", "Author #1"),
         Quote("Quote #2", "Author #2"),
         Quote("Quote #3", "Author #3"))
+
+private fun randomizer(picker: List<Quote>.() -> Quote?) = object : IQuotesRandomizer {
+    override fun get(data: List<Quote>) = picker(data)
+}
