@@ -26,8 +26,17 @@ Check logs with `heroku logs --app smart-quotes` and [web API].
 
 Run `./gradlew cAT` to execute UI android tests on device or emulator.
 
+# Build Status
+
+## Android App
+
+![Badge_Dev_CircleCI_Icon]
+
+
 [XXXHDPI ICON]: https://raw.githubusercontent.com/dector/quotes/cb6c27ece6b16f1015e9dae9f712294abb863bcf/android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 [Spek]: http://jetbrains.github.io/spek/
 [Heroku]: https://heroku.com/
 [Heroku Toolbelt]: https://devcenter.heroku.com/articles/getting-started-with-java#set-up
 [web API]: http://smart-quotes.herokuapp.com/quotes
+
+[Badge_Dev_CircleCI_Icon]: https://img.shields.io/circleci/build/gh/dector/quotes/dev?label=Dev&logo=circleci&style=for-the-badge
