@@ -18,7 +18,7 @@ actual fun List<Quote>.toJsonString(): String =
 
 private fun JsonObject.toQuote() =
     Quote(
-        quote = this.getString("quote", null),
+        content = this.getString("quote", null),
         author = this.getString("author", null)
     )
 

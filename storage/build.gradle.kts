@@ -6,7 +6,7 @@ kotlin {
     jvm()
 
     sourceSets {
-        val commonMain by getting {
+        getByName("commonMain") {
             dependencies {
                 implementation(kotlin("stdlib-common"))
 
@@ -20,13 +20,14 @@ kotlin {
                 implementation(kotlin("stdlib-jdk8"))
             }
         }
+        jvm().compilations["test"].defaultSourceSet {
+            dependencies {
+                implementation(Deps.kotlin_test)
+            }
+        }
     }
 }
 
-/*dependencies {
-    testImplementation("org.testng:testng:${Versions.testng}")
-}
-
 tasks.withType<Test>().all {
-    useTestNG()
-}*/
+    useJUnitPlatform()
+}

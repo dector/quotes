@@ -1,5 +1,6 @@
 package io.github.dector.knight.storage
 
+@Deprecated("")
 interface IStorage<Data> {
 
     fun save(data: Data): Boolean

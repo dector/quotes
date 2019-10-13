@@ -1,9 +1,10 @@
 object Deps {
-//    const val
+    const val kotlin_test = "io.kotlintest:kotlintest-runner-junit5:${Versions.kotlin_test}"
 }
 
 object Versions {
     const val kotlin = "1.3.50"
+    const val kotlin_test = "3.4.2"
 
     const val klaxon = "0.24"
     const val testng = "6.8"
