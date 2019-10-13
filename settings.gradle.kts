@@ -4,6 +4,7 @@ include(
     ":usecases",
     ":presentation",
     ":storage",
+    ":repositories",
     ":api-server",
     ":common")
 

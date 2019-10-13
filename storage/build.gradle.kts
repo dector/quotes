@@ -1,16 +1,32 @@
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform")
 }
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+kotlin {
+    jvm()
 
-    implementation(project(":common"))
-    implementation(project(":domain"))
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-common"))
 
+                implementation(project(":domain"))
+                implementation(project(":common"))
+            }
+        }
+
+        jvm().compilations["main"].defaultSourceSet {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+            }
+        }
+    }
+}
+
+/*dependencies {
     testImplementation("org.testng:testng:${Versions.testng}")
 }
 
 tasks.withType<Test>().all {
     useTestNG()
-}
+}*/

@@ -3,6 +3,8 @@ plugins {
 }
 
 kotlin {
+    jvm()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -10,7 +12,7 @@ kotlin {
 
                 implementation(project(":domain"))
                 implementation(project(":common"))
-                implementation(project(":usecases"))
+                implementation(project(":storage"))
             }
         }
 
@@ -21,11 +23,3 @@ kotlin {
         }
     }
 }
-
-/*dependencies {
-    testImplementation("org.testng:testng:${Versions.testng}")
-}
-
-tasks.withType<Test>().all {
-    useTestNG()
-}*/

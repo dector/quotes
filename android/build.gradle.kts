@@ -36,11 +36,12 @@ android {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation(project(":common"))
     implementation(project(":domain"))
+    implementation(project(":common"))
+    implementation(project(":storage"))
+    implementation(project(":repositories"))
     implementation(project(":usecases"))
     implementation(project(":presentation"))
-    implementation(project(":storage"))
 
     // Android support
     implementation("androidx.appcompat:appcompat:1.1.0")
