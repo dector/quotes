@@ -1,0 +1,17 @@
+plugins {
+    kotlin("jvm") version Versions.kotlin
+}
+
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+
+    implementation(project(":common"))
+    implementation(project(":domain"))
+    implementation(project(":storage"))
+
+    testImplementation("org.testng:testng:${Versions.testng}")
+}
+
+tasks.withType<Test>().all {
+    useTestNG()
+}

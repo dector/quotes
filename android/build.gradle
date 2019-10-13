@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     }
 }
 
@@ -14,15 +14,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion androidApp_compileSdkVersion
-    buildToolsVersion androidApp_buildToolsVersion
+    compileSdkVersion Android.compile_sdk
+    buildToolsVersion Android.build_tools
 
     defaultConfig {
         applicationId "io.github.dector.quotes"
-        versionCode androidApp_versionCode
-        versionName androidApp_versionName
-        minSdkVersion androidApp_minSdkVersion
-        targetSdkVersion androidApp_targetSdkVersion
+
+        versionCode Android.version_code
+        versionName Android.version_name
+
+        minSdkVersion Android.min_sdk
+        targetSdkVersion Android.target_sdk
+        compileSdkVersion Android.compile_sdk
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +52,7 @@ dependencies {
     implementation project(':storage')
 
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$Versions.kotlin"
 
     // Android support
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -81,6 +84,5 @@ dependencies {
 
 repositories {
     google()
-    mavenCentral()
-    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
+    jcenter()
 }
