@@ -17,7 +17,6 @@ object Android {
     const val min_sdk = 15
     const val target_sdk = 23
     const val compile_sdk = 29
-    const val build_tools = "28.0.3"
 }
 
 object Server {
