@@ -1,7 +1,7 @@
 package io.github.dector.quotes.android.presentation
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import io.github.dector.quotes.android.QuotesApplication
 import io.github.dector.quotes.android.common.fullscreen
 import io.github.dector.quotes.android.presentation.view.QuotesView

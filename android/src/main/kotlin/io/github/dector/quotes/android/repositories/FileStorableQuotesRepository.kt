@@ -13,8 +13,9 @@ class FileStorableQuotesRepository(val sharedPreferences: SharedPreferences) : I
     override fun size() = getAll().size.toLong()
 
     override fun getAll() = sharedPreferences
-            .getString(STORAGE_KEY, "[]")
-            .toQuotesList()
+        .getString(STORAGE_KEY, "[]")
+        ?.toQuotesList()
+        .orEmpty()
 
     override fun save(data: Quote): Boolean {
         throw UnsupportedOperationException()
