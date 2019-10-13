@@ -1,7 +1,21 @@
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform")
 }
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+kotlin {
+    jvm()
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+            }
+        }
+
+        jvm().compilations["main"].defaultSourceSet {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+            }
+        }
+    }
 }
