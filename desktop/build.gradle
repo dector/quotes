@@ -1,5 +1,3 @@
-apply plugin: 'kotlin'
-
 buildscript {
     repositories {
         mavenCentral()
@@ -9,6 +7,13 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
+
+plugins {
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
@@ -22,4 +27,8 @@ dependencies {
     implementation project(':presentation')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+javafx {
+    version = "12"
 }
