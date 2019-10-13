@@ -30,7 +30,7 @@ Run `./gradlew cAT` to execute UI android tests on device or emulator.
 
 ## Android App
 
-![Badge_Dev_CircleCI_Icon]
+[![Badge_Dev_CircleCI_Icon]](https://circleci.com/gh/dector/quotes/tree/dev)
 
 
 [XXXHDPI ICON]: https://raw.githubusercontent.com/dector/quotes/cb6c27ece6b16f1015e9dae9f712294abb863bcf/android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
