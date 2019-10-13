@@ -15,11 +15,11 @@ repositories {
 }
 
 dependencies {
-    compile project(':common')
-    compile project(':domain')
-    compile project(':storage')
-    compile project(':usecases')
-    compile project(':presentation')
+    implementation project(':common')
+    implementation project(':domain')
+    implementation project(':storage')
+    implementation project(':usecases')
+    implementation project(':presentation')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

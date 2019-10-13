@@ -15,12 +15,12 @@ repositories {
 }
 
 dependencies {
-    compile project(':common')
-    compile project(':domain')
+    implementation project(':common')
+    implementation project(':domain')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    testCompile "org.testng:testng:$testng_version"
+    testImplementation "org.testng:testng:$testng_version"
 }
 
 test {
