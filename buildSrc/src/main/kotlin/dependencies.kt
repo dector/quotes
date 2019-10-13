@@ -19,3 +19,8 @@ object Android {
     const val compile_sdk = 29
     const val build_tools = "28.0.3"
 }
+
+object Server {
+    const val api_version = "1.0"
+    const val server = "1.0.1"
+}
