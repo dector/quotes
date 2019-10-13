@@ -23,13 +23,13 @@ repositories {
 }
 
 dependencies {
-    compile project(':domain')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(':domain')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    //compile "org.wasabi:wasabi:$wasabi_version"
-    compile "com.beust:klaxon:$klaxon_version"
+    //implementation "org.wasabi:wasabi:$wasabi_version"
+    implementation "com.beust:klaxon:$klaxon_version"
 
-    compile 'com.sparkjava:spark-core:2.3'
+    implementation 'com.sparkjava:spark-core:2.3'
 }
 
 mainClassName = project.ext.main_class

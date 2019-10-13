@@ -34,41 +34,41 @@ kapt {
 }
 
 dependencies {
-    compile project(':common')
-    compile project(':domain')
-    compile project(':usecases')
-    compile project(':presentation')
-    compile project(':storage')
+    implementation project(':common')
+    implementation project(':domain')
+    implementation project(':usecases')
+    implementation project(':presentation')
+    implementation project(':storage')
 
-    //compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Android support
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    implementation 'com.android.support:appcompat-v7:23.1.1'
 
     // Rx
-    //compile 'io.reactivex:rxandroid:1.1.0'
-    //compile 'io.reactivex:rxjava:1.1.0'
-    //compile 'io.reactivex:rxkotlin:0.40.1'
+    //implementation 'io.reactivex:rxandroid:1.1.0'
+    //implementation 'io.reactivex:rxjava:1.1.0'
+    //implementation 'io.reactivex:rxkotlin:0.40.1'
 
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'com.google.dagger:dagger:2.0'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     kapt 'com.google.dagger:dagger-compiler:2.0'
 
     // ReQuery
-    /*compile 'io.requery:requery:1.0-SNAPSHOT'
-    compile 'io.requery:requery-android:1.0-SNAPSHOT'
+    /*implementation 'io.requery:requery:1.0-SNAPSHOT'
+    implementation 'io.requery:requery-android:1.0-SNAPSHOT'
     kapt 'io.requery:requery-processor:1.0-SNAPSHOT'*/
 
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 
-    androidTestCompile 'com.android.support:support-annotations:23.1.1'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.4.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestImplementation 'com.android.support:support-annotations:23.1.1'
+    androidTestImplementation 'com.android.support.test:runner:0.4.1'
+    androidTestImplementation 'com.android.support.test:rules:0.4.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.1'
 }
 
 buildscript {

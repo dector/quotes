@@ -15,9 +15,9 @@ repositories {
 }
 
 dependencies {
-    compile project(':domain')
+    implementation project(':domain')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
+    implementation 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
 }
