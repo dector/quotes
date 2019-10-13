@@ -49,4 +49,24 @@ class MockQuotesView : IQuotesView {
     override fun textColor(color: Color) { textColor = color }
 
     override fun backgroundColor(color: Color) { backgroundColor = color }
+
+    override fun showLoadingState() {
+        TODO()
+    }
+
+    override fun showLoadingProgress() {
+        TODO()
+    }
+
+    override fun hideLoadingProgress() {
+        TODO()
+    }
+
+    override fun disableUserInteraction() {
+        TODO()
+    }
+
+    override fun enableUserInteraction() {
+        TODO()
+    }
 }

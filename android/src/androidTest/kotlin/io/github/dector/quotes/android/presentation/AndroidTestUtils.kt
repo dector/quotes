@@ -1,10 +1,10 @@
 package io.github.dector.quotes.android.presentation
 
-import android.support.test.espresso.ViewInteraction
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withText
 
 // Matchers
 

@@ -64,8 +64,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.0.0-beta4")
     implementation("com.squareup.retrofit2:converter-gson:2.0.0-beta4")
 
-    /*androidTestImplementation("com.android.support:support-annotations:28.0.0")
+    androidTestImplementation("com.android.support:support-annotations:28.0.0")
     androidTestImplementation("com.android.support.test:runner:1.0.2")
     androidTestImplementation("com.android.support.test:rules:1.0.2")
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")*/
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
 }

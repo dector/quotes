@@ -8,7 +8,7 @@ import org.testng.annotations.Test
 
 class QuotesPresenterTest {
 
-    @Test fun init() {
+    /*@Test fun init() {
         // Given
         val colors = ColorPair(Color.WHITE, Color.BLACK)
         val quote = Quote("Wise words", "Smart being")
@@ -73,5 +73,5 @@ class QuotesPresenterTest {
         assertNull(view.author)
         assertEquals(view.textColor, colors.text)
         assertEquals(view.backgroundColor, colors.background)
-    }
+    }*/
 }
