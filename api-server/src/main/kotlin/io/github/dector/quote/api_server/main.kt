@@ -6,7 +6,7 @@ import spark.Spark.*
 private val ROOT_REDIRECT = "https://github.com/dector/quotes"
 private val DEFAULT_PORT = 1304
 
-fun main(args: Array<String>) {
+fun main() {
     port(getRunningPort())
 
     staticFileLocation("static/")
