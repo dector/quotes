@@ -1,9 +1,14 @@
+# Intellij files
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
+
+# Gradle files
+.gradle/
+local.properties
+
+# Build files
+out/
+build/
+
+# Kotlin test
+.kotlintest/
