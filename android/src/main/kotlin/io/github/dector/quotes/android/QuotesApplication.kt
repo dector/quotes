@@ -12,6 +12,8 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.android.presentation.QuotesActivity
+import io.github.dector.quotes.presentation.providers.IColorPairProvider
+import io.github.dector.quotes.repositories.RandomQuoteRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -38,6 +40,9 @@ class QuotesApplication : Application() {
 interface ApplicationComponent {
 
     fun inject(activity: QuotesActivity)
+
+    fun repo(): RandomQuoteRepository
+    fun colors(): IColorPairProvider
 }
 
 @Module

@@ -1,20 +1,16 @@
 package io.github.dector.quotes.android.presentation.view
 
-import android.animation.*
-import android.os.Handler
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import io.github.dector.quotes.R
+import io.github.dector.quotes.android.presentation.Msg
+import io.github.dector.quotes.android.presentation.State
 import io.github.dector.quotes.presentation.view.Color
-import io.github.dector.quotes.presentation.view.IQuotesActionListener
-import io.github.dector.quotes.presentation.view.IQuotesView
 
-class QuotesView(val content: View) : IQuotesView {
+class QuotesView(val content: View) {
 
-    var listener: IQuotesActionListener? = null
+    var dispatcher: ((Msg) -> Unit)? = null
 
     private lateinit var rootView: View
     private lateinit var touchView: View
@@ -27,9 +23,7 @@ class QuotesView(val content: View) : IQuotesView {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
-    private lateinit var loadingAnimator: InOutAnimator
-
-    override fun init() {
+    fun init() {
         rootView = content.findViewById(R.id.quotes_root)
         touchView = content.findViewById(R.id.quotes_touch)
         quoteView = content.findViewById(R.id.quotes_quote) as TextView
@@ -41,60 +35,32 @@ class QuotesView(val content: View) : IQuotesView {
         dataContainerView = content.findViewById(R.id.quotes_data_container)
         noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
 
-        touchView.setOnClickListener { listener?.nextQuote() }
-
-        loadingAnimator = InOutAnimator(loadingImageView,
-                { loadingImageView.visibility = View.VISIBLE },
-                { loadingImageView.visibility = View.GONE })
+        touchView.setOnClickListener { dispatcher?.invoke(Msg.NextQuote) }
     }
 
-    override fun showDataState() {
-        dataContainerView.visibility = View.VISIBLE
-        noDataContainerView.visibility = View.GONE
-        loadingTextView.visibility = View.GONE
+    fun display(state: State) {
+        dataContainerView.visibility = if (state is State.Data) View.VISIBLE else View.GONE
+        noDataContainerView.visibility = if (state is State.Empty) View.VISIBLE else View.GONE
+
+        if (state is State.Data) {
+            val quote = state.quote
+
+            showQuote(quote.content)
+            showAuthor(quote.author)
+            textColor(state.textColor)
+            backgroundColor(state.backgroundColor)
+        }
     }
 
-    override fun showNoDataState() {
-        dataContainerView.visibility = View.GONE
-        noDataContainerView.visibility = View.VISIBLE
-        loadingTextView.visibility = View.GONE
-    }
-
-    override fun showLoadingState() {
-        dataContainerView.visibility = View.GONE
-        noDataContainerView.visibility = View.GONE
-        loadingTextView.visibility = View.VISIBLE
-    }
-
-    override fun showLoadingProgress() {
-        loadingAnimator.start()
-    }
-
-    override fun hideLoadingProgress() {
-        loadingAnimator.stop()
-    }
-
-    override fun disableUserInteraction() {
-        touchView.isEnabled = false
-    }
-
-    override fun enableUserInteraction() {
-        touchView.isEnabled = true
-    }
-
-    override fun showDisplayingError(message: String) {
-        Toast.makeText(content.context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showQuote(quote: String) {
+    private fun showQuote(quote: String) {
         quoteView.text = quote
     }
 
-    override fun showAuthor(author: String) {
+    private fun showAuthor(author: String) {
         authorView.text = author
     }
 
-    override fun textColor(color: Color) {
+    private fun textColor(color: Color) {
         val colorValue = color.solidValue()
 
         quoteView.setTextColor(colorValue)
@@ -103,12 +69,12 @@ class QuotesView(val content: View) : IQuotesView {
         loadingImageView.setColorFilter(colorValue)
     }
 
-    override fun backgroundColor(color: Color) {
+    private fun backgroundColor(color: Color) {
         rootView.setBackgroundColor(color.solidValue())
     }
 }
 
-class InOutAnimator(val view: View, val onStarted: () -> Unit, val onFinished: () -> Unit) {
+/*class InOutAnimator(val view: View, val onStarted: () -> Unit, val onFinished: () -> Unit) {
 
     private val animationsHandler = Handler()
 
@@ -199,4 +165,4 @@ class InOutAnimator(val view: View, val onStarted: () -> Unit, val onFinished: (
 
         return Triple(inAnimator, progressAnimator, outAnimator)
     }
-}
+}*/

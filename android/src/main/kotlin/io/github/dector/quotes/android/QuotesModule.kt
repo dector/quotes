@@ -15,7 +15,6 @@ import io.github.dector.quotes.android.repositories.FileStorableQuotesRepository
 import io.github.dector.quotes.android.repositories.RealRandomQuoteRepository
 import io.github.dector.quotes.android.repositories.RetrofitQuotesRepository
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.presentation.presenter.QuotesPresenter
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.repositories.IQuotesRepository
@@ -24,6 +23,7 @@ import io.github.dector.quotes.storage.InMemoryQuotesStorage
 import io.github.dector.quotes.storage.QuotesStorage
 import io.github.dector.quotes.usecases.AsyncCachedQuotesRepositoryWrapper
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 class QuotesModule() {
@@ -51,21 +51,12 @@ class QuotesModule() {
         }
 
     @Provides
+    @Singleton
     fun randomQuoteRepository(storage: QuotesStorage): RandomQuoteRepository =
         RealRandomQuoteRepository(storage)
 
     @Provides fun palette(): IColorPairProvider
             = ColorPairProvider()
-
-    @Provides fun quotesPresenterConfiguration(context: Context) =
-            QuotesPresenter.Configuration(errorMessage = context.getString(R.string.general_error))
-
-    @Provides
-    fun quotesPresenter(
-        repo: RandomQuoteRepository,
-        palette: IColorPairProvider,
-        configuration: QuotesPresenter.Configuration
-    ) = QuotesPresenter(repo, palette, configuration)
 
     @Provides fun quotesView(inflater: LayoutInflater)
             = QuotesView(inflater.inflate(R.layout.view_quotes, null))

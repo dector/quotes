@@ -21,13 +21,15 @@ class RealRandomQuoteRepository(
     private fun randomIndex(until: Int): Int {
         if (until == 1) return 0
 
-        var index = prevIndex
-        while (index == prevIndex) {
-            index = Random.nextInt(until)
+        val index = run {
+            var value = prevIndex
+            while (value == prevIndex) {
+                value = Random.nextInt(until)
+            }
+            value
         }
 
         prevIndex = index
-
         return index
     }
 }

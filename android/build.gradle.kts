@@ -35,6 +35,8 @@ android {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation(Deps.kotlinx_coroutines_core)
+    implementation(Deps.kotlinx_coroutines_android)
 
     implementation(project(":domain"))
     implementation(project(":common"))
