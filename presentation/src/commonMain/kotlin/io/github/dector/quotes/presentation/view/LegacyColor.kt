@@ -1,8 +1,11 @@
 package io.github.dector.quotes.presentation.view
 
-data class ColorPair(val text: Color, val background: Color)
+import io.github.dector.quotes.domain.Color
+import io.github.dector.quotes.domain.ColorCouple
 
-enum class Color(val value: Int) {
+data class ColorPair(val text: LegacyColor, val background: LegacyColor)
+
+enum class LegacyColor(val value: Int) {
     WHITE(0xffffff),
     BLACK(0x000000),
 
@@ -29,3 +32,12 @@ enum class Color(val value: Int) {
 
     fun solidValue() = 0xff000000.toInt() or value
 }
+
+fun ColorPair.asColorCouple(): ColorCouple =
+    ColorCouple(
+        foreground = text.asNewColor(),
+        background = background.asNewColor()
+    )
+
+fun LegacyColor.asNewColor(): Color =
+    Color(value)

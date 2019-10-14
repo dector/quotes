@@ -6,7 +6,8 @@ import android.widget.TextView
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.Msg
 import io.github.dector.quotes.android.presentation.State
-import io.github.dector.quotes.presentation.view.Color
+import io.github.dector.quotes.domain.Color
+import io.github.dector.quotes.domain.solid
 
 class QuotesView(val content: View) {
 
@@ -61,7 +62,7 @@ class QuotesView(val content: View) {
     }
 
     private fun textColor(color: Color) {
-        val colorValue = color.solidValue()
+        val colorValue = color.solid
 
         quoteView.setTextColor(colorValue)
         authorView.setTextColor(colorValue)
@@ -70,7 +71,7 @@ class QuotesView(val content: View) {
     }
 
     private fun backgroundColor(color: Color) {
-        rootView.setBackgroundColor(color.solidValue())
+        rootView.setBackgroundColor(color.solid)
     }
 }
 

@@ -5,11 +5,15 @@ import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.view.QuotesView
-import io.github.dector.quotes.android.repositories.RealRandomQuoteRepository
+import io.github.dector.quotes.domain.Palette
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
-import io.github.dector.quotes.presentation.providers.IColorPairProvider
+import io.github.dector.quotes.presentation.view.ColorPair
+import io.github.dector.quotes.presentation.view.asColorCouple
+import io.github.dector.quotes.repositories.RandomColorsRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository
+import io.github.dector.quotes.repositories.RealRandomColorsRepository
+import io.github.dector.quotes.repositories.RealRandomQuoteRepository
 import io.github.dector.quotes.storage.InMemoryQuotesStorage
 import io.github.dector.quotes.storage.QuotesStorage
 import javax.inject.Singleton
@@ -28,8 +32,13 @@ class QuotesModule() {
     fun randomQuoteRepository(storage: QuotesStorage): RandomQuoteRepository =
         RealRandomQuoteRepository(storage)
 
-    @Provides fun palette(): IColorPairProvider
-            = ColorPairProvider()
+    @Provides
+    @Singleton
+    fun randomColorsRepository(): RandomColorsRepository =
+        RealRandomColorsRepository(
+            palette = Palette(ColorPairProvider.colors.map(ColorPair::asColorCouple)),
+            initialValue = ColorPairProvider.colors.last().asColorCouple()
+        )
 
     @Provides fun quotesView(inflater: LayoutInflater)
             = QuotesView(inflater.inflate(R.layout.view_quotes, null))

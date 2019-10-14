@@ -12,7 +12,7 @@ import dagger.Provides
 import io.github.dector.quotes.android.di.AppComponents
 import io.github.dector.quotes.android.network.AndroidNetworkManager
 import io.github.dector.quotes.android.presentation.QuotesActivity
-import io.github.dector.quotes.presentation.providers.IColorPairProvider
+import io.github.dector.quotes.repositories.RandomColorsRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,7 +49,7 @@ interface ApplicationComponent {
     fun inject(activity: QuotesActivity)
 
     fun repo(): RandomQuoteRepository
-    fun colors(): IColorPairProvider
+    fun colorsRepo(): RandomColorsRepository
 }
 
 @Module

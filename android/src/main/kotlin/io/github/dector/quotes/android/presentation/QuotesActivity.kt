@@ -63,9 +63,9 @@ class QuotesActivity : AppCompatActivity() {
         return when (effect) {
             is Effect.LoadNote -> {
                 val quote = QuotesApplication.component.repo().next()!!
-                val colors = QuotesApplication.component.colors().getRandomColorPair()
+                val colors = QuotesApplication.component.colorsRepo().next()
 
-                return Msg.DisplayNote(quote, colors.text, colors.background)
+                return Msg.DisplayNote(quote, colors.foreground, colors.background)
             }
             else -> null
         }

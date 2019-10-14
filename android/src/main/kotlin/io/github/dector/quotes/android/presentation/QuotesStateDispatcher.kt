@@ -1,8 +1,8 @@
 package io.github.dector.quotes.android.presentation
 
 import io.github.dector.quotes.android.common.UIScope
+import io.github.dector.quotes.domain.Color
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.presentation.view.Color
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
