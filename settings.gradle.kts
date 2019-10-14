@@ -1,11 +1,11 @@
 include(
-    ":android",
     ":domain",
-    ":usecases",
-    ":presentation",
+    ":common",
     ":storage",
     ":repositories",
-    ":api-server",
-    ":common")
+    ":presentation",
+    ":android",
+    ":api-server"
+)
 
 //, ":desktop"  // Resolve openjfx plugin issue

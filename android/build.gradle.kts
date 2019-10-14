@@ -42,7 +42,6 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":storage"))
     implementation(project(":repositories"))
-    implementation(project(":usecases"))
     implementation(project(":presentation"))
 
     // Android support

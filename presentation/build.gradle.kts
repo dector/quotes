@@ -11,7 +11,6 @@ kotlin {
                 implementation(project(":domain"))
                 implementation(project(":common"))
                 implementation(project(":repositories"))
-                implementation(project(":usecases"))
             }
         }
 

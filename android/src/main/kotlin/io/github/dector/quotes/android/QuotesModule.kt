@@ -1,43 +1,21 @@
 package io.github.dector.quotes.android
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import dagger.Module
 import dagger.Provides
-import io.github.dector.knight.repositories.TimeCacheStrategy
 import io.github.dector.quotes.R
-import io.github.dector.quotes.android.network.NetworkManager
 import io.github.dector.quotes.android.presentation.view.QuotesView
-import io.github.dector.quotes.android.repositories.FileStorableQuotesRepository
 import io.github.dector.quotes.android.repositories.RealRandomQuoteRepository
-import io.github.dector.quotes.android.repositories.RetrofitQuotesRepository
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.providers.ColorPairProvider
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
-import io.github.dector.quotes.repositories.IQuotesRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository
 import io.github.dector.quotes.storage.InMemoryQuotesStorage
 import io.github.dector.quotes.storage.QuotesStorage
-import io.github.dector.quotes.usecases.AsyncCachedQuotesRepositoryWrapper
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 class QuotesModule() {
-
-    private val QUOTES_SHARED_PREFERENCES = "quotes_data"
-
-    @Provides fun quotesSharedPreferences(context: Context): SharedPreferences
-            = context.getSharedPreferences(QUOTES_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-
-    @Provides fun quotesRepository(retrofit: Retrofit, networkManager: NetworkManager, quotesSharedPreferences: SharedPreferences): IQuotesRepository
-//            = CachedQuotesRepository(RetrofitQuotesRepository(retrofit), ListStorableQuotesRepository(), TimeCacheStrategy())
-            = AsyncCachedQuotesRepositoryWrapper(RetrofitQuotesRepository(retrofit, networkManager),
-            FileStorableQuotesRepository(quotesSharedPreferences),
-            TimeCacheStrategy(),
-            { Thread(it).start()})
-//            = RetrofitQuotesRepository(retrofit)
 
     @Provides
     fun storage(): QuotesStorage =
