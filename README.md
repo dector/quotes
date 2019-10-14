@@ -31,6 +31,7 @@ Run `./gradlew cAT` to execute UI android tests on device or emulator.
 ## Android App
 
 [![Badge_Dev_CircleCI_Icon]](https://circleci.com/gh/dector/quotes/tree/dev)
+[![Badge_Dev_GithubActions_Icon]](https://github.com/dector/quotes/actions?workflow=dev)
 
 
 [XXXHDPI ICON]: https://raw.githubusercontent.com/dector/quotes/cb6c27ece6b16f1015e9dae9f712294abb863bcf/android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
@@ -40,3 +41,4 @@ Run `./gradlew cAT` to execute UI android tests on device or emulator.
 [web API]: http://smart-quotes.herokuapp.com/quotes
 
 [Badge_Dev_CircleCI_Icon]: https://img.shields.io/circleci/build/gh/dector/quotes/dev?label=Dev&logo=circleci&style=for-the-badge
+[Badge_Dev_GithubActions_Icon]: https://github.com/dector/quotes/workflows/dev/badge.svg
