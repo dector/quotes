@@ -1,0 +1,18 @@
+name: Check new push in `dev` branch.
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run lint and tests
+      run: ./gradlew lint test
+    - name: Build debug app
+      run: ./gradlew :android:assembleDebug
