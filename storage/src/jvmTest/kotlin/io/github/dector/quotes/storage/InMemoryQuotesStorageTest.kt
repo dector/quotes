@@ -3,6 +3,7 @@ package io.github.dector.quotes.storage
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.domain.Uuid
 import io.github.dector.quotes.domain.new
+import io.kotlintest.IsolationMode
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.BehaviorSpec
@@ -41,7 +42,7 @@ class InMemoryQuotesStorageTest : BehaviorSpec({
             And("Upsert item same uuid") {
                 val quote3 = Quote(uuid, "Quote 3", "Author 3")
 
-                storage.insert(quote3)
+                storage.upsert(quote3)
 
                 Then("Stored quote should be updated") {
                     storage.count() shouldBe 1
@@ -111,4 +112,6 @@ class InMemoryQuotesStorageTest : BehaviorSpec({
             }
         }
     }
-})
+}) {
+    override fun isolationMode() = IsolationMode.InstancePerLeaf
+}
