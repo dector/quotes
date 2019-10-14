@@ -19,7 +19,8 @@ jobs:
           key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum  "android/build.gradle.kts" }}
       - run:
           name: Run Tests
-          command: ./gradlew lint test
+          command: ./gradlew test
+          #command: ./gradlew lint test
       - store_artifacts: # for display in Artifacts: https://circleci.com3/docs/2.0/artifacts/
           path: android/build/reports
           destination: reports
