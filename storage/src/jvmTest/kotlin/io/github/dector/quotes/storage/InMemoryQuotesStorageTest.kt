@@ -26,7 +26,7 @@ class InMemoryQuotesStorageTest : BehaviorSpec({
             Then("It should be saved") {
                 storage.count() shouldBe 1
 
-                val storedQuote = storage.find(uuid)!!
+                val storedQuote = storage.findById(uuid)!!
                 storedQuote.content shouldBe quote.content
                 storedQuote.author shouldBe quote.author
             }
@@ -47,7 +47,7 @@ class InMemoryQuotesStorageTest : BehaviorSpec({
                 Then("Stored quote should be updated") {
                     storage.count() shouldBe 1
 
-                    val storedQuote = storage.find(uuid)!!
+                    val storedQuote = storage.findById(uuid)!!
                     storedQuote.content shouldBe quote3.content
                     storedQuote.author shouldBe quote3.author
                 }
@@ -64,7 +64,7 @@ class InMemoryQuotesStorageTest : BehaviorSpec({
             storage.insert(quote3)
 
             When("Request item by uuid") {
-                val item = storage.find(quote2.uuid)
+                val item = storage.findById(quote2.uuid)
 
                 Then("Operation is not desctructive") {
                     storage.count() shouldBe 3

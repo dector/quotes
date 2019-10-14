@@ -4,12 +4,13 @@ import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.presentation.view.IQuotesActionListener
 import io.github.dector.quotes.presentation.view.IQuotesView
-import io.github.dector.quotes.usecases.IGetRandomQuoteUseCase
+import io.github.dector.quotes.repositories.RandomQuoteRepository
 
-class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
-                      val palette: IColorPairProvider,
-                      val configuration: Configuration? = null) :
-        IQuotesPresenter, IQuotesActionListener {
+class QuotesPresenter(
+    private val repo: RandomQuoteRepository,
+    val palette: IColorPairProvider,
+    val configuration: Configuration? = null) :
+    IQuotesPresenter, IQuotesActionListener {
 
     data class Configuration(val errorMessage: String = "")
 
@@ -25,13 +26,14 @@ class QuotesPresenter(val getRandomQuoteUseCase: IGetRandomQuoteUseCase,
     override fun nextQuote() {
         dataLoadingStarted()
 
-        getRandomQuoteUseCase.execute({ quote ->
+        val quote = repo.next()
+        if (quote != null) {
             onDataLoaded(quote)
             dataLoadingFinished()
-        }, { error ->
-            view.showDisplayingError(error.message ?: configuration?.errorMessage ?: "")
+        } else {
+            view.showDisplayingError(configuration?.errorMessage ?: "")
             dataLoadingFinished()
-        })
+        }
     }
 
     private fun dataLoadingStarted() {

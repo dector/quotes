@@ -17,18 +17,10 @@ class FileStorableQuotesRepository(val sharedPreferences: SharedPreferences) : I
         ?.toQuotesList()
         .orEmpty()
 
-    override fun save(data: Quote): Boolean {
-        throw UnsupportedOperationException()
-    }
-
     override fun saveAll(data: List<Quote>) = sharedPreferences
             .edit()
             .putString(STORAGE_KEY, data.toJsonString())
             .commit()
-
-    override fun remove(data: Quote): Boolean {
-        throw UnsupportedOperationException()
-    }
 
     override fun removeAll() = sharedPreferences.edit().clear().commit()
 }

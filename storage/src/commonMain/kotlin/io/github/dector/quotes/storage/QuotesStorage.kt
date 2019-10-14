@@ -8,7 +8,8 @@ interface QuotesStorage {
     fun insert(quote: Quote)
     fun upsert(quote: Quote)
 
-    fun find(uuid: Uuid): Quote?
+    fun findByIndex(index: Int): Quote?
+    fun findById(uuid: Uuid): Quote?
 
     fun delete(uuid: Uuid)
 

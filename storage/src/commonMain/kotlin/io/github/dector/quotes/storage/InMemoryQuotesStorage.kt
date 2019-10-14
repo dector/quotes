@@ -22,7 +22,10 @@ class InMemoryQuotesStorage : QuotesStorage {
         else data += quote
     }
 
-    override fun find(uuid: Uuid): Quote? =
+    override fun findByIndex(index: Int): Quote? =
+        data.getOrNull(index)
+
+    override fun findById(uuid: Uuid): Quote? =
         data.find { it.uuid == uuid }
 
     override fun delete(uuid: Uuid) {
