@@ -1,7 +1,6 @@
-package io.github.dector.quotes.android.repositories
+package io.github.dector.quotes.repositories
 
 import io.github.dector.quotes.domain.Quote
-import io.github.dector.quotes.repositories.RandomQuoteRepository
 import io.github.dector.quotes.storage.QuotesStorage
 import kotlin.random.Random
 
