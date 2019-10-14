@@ -1,6 +1,6 @@
 package io.github.dector.quotes.android.network
 
-interface INetworkManager {
+interface NetworkManager {
 
     fun isNetworkAvailable(): Boolean
 }

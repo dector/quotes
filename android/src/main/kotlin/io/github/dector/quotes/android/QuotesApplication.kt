@@ -1,5 +1,3 @@
-@file:JvmName("QuotesApplication")
-
 package io.github.dector.quotes.android
 
 import android.app.Application
@@ -11,6 +9,8 @@ import android.view.LayoutInflater
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import io.github.dector.quotes.android.di.AppComponents
+import io.github.dector.quotes.android.network.AndroidNetworkManager
 import io.github.dector.quotes.android.presentation.QuotesActivity
 import io.github.dector.quotes.presentation.providers.IColorPairProvider
 import io.github.dector.quotes.repositories.RandomQuoteRepository
@@ -22,6 +22,7 @@ class QuotesApplication : Application() {
 
     companion object {
         @JvmStatic lateinit var component: ApplicationComponent
+        lateinit var components: AppComponents
     }
 
     override fun onCreate() {
@@ -31,6 +32,12 @@ class QuotesApplication : Application() {
                 .appModule(AppModule(this))
                 .quotesModule(QuotesModule())
                 .build()
+
+        components = AppComponents(
+            networkManager = AndroidNetworkManager(
+                connectivityManager()
+            )
+        )
     }
 }
 
@@ -60,9 +67,6 @@ class AppModule(val app: QuotesApplication) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    @Provides fun connectivityManager(context: Context): ConnectivityManager
-            = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
     @Provides fun mainThreadHandler(): Handler
             = Handler(Looper.getMainLooper())
 }
@@ -75,3 +79,9 @@ object ApiConfiguration {
 
     val BASE_URL = if (USE_LOCAL) LOCAL_BASE_URL else PROD_BASE_URL
 }
+
+private fun Context.connectivityManager() =
+    getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+fun components(): AppComponents =
+    QuotesApplication.components
