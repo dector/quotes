@@ -22,7 +22,7 @@ object Android {
     const val version_code = 2
     const val version_name = Project.version
 
-    const val min_sdk = 15
+    const val min_sdk = 16
     const val target_sdk = 29
     const val compile_sdk = 29
 }
