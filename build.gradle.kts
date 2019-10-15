@@ -10,6 +10,8 @@ buildscript {
 }
 
 allprojects {
+    version = Project.version
+
     repositories {
         google()
         jcenter()

@@ -19,8 +19,8 @@ object Versions {
 }
 
 object Android {
-    const val version_code = 1
-    const val version_name = "1.0"
+    const val version_code = 2
+    const val version_name = Project.version
 
     const val min_sdk = 15
     const val target_sdk = 29
@@ -30,4 +30,8 @@ object Android {
 object Server {
     const val api_version = "1.0"
     const val server = "1.0.1"
+}
+
+object Project {
+    const val version = "2.0-SNAPSHOT"
 }
