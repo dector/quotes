@@ -1,4 +1,4 @@
-package io.github.dector.quotes.android
+package io.github.dector.quotes.android.common
 
 import trikita.anvil.BaseDSL.sip
 import trikita.anvil.DSL.dip

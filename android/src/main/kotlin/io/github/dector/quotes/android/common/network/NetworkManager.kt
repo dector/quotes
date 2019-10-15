@@ -1,4 +1,4 @@
-package io.github.dector.quotes.android.network
+package io.github.dector.quotes.android.common.network
 
 interface NetworkManager {
 

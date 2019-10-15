@@ -10,7 +10,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import io.github.dector.quotes.android.di.AppComponents
-import io.github.dector.quotes.android.network.AndroidNetworkManager
+import io.github.dector.quotes.android.common.network.AndroidNetworkManager
 import io.github.dector.quotes.android.presentation.QuotesActivity
 import io.github.dector.quotes.repositories.RandomColorsRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository

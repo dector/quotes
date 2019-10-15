@@ -4,10 +4,10 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout.VERTICAL
-import io.github.dector.quotes.android.dp
+import io.github.dector.quotes.android.common.dp
 import io.github.dector.quotes.android.presentation.Msg
 import io.github.dector.quotes.android.presentation.State
-import io.github.dector.quotes.android.sp
+import io.github.dector.quotes.android.common.sp
 import io.github.dector.quotes.colors.rgb
 import trikita.anvil.Anvil
 import trikita.anvil.BaseDSL.WRAP
