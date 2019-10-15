@@ -1,7 +1,7 @@
 package io.github.dector.quotes.android.presentation
 
 import io.github.dector.quotes.android.common.UIScope
-import io.github.dector.quotes.domain.Color
+import io.github.dector.quotes.colors.Color
 import io.github.dector.quotes.domain.Quote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

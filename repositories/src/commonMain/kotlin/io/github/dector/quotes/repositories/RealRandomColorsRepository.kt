@@ -1,7 +1,7 @@
 package io.github.dector.quotes.repositories
 
-import io.github.dector.quotes.domain.ColorCouple
-import io.github.dector.quotes.domain.Palette
+import io.github.dector.quotes.colors.ColorCouple
+import io.github.dector.quotes.colors.Palette
 import io.github.dector.quotes.peek
 
 class RealRandomColorsRepository(
