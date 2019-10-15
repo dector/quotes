@@ -2,7 +2,7 @@ package io.github.dector.quotes.storage
 
 import io.github.dector.quotes.domain.Quote
 import io.github.dector.quotes.domain.Uuid
-import io.github.dector.quotes.colors.new
+import io.github.dector.quotes.domain.new
 import io.kotlintest.IsolationMode
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrow
