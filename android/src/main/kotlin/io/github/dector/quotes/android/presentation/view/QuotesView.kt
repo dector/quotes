@@ -8,7 +8,7 @@ import io.github.dector.quotes.android.dp
 import io.github.dector.quotes.android.presentation.Msg
 import io.github.dector.quotes.android.presentation.State
 import io.github.dector.quotes.android.sp
-import io.github.dector.quotes.colors.solid
+import io.github.dector.quotes.colors.rgb
 import trikita.anvil.Anvil
 import trikita.anvil.BaseDSL.WRAP
 import trikita.anvil.DSL.MATCH
@@ -50,7 +50,7 @@ class QuotesView(context: Context) {
             }
 
             if (state is State.Data) {
-                backgroundColor(state.backgroundColor.solid)
+                backgroundColor(state.backgroundColor.rgb)
             }
         }
 
@@ -66,7 +66,7 @@ class QuotesView(context: Context) {
                     text(quote.content)
 
                     textSize(24.sp)
-                    textColor(state.textColor.solid)
+                    textColor(state.textColor.rgb)
                     gravity(Gravity.CENTER)
                 }
 
@@ -76,7 +76,7 @@ class QuotesView(context: Context) {
                     text(quote.author)
 
                     textSize(18.sp)
-                    textColor(state.textColor.solid)
+                    textColor(state.textColor.rgb)
                     gravity(Gravity.END)
 
                     margin(0, 16.dp, 0, 0)

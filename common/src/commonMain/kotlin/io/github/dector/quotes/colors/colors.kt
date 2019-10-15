@@ -13,7 +13,7 @@ inline val Color.Companion.White get() = Color(0xffffff)
 val Color.r: Int get() = (0x00ff0000 and value) ushr 16
 val Color.g: Int get() = (0x0000ff00 and value) ushr 8
 val Color.b: Int get() = (0x000000ff and value)
-val Color.solid: Int get() = 0xff000000.toInt() or value
+val Color.rgb: Int get() = 0xff000000.toInt() or value
 
 fun Color.counterpartColor(): Color {
     val luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
