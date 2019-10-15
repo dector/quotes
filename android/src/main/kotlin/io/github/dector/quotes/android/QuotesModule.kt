@@ -1,9 +1,8 @@
 package io.github.dector.quotes.android
 
-import android.view.LayoutInflater
+import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.github.dector.quotes.R
 import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.domain.Palette
 import io.github.dector.quotes.domain.Quote
@@ -40,8 +39,8 @@ class QuotesModule() {
             initialValue = ColorPairProvider.colors.last().asColorCouple()
         )
 
-    @Provides fun quotesView(inflater: LayoutInflater)
-            = QuotesView(inflater.inflate(R.layout.view_quotes, null))
+    @Provides
+    fun quotesView(context: Context) = QuotesView(context)//inflater.inflate(R.layout.view_quotes, null))
 }
 
 private fun preStoredQuotesData() = listOf(

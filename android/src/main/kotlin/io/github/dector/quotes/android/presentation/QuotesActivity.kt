@@ -21,7 +21,7 @@ class QuotesActivity : AppCompatActivity() {
         stateDispatcher = createStateDispatcher()
 
         setContentView(view.content)
-        view.init()
+//        view.init()
 
         stateDispatcher.view = view::display
         view.dispatcher = stateDispatcher::update

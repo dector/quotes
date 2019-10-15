@@ -47,6 +47,8 @@ dependencies {
     // Android support
     implementation("androidx.appcompat:appcompat:1.1.0")
 
+    implementation(Deps.anvil)
+
     // Rx
     //implementation("io.reactivex:rxandroid:1.1.0"
     //implementation("io.reactivex:rxjava:1.1.0"

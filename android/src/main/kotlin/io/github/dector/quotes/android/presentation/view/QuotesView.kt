@@ -1,15 +1,96 @@
 package io.github.dector.quotes.android.presentation.view
 
+import android.content.Context
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
-import io.github.dector.quotes.R
+import io.github.dector.quotes.android.dp
 import io.github.dector.quotes.android.presentation.Msg
 import io.github.dector.quotes.android.presentation.State
-import io.github.dector.quotes.domain.Color
+import io.github.dector.quotes.android.sp
 import io.github.dector.quotes.domain.solid
+import trikita.anvil.Anvil
+import trikita.anvil.BaseDSL.WRAP
+import trikita.anvil.DSL.MATCH
+import trikita.anvil.DSL.backgroundColor
+import trikita.anvil.DSL.frameLayout
+import trikita.anvil.DSL.gravity
+import trikita.anvil.DSL.linearLayout
+import trikita.anvil.DSL.margin
+import trikita.anvil.DSL.onClick
+import trikita.anvil.DSL.orientation
+import trikita.anvil.DSL.padding
+import trikita.anvil.DSL.size
+import trikita.anvil.DSL.text
+import trikita.anvil.DSL.textColor
+import trikita.anvil.DSL.textSize
+import trikita.anvil.DSL.textView
+import trikita.anvil.RenderableView
 
-class QuotesView(val content: View) {
+class QuotesView(context: Context) {
+
+    private var state: State? = null
+
+    val content: View = object : RenderableView(context) {
+
+        override fun view() {
+            val state = state ?: return
+
+            frameLayout {
+                size(MATCH, MATCH)
+
+                when (state) {
+                    is State.Data -> dataState(state)
+                }
+
+                margin(0, 48.dp)
+                padding(32.dp)
+
+                gravity(Gravity.CENTER)
+            }
+
+            if (state is State.Data) {
+                backgroundColor(state.backgroundColor.solid)
+            }
+        }
+
+        private fun dataState(state: State.Data) {
+            val quote = state.quote
+
+            linearLayout {
+                size(MATCH, MATCH)
+
+                textView {
+                    size(MATCH, WRAP)
+
+                    text(quote.content)
+
+                    textSize(20.sp)
+                    textColor(state.textColor.solid)
+                    gravity(Gravity.CENTER)
+                }
+
+                textView {
+                    size(MATCH, WRAP)
+
+                    text(quote.author)
+
+                    textSize(16.sp)
+                    textColor(state.textColor.solid)
+                    gravity(Gravity.END)
+
+                    margin(0, 16.dp, 0, 0)
+                }
+
+                onClick { dispatcher?.invoke(Msg.NextQuote) }
+
+                orientation(VERTICAL)
+                gravity(Gravity.CENTER)
+            }
+        }
+    }
 
     var dispatcher: ((Msg) -> Unit)? = null
 
@@ -24,7 +105,7 @@ class QuotesView(val content: View) {
     private lateinit var dataContainerView: View
     private lateinit var noDataContainerView: View
 
-    fun init() {
+    /*fun init() {
         rootView = content.findViewById(R.id.quotes_root)
         touchView = content.findViewById(R.id.quotes_touch)
         quoteView = content.findViewById(R.id.quotes_quote) as TextView
@@ -37,9 +118,13 @@ class QuotesView(val content: View) {
         noDataContainerView = content.findViewById(R.id.quotes_no_data_container)
 
         touchView.setOnClickListener { dispatcher?.invoke(Msg.NextQuote) }
-    }
+    }*/
 
     fun display(state: State) {
+        this.state = state
+        Anvil.render()
+
+        /*return
         dataContainerView.visibility = if (state is State.Data) View.VISIBLE else View.GONE
         noDataContainerView.visibility = if (state is State.Empty) View.VISIBLE else View.GONE
 
@@ -50,10 +135,10 @@ class QuotesView(val content: View) {
             showAuthor(quote.author)
             textColor(state.textColor)
             backgroundColor(state.backgroundColor)
-        }
+        }*/
     }
 
-    private fun showQuote(quote: String) {
+    /*private fun showQuote(quote: String) {
         quoteView.text = quote
     }
 
@@ -72,7 +157,7 @@ class QuotesView(val content: View) {
 
     private fun backgroundColor(color: Color) {
         rootView.setBackgroundColor(color.solid)
-    }
+    }*/
 }
 
 /*class InOutAnimator(val view: View, val onStarted: () -> Unit, val onFinished: () -> Unit) {
@@ -167,3 +252,5 @@ class QuotesView(val content: View) {
         return Triple(inAnimator, progressAnimator, outAnimator)
     }
 }*/
+
+//fun Color.android(): Int = AndroidColor.parseColor("#" + value.toString(16))
