@@ -4,6 +4,10 @@ object Deps {
 
     const val anvil = "co.trikita:anvil-sdk15:${Versions.anvil}"
 
+    const val koin = "org.koin:koin-android:${Versions.koin}"
+
+    // Testing
+
     const val kotlin_test = "io.kotlintest:kotlintest-runner-junit5:${Versions.kotlin_test}"
 }
 
@@ -13,6 +17,7 @@ object Versions {
     const val kotlinx_coroutines = "1.3.2"
 
     const val anvil = "0.5.0"
+    const val koin = "2.0.1"
 
     const val klaxon = "0.24"
     const val testng = "6.8"

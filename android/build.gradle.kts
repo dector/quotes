@@ -54,15 +54,13 @@ dependencies {
     //implementation("io.reactivex:rxjava:1.1.0"
     //implementation("io.reactivex:rxkotlin:0.40.1"
 
+    // DI - Koin
+    implementation(Deps.koin)
+
     // Dagger 2
     implementation("com.google.dagger:dagger:2.0")
     compileOnly("org.glassfish:javax.annotation:10.0-b28")
     kapt("com.google.dagger:dagger-compiler:2.0")
-
-    // ReQuery
-    /*implementation("io.requery:requery:1.0-SNAPSHOT"
-    implementation("io.requery:requery-android:1.0-SNAPSHOT"
-    kapt "io.requery:requery-processor:1.0-SNAPSHOT"*/
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.0.0-beta4")

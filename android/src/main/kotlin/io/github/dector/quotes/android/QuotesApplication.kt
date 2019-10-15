@@ -9,11 +9,14 @@ import android.view.LayoutInflater
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import io.github.dector.quotes.android.di.AppComponents
 import io.github.dector.quotes.android.common.network.AndroidNetworkManager
+import io.github.dector.quotes.android.di.AppComponents
+import io.github.dector.quotes.android.di.everythingModule
 import io.github.dector.quotes.android.presentation.QuotesActivity
 import io.github.dector.quotes.repositories.RandomColorsRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -28,6 +31,8 @@ class QuotesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initKoin()
+
         component = DaggerApplicationComponent.builder()
                 .appModule(AppModule(this))
                 .quotesModule(QuotesModule())
@@ -39,6 +44,12 @@ class QuotesApplication : Application() {
             )
         )
     }
+
+    private fun initKoin() {
+        startKoin {
+            modules(appModule(), everythingModule())
+        }
+    }
 }
 
 @Singleton
@@ -47,9 +58,6 @@ class QuotesApplication : Application() {
 interface ApplicationComponent {
 
     fun inject(activity: QuotesActivity)
-
-    fun repo(): RandomQuoteRepository
-    fun colorsRepo(): RandomColorsRepository
 }
 
 @Module
@@ -85,3 +93,6 @@ private fun Context.connectivityManager() =
 
 fun components(): AppComponents =
     QuotesApplication.components
+
+private fun appModule() = module {
+}

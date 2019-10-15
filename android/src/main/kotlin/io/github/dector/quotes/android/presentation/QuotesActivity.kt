@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import io.github.dector.quotes.android.QuotesApplication
 import io.github.dector.quotes.android.common.fullscreen
 import io.github.dector.quotes.android.presentation.view.QuotesView
+import io.github.dector.quotes.repositories.RandomColorsRepository
+import io.github.dector.quotes.repositories.RandomQuoteRepository
+import org.koin.android.ext.android.get
 import javax.inject.Inject
 
 class QuotesActivity : AppCompatActivity() {
@@ -62,8 +65,8 @@ class QuotesActivity : AppCompatActivity() {
     private suspend fun effectsDispatcher(effect: Effect): Msg? {
         return when (effect) {
             is Effect.LoadNote -> {
-                val quote = QuotesApplication.component.repo().next()!!
-                val colors = QuotesApplication.component.colorsRepo().next()
+                val quote = get<RandomQuoteRepository>().next()!!
+                val colors = get<RandomColorsRepository>().next()
 
                 return Msg.DisplayNote(quote, colors.foreground, colors.background)
             }
