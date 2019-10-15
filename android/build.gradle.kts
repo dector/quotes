@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
+    //kotlin("kapt")
 }
 
 android {
@@ -55,12 +55,7 @@ dependencies {
     //implementation("io.reactivex:rxkotlin:0.40.1"
 
     // DI - Koin
-    implementation(Deps.koin)
-
-    // Dagger 2
-    implementation("com.google.dagger:dagger:2.0")
-    compileOnly("org.glassfish:javax.annotation:10.0-b28")
-    kapt("com.google.dagger:dagger-compiler:2.0")
+    implementation(Deps.koin_android)
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.0.0-beta4")

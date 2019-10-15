@@ -8,23 +8,20 @@ import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.repositories.RandomColorsRepository
 import io.github.dector.quotes.repositories.RandomQuoteRepository
 import org.koin.android.ext.android.get
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class QuotesActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var view: QuotesView
+    private val view: QuotesView by inject()
 
     //@Inject
     private lateinit var stateDispatcher: QuotesStateDispatcher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        QuotesApplication.component.inject(this)
         stateDispatcher = createStateDispatcher()
 
         setContentView(view.content)
-//        view.init()
 
         stateDispatcher.view = view::display
         view.dispatcher = stateDispatcher::update

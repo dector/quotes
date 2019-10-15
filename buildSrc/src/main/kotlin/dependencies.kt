@@ -4,7 +4,7 @@ object Deps {
 
     const val anvil = "co.trikita:anvil-sdk15:${Versions.anvil}"
 
-    const val koin = "org.koin:koin-android:${Versions.koin}"
+    const val koin_android = "org.koin:koin-android:${Versions.koin}"
 
     // Testing
 

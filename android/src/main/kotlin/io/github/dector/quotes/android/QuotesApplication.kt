@@ -1,82 +1,26 @@
 package io.github.dector.quotes.android
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.os.Handler
-import android.os.Looper
-import android.view.LayoutInflater
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import io.github.dector.quotes.android.common.network.AndroidNetworkManager
-import io.github.dector.quotes.android.di.AppComponents
+import io.github.dector.quotes.android.di.appModule
 import io.github.dector.quotes.android.di.everythingModule
-import io.github.dector.quotes.android.presentation.QuotesActivity
-import io.github.dector.quotes.repositories.RandomColorsRepository
-import io.github.dector.quotes.repositories.RandomQuoteRepository
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
+@Suppress("unused")
 class QuotesApplication : Application() {
-
-    companion object {
-        @JvmStatic lateinit var component: ApplicationComponent
-        lateinit var components: AppComponents
-    }
 
     override fun onCreate() {
         super.onCreate()
 
         initKoin()
-
-        component = DaggerApplicationComponent.builder()
-                .appModule(AppModule(this))
-                .quotesModule(QuotesModule())
-                .build()
-
-        components = AppComponents(
-            networkManager = AndroidNetworkManager(
-                connectivityManager()
-            )
-        )
     }
 
     private fun initKoin() {
         startKoin {
+            androidContext(this@QuotesApplication)
             modules(appModule(), everythingModule())
         }
     }
-}
-
-@Singleton
-@Component(modules = arrayOf(
-        AppModule::class, QuotesModule::class))
-interface ApplicationComponent {
-
-    fun inject(activity: QuotesActivity)
-}
-
-@Module
-class AppModule(val app: QuotesApplication) {
-
-    @Provides fun context(): Context
-            = app
-
-    @Provides fun layoutInflater(context: Context): LayoutInflater
-            = LayoutInflater.from(context)
-
-    @Provides fun retrofit(): Retrofit
-            = Retrofit.Builder()
-            .baseUrl(ApiConfiguration.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    @Provides fun mainThreadHandler(): Handler
-            = Handler(Looper.getMainLooper())
 }
 
 object ApiConfiguration {
@@ -88,11 +32,9 @@ object ApiConfiguration {
     val BASE_URL = if (USE_LOCAL) LOCAL_BASE_URL else PROD_BASE_URL
 }
 
-private fun Context.connectivityManager() =
-    getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-fun components(): AppComponents =
-    QuotesApplication.components
-
-private fun appModule() = module {
-}
+/*
+fun retrofit(): Retrofit
+    = Retrofit.Builder()
+    .baseUrl(ApiConfiguration.BASE_URL)
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()*/

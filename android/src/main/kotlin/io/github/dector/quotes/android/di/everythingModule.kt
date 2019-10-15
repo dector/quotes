@@ -1,5 +1,6 @@
 package io.github.dector.quotes.android.di
 
+import io.github.dector.quotes.android.presentation.view.QuotesView
 import io.github.dector.quotes.colors.MaterialPalette
 import io.github.dector.quotes.colors.asPalette
 import io.github.dector.quotes.domain.Quote
@@ -30,6 +31,8 @@ internal fun everythingModule() = module {
             initialValue = palette.colors.last()
         )
     }
+
+    factory { QuotesView(get()) }
 }
 
 private fun preStoredQuotesData() = listOf(
