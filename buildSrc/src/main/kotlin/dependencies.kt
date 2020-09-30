@@ -1,3 +1,5 @@
+@file:Suppress("MayBeConstant")
+
 object Deps {
     const val kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx_coroutines}"
     const val kotlinx_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx_coroutines}"
@@ -11,8 +13,11 @@ object Deps {
     const val kotlin_test = "io.kotlintest:kotlintest-runner-junit5:${Versions.kotlin_test}"
 }
 
+object Kotlin {
+    val version = "1.4.10"
+}
+
 object Versions {
-    const val kotlin = "1.3.50"
     const val kotlin_test = "3.4.2"
     const val kotlinx_coroutines = "1.3.2"
 
