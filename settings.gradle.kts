@@ -5,7 +5,7 @@ include(
     ":repositories",
     ":presentation",
     ":android",
-    ":api-server"
+    ":quotes-server"
 )
 
 //, ":desktop"  // Resolve openjfx plugin issue

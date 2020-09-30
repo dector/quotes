@@ -10,13 +10,13 @@ Run all tests with `./gradlew test`.
 
 ## Run
 
-Start application server with gradle: `./gradlew :api-server:run`.
+Start application server with gradle: `./gradlew :quotes-server:run`.
 
 ## Deploy to [Heroku]
 
-Build jar file: `./gradlew :api-server:jar`.
+Build jar file: `./gradlew :quotes-server:jar`.
 
-Deploy ([Heroku Toolbelt] should be installed): `heroku deploy:jar --jar api-server/build/libs/api-server-1.0.jar --app smart-quotes`.
+Deploy ([Heroku Toolbelt] should be installed): `heroku deploy:jar --jar quotes-server/build/libs/quotes-server-1.0.jar --app smart-quotes`.
 
 Check logs with `heroku logs --app smart-quotes` and [web API].
 
