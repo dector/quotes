@@ -8,8 +8,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
 
-                implementation(project(":domain"))
-                implementation(project(":common"))
+                implementation(project(":quotes-domain"))
+                implementation(project(":quotes-common"))
                 implementation(project(":repositories"))
             }
         }

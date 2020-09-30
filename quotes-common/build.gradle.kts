@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform")
+    kotlin("multiplatform") version Kotlin.version
 }
 
 kotlin {
@@ -8,16 +8,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-common"))
-
-                implementation(project(":domain"))
+                implementation(project(":quotes-domain"))
             }
         }
 
-        jvm().compilations["main"].defaultSourceSet {
+        val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-
                 implementation("com.eclipsesource.minimal-json:minimal-json:0.9.4")
             }
         }
@@ -25,7 +21,7 @@ kotlin {
 }
 
 /*dependencies {
-    implementation(project(":domain"))
+    implementation(project(":quotes-domain"))
 
     testImplementation("org.testng:testng:${Versions.testng}")
 }

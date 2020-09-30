@@ -38,8 +38,8 @@ dependencies {
     implementation(Deps.kotlinx_coroutines_core)
     implementation(Deps.kotlinx_coroutines_android)
 
-    implementation(project(":domain"))
-    implementation(project(":common"))
+    implementation(project(":quotes-domain"))
+    implementation(project(":quotes-common"))
     implementation(project(":storage"))
     implementation(project(":repositories"))
     implementation(project(":presentation"))

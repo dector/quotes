@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common')
-    implementation project(':domain')
+    implementation project(':quotes-common')
+    implementation project(':quotes-domain')
     implementation project(':storage')
     implementation project(':usecases')
     implementation project(':presentation')

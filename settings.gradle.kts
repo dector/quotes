@@ -1,6 +1,6 @@
 include(
     ":quotes-domain",
-//    ":common",
+    ":quotes-common",
 //    ":storage",
 //    ":repositories",
 //    ":presentation",
