@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":quotes-domain"))
     implementation("com.beust:klaxon:${Versions.klaxon}")
 
     implementation(Ktor.server.core)
