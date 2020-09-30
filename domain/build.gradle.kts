@@ -1,21 +1,11 @@
 plugins {
-    kotlin("multiplatform")
+    kotlin("multiplatform") version Kotlin.version
 }
 
 kotlin {
-    jvm()
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
-            }
-        }
-
-        jvm().compilations["main"].defaultSourceSet {
-            dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-            }
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
 }
