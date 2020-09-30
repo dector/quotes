@@ -3,7 +3,7 @@ include(
     ":quotes-common",
     ":quotes-storage",
     ":quotes-repositories",
-//    ":presentation",
+    ":quotes-presentation",
 //    ":android",
     ":quotes-server"
 )

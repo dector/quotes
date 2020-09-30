@@ -24,7 +24,7 @@ dependencies {
     implementation project(':quotes-domain')
     implementation project(':quotes-storage')
     implementation project(':usecases')
-    implementation project(':presentation')
+    implementation project(':quotes-presentation')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

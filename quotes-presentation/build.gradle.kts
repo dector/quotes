@@ -1,24 +1,20 @@
 plugins {
-    kotlin("multiplatform")
+    kotlin("multiplatform") version Kotlin.version
 }
 
 kotlin {
+    jvm()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-common"))
-
                 implementation(project(":quotes-domain"))
                 implementation(project(":quotes-common"))
                 implementation(project(":quotes-repositories"))
             }
         }
 
-        jvm().compilations["main"].defaultSourceSet {
-            dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-            }
-        }
+        val jvmMain by getting {}
     }
 }
 

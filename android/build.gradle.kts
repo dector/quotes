@@ -42,7 +42,7 @@ dependencies {
     implementation(project(":quotes-common"))
     implementation(project(":quotes-storage"))
     implementation(project(":quotes-repositories"))
-    implementation(project(":presentation"))
+    implementation(project(":quotes-presentation"))
 
     // Android support
     implementation("androidx.appcompat:appcompat:1.1.0")
