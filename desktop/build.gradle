@@ -22,7 +22,7 @@ repositories {
 dependencies {
     implementation project(':quotes-common')
     implementation project(':quotes-domain')
-    implementation project(':storage')
+    implementation project(':quotes-storage')
     implementation project(':usecases')
     implementation project(':presentation')
 

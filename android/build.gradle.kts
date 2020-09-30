@@ -40,7 +40,7 @@ dependencies {
 
     implementation(project(":quotes-domain"))
     implementation(project(":quotes-common"))
-    implementation(project(":storage"))
+    implementation(project(":quotes-storage"))
     implementation(project(":repositories"))
     implementation(project(":presentation"))
 
