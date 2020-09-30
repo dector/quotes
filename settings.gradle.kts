@@ -2,7 +2,7 @@ include(
     ":quotes-domain",
     ":quotes-common",
     ":quotes-storage",
-//    ":repositories",
+    ":quotes-repositories",
 //    ":presentation",
 //    ":android",
     ":quotes-server"

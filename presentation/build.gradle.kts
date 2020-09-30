@@ -10,7 +10,7 @@ kotlin {
 
                 implementation(project(":quotes-domain"))
                 implementation(project(":quotes-common"))
-                implementation(project(":repositories"))
+                implementation(project(":quotes-repositories"))
             }
         }
 
