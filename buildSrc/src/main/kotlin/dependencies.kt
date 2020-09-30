@@ -1,5 +1,7 @@
 @file:Suppress("MayBeConstant")
 
+
+@Deprecated("Migrate to dependency-scoped namespaces")
 object Deps {
     const val kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx_coroutines}"
     const val kotlinx_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx_coroutines}"
@@ -17,6 +19,7 @@ object Kotlin {
     val version = "1.4.10"
 }
 
+@Deprecated("Migrate to dependency-scoped namespaces")
 object Versions {
     const val kotlin_test = "3.4.2"
     const val kotlinx_coroutines = "1.3.2"
@@ -26,22 +29,4 @@ object Versions {
 
     const val klaxon = "0.24"
     const val testng = "6.8"
-}
-
-object Android {
-    const val version_code = 2
-    const val version_name = Project.version
-
-    const val min_sdk = 16
-    const val target_sdk = 29
-    const val compile_sdk = 29
-}
-
-object Server {
-    const val api_version = "1.0"
-    const val server = "1.0.1"
-}
-
-object Project {
-    const val version = "2.0-SNAPSHOT"
 }
