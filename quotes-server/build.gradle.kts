@@ -1,14 +1,17 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version Kotlin.version
     application
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-
     implementation(project(":domain"))
     implementation("com.beust:klaxon:${Versions.klaxon}")
-    implementation("com.sparkjava:spark-core:2.3")
+
+    implementation(Ktor.server.core)
+    implementation(Ktor.server.cio)
+    implementation(Logback.classic)
 
     testImplementation("org.testng:testng:${Versions.testng}")
 }
@@ -19,6 +22,10 @@ tasks.withType<Test>().all {
 
 application {
     mainClassName = "io.github.dector.quote.api_server.MainKt"
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }
 
 /*jar {

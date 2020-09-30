@@ -1,10 +1,13 @@
 package io.github.dector.quote.api_server.v1
 
 import io.github.dector.quote.api_server.getQuotesJsonString
-import spark.Request
-import spark.Response
+import io.ktor.application.ApplicationCall
+import io.ktor.http.ContentType
+import io.ktor.response.respondText
 
-val v1_quotes by lazy {{ req: Request, resp: Response ->
-    resp.type("application/json")
-    getQuotesJsonString()
-}}
+suspend fun ApplicationCall.sendAllQuotes() {
+    respondText(
+        text = getQuotesJsonString(),
+        contentType = ContentType.Application.Json,
+    )
+}

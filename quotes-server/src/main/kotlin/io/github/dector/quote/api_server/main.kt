@@ -1,25 +1,35 @@
 package io.github.dector.quote.api_server
 
-import io.github.dector.quote.api_server.v1.v1_quotes
-import spark.Spark.*
+import io.github.dector.quote.api_server.v1.sendAllQuotes
+import io.ktor.application.call
+import io.ktor.http.content.resource
+import io.ktor.http.content.static
+import io.ktor.response.respondRedirect
+import io.ktor.routing.get
+import io.ktor.routing.routing
+import io.ktor.server.cio.CIO
+import io.ktor.server.engine.embeddedServer
+import io.ktor.util.KtorExperimentalAPI
 
-private val ROOT_REDIRECT = "https://github.com/dector/quotes"
-private val DEFAULT_PORT = 1304
+private const val ROOT_REDIRECT = "https://github.com/dector/quotes"
+private const val DEFAULT_PORT = 8080
 
+@OptIn(KtorExperimentalAPI::class)
 fun main() {
-    port(getRunningPort())
+    embeddedServer(
+        CIO,
+        port = detectPort(),
+    ) {
+        routing {
+            static("/static") { resource("static") }
 
-    staticFileLocation("static/")
-
-    get("/api/v1/quotes", v1_quotes)
+            get("/") { call.respondRedirect(ROOT_REDIRECT) }
+            get("/api/v1/quotes") { call.sendAllQuotes() }
+        }
+    }.start(wait = true)
 }
 
-fun getRunningPort(): Int {
-    val processBuilder = ProcessBuilder()
-    val port = processBuilder.environment()["PORT"]
-
-    return if (port != null)
-        port.toInt()
-    else
-        DEFAULT_PORT
-}
+private fun detectPort(): Int = System
+    .getenv("PORT")
+    ?.toIntOrNull()
+    ?: DEFAULT_PORT

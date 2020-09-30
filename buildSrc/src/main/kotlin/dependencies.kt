@@ -19,6 +19,23 @@ object Kotlin {
     val version = "1.4.10"
 }
 
+object Ktor {
+
+    object server {
+        val version = "1.4.1"
+
+        val core = "io.ktor:ktor-server-core:$version"
+        val cio = "io.ktor:ktor-server-cio:$version"
+        val html = "io.ktor:ktor-html-builder:$version"
+    }
+}
+
+object Logback {
+    val version = "1.2.3"
+
+    val classic = "ch.qos.logback:logback-classic:$version"
+}
+
 @Deprecated("Migrate to dependency-scoped namespaces")
 object Versions {
     const val kotlin_test = "3.4.2"
