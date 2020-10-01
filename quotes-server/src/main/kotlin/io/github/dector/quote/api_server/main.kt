@@ -11,6 +11,7 @@ import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
 import io.ktor.util.KtorExperimentalAPI
 
+
 private const val ROOT_REDIRECT = "https://github.com/dector/quotes"
 private const val DEFAULT_PORT = 8080
 
@@ -29,7 +30,9 @@ fun main() {
     }.start(wait = true)
 }
 
-private fun detectPort(): Int = System
+private fun detectPort(
+    defaultPort: Int = DEFAULT_PORT
+): Int = System
     .getenv("PORT")
     ?.toIntOrNull()
-    ?: DEFAULT_PORT
+    ?: defaultPort
