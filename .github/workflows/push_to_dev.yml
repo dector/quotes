@@ -15,4 +15,4 @@ jobs:
     - name: Run lint and tests
       run: ./gradlew lint test
     - name: Build debug app
-      run: ./gradlew :android:assembleDebug
+      run: ./gradlew :quotes-android:assembleDebug
