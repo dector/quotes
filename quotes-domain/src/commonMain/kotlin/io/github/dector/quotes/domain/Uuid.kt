@@ -1,6 +1,6 @@
 package io.github.dector.quotes.domain
 
-inline class Uuid(val value: String) {
+data class Uuid(val value: String) {
     companion object
 }
 

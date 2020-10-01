@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version Kotlin.version
 }
 
 kotlin {
@@ -9,7 +10,11 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        commonMain {
+            dependencies {
+                implementation(Kotlinx.serialization.json)
+            }
+        }
         val jvmMain by getting
     }
 }

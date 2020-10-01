@@ -5,31 +5,13 @@ plugins {
 
 dependencies {
     implementation(project(":quotes-domain"))
-    implementation("com.beust:klaxon:${Versions.klaxon}")
 
     implementation(Ktor.server.core)
     implementation(Ktor.server.cio)
+    implementation(Ktor.serialization)
     implementation(Logback.classic)
-
-    testImplementation("org.testng:testng:${Versions.testng}")
-}
-
-tasks.withType<Test>().all {
-    useTestNG()
 }
 
 application {
-    mainClassName = "io.github.dector.quote.api_server.MainKt"
+    mainClassName = "space.dector.quotes.server.api.Main"
 }
-
-/*jar {
-    manifest {
-        attributes "Main-Class": project.ext.main_class
-    }
-
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-
-    version project.ext.server_version
-}*/

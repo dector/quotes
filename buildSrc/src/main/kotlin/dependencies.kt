@@ -4,7 +4,8 @@
 @Deprecated("Migrate to dependency-scoped namespaces")
 object Deps {
     const val kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx_coroutines}"
-    const val kotlinx_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx_coroutines}"
+    const val kotlinx_coroutines_android =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx_coroutines}"
 
     const val anvil = "co.trikita:anvil-sdk15:${Versions.anvil}"
 
@@ -19,11 +20,21 @@ object Kotlin {
     val version = "1.4.10"
 }
 
+object Kotlinx {
+
+    object serialization {
+        val version = "1.0.0-RC2"
+
+        val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:$version"
+    }
+}
+
 object Ktor {
+    val version = "1.4.1"
+
+    val serialization = "io.ktor:ktor-serialization:$version"
 
     object server {
-        val version = "1.4.1"
-
         val core = "io.ktor:ktor-server-core:$version"
         val cio = "io.ktor:ktor-server-cio:$version"
         val html = "io.ktor:ktor-html-builder:$version"
