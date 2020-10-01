@@ -1,10 +1,9 @@
 plugins {
     id("com.android.application")
-//    kotlin("android") version Kotlin.version
+    kotlin("android")
     //kotlin("kapt")
 }
 
-/*
 android {
     compileSdkVersion(Android.compile_sdk)
 
@@ -33,9 +32,7 @@ android {
         getByName("androidTest").java.srcDirs("src/androidTest/kotlin")
     }
 }
-*/
 
-/*
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(Deps.kotlinx_coroutines_core)
@@ -69,4 +66,3 @@ dependencies {
     androidTestImplementation("com.android.support.test:rules:1.0.2")
     androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
 }
-*/

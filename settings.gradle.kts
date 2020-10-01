@@ -4,7 +4,7 @@ include(
     ":quotes-storage",
     ":quotes-repositories",
     ":quotes-presentation",
-//    ":android",
+    ":quotes-android",
     ":quotes-server"
 )
 

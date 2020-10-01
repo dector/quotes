@@ -1,11 +1,11 @@
 buildscript {
     repositories {
-        google()
         jcenter()
+        google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.0")
         classpath(kotlin("gradle-plugin", version = Kotlin.version))
+        classpath("com.android.tools.build:gradle:4.0.1")
     }
 }
 
@@ -13,8 +13,8 @@ allprojects {
     version = Project.version
 
     repositories {
-        google()
         jcenter()
+        google()
     }
 }
 
