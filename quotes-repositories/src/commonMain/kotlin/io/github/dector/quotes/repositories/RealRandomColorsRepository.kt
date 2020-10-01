@@ -2,7 +2,6 @@ package io.github.dector.quotes.repositories
 
 import io.github.dector.quotes.colors.ColorCouple
 import io.github.dector.quotes.colors.Palette
-import io.github.dector.quotes.peek
 
 class RealRandomColorsRepository(
     private val palette: Palette,
@@ -21,5 +20,5 @@ class RealRandomColorsRepository(
 private fun PaletteRandomizer(initial: ColorCouple) =
     SimpleRandomizer<ColorCouple, Palette>(
         initialValue = initial,
-        randomizeWith = { rnd, palette -> rnd.peek(palette.colors) }
+        randomizeWith = { rnd, palette -> palette.colors.random(rnd) }
     )
