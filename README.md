@@ -1,5 +1,7 @@
 ![XXXHDPI Icon]
 
+> ATTENTION! PROJECT AND DOCUMENTATION ARE UNDER MODERNIZATION PROCESS!
+
 # Base Application
 
 ## Testing
@@ -30,7 +32,6 @@ Run `./gradlew cAT` to execute UI android tests on device or emulator.
 
 ## Android App
 
-[![Badge_Dev_CircleCI_Icon]](https://circleci.com/gh/dector/quotes/tree/dev)
 [![Badge_Dev_GithubActions_Icon]](https://github.com/dector/quotes/actions?workflow=dev)
 
 
@@ -40,5 +41,4 @@ Run `./gradlew cAT` to execute UI android tests on device or emulator.
 [Heroku Toolbelt]: https://devcenter.heroku.com/articles/getting-started-with-java#set-up
 [web API]: http://smart-quotes.herokuapp.com/quotes
 
-[Badge_Dev_CircleCI_Icon]: https://img.shields.io/circleci/build/gh/dector/quotes/dev?label=Dev&logo=circleci&style=for-the-badge
-[Badge_Dev_GithubActions_Icon]: https://github.com/dector/quotes/workflows/dev/badge.svg
+[Badge_Dev_GithubActions_Icon]: https://img.shields.io/github/workflow/status/dector/quotes/dev?style=for-the-badge
