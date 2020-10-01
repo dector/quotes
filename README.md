@@ -1,10 +1,12 @@
-![Icon__Logo]
+<p align="center">
+<img src="assets/logo.svg" width="250" height="250" />
+</p>
 
-> ATTENTION! PROJECT AND DOCUMENTATION ARE UNDER MODERNIZATION PROCESS!
+> **ATTENTION! PROJECT AND DOCUMENTATION ARE UNDER MODERNIZATION PROCESS!**
 
 | Component | Status |
 |---|---|
-| Android App | [![Icon__Badge_Dev_GithubActions]](https://github.com/dector/quotes/actions?workflow=dev) |
+| Android App | [![Badge__Dev_GithubActions]](https://github.com/dector/quotes/actions?workflow=dev) |
 
 # How to test?
 
@@ -18,6 +20,4 @@ Start application server with gradle: `./gradlew :quotes-server:run`.
 
 `./gradlew :quotes-android:assembleDebug`.
 
-[Icon__Logo]: assets/logo.svg
-
-[Icon__Badge_Dev_GithubActions]: https://img.shields.io/github/workflow/status/dector/quotes/dev?style=for-the-badge
+[Badge__Dev_GithubActions]: https://img.shields.io/github/workflow/status/dector/quotes/dev?style=for-the-badge
