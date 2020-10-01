@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm")
     application
@@ -22,10 +20,6 @@ tasks.withType<Test>().all {
 
 application {
     mainClassName = "io.github.dector.quote.api_server.MainKt"
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }
 
 /*jar {
