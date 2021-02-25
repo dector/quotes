@@ -7,4 +7,8 @@ include(
     ":quotes-server"
 )
 
+include(
+    ":quotes2-android"
+)
+
 //, ":desktop"  // Resolve openjfx plugin issue

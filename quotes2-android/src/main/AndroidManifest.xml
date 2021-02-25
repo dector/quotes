@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="space.dector.quotes">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:name=".android.QuotesApplication"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+
+        <activity
+                android:name=".android.MainActivity"
+                android:label="@string/app_name">
+
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
