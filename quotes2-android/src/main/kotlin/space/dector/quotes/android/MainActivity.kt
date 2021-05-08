@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.darkColors
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             AppTheme {
-                MainScreen(
+                QuoteScreen(
                     quote = SampleData.quote(),
                 )
             }
@@ -40,8 +42,9 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun MainScreen(
+fun QuoteScreen(
     quote: Quote,
+    isProgressDisplayed: Boolean = false,
 ) {
     Box(
         modifier = Modifier
@@ -68,16 +71,26 @@ fun MainScreen(
                 text = quote.author,
             )
         }
+
+        if (isProgressDisplayed) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(16.dp)
+                    .align(Alignment.BottomCenter),
+                color = Color.White,
+                strokeWidth = 2.5.dp,
+            )
+        }
     }
 }
 
 @Composable
-@Preview(name = "MainScreen Dark", showBackground = true)
-fun MainScreen_Dark_Preview() {
+@Preview(name = "QuoteScreen Dark", showBackground = true)
+fun QuoteScreen_Dark_Preview() {
     AppTheme(
         isDark = true,
     ) {
-        MainScreen(
+        QuoteScreen(
             quote = SampleData.quote(),
         )
     }
