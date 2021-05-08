@@ -20,9 +20,8 @@ allprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.languageVersion = "1.4"
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.useIR = true
+        kotlinOptions.languageVersion = "1.5"
+        kotlinOptions.jvmTarget = "11"
         kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 }

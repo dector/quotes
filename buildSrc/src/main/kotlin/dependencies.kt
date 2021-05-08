@@ -17,7 +17,7 @@ object Deps {
 }
 
 object Kotlin {
-    val version = "1.4.30"
+    val version = "1.5.0"
 }
 
 object Kotlinx {
